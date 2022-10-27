@@ -23,6 +23,9 @@ class ClientJoueur(metaclass= Singleton):
             row=req.json()
         return(row)
                 
+    def create_liste(self, id, name):
+        req=requests.get(f"{self.__HOST}{END_POINT}/{id}/liste/{name}")
+
 
 client=ClientJoueur()
 print(client.get_pseudo(5))
