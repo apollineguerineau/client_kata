@@ -14,20 +14,25 @@ class ClientJoueur(metaclass= Singleton):
         req = requests.get(f"{self.__HOST}{END_POINT}/{id}")
         return(req.json()['pseudo'])
 
+    def get_id(self, pseudo) :
+        req = requests.get(f"{self.__HOST}{END_POINT}/pseudo/{pseudo}")
+        return(req.json()['id_joueur'])    
+
     def create_joueur(self, pseudo):
         req=requests.post(f"{self.__HOST}{END_POINT}/{pseudo}")
+        return(req)
 
     def get_nom_listes(self, id):
         req=requests.get(f"{self.__HOST}{END_POINT}/{id}/liste")
-        if req.status_code==200:
-            row=req.json()
-        return(row)
+        return(req.json())
                 
     def create_liste(self, id, name):
-        req=requests.get(f"{self.__HOST}{END_POINT}/{id}/liste/{name}")
+        req=requests.post(f"{self.__HOST}{END_POINT}/{id}/liste/{name}")
 
 
 client=ClientJoueur()
 print(client.get_pseudo(5))
-# client.create_joueur(('essai'))
+print(client.get_id("Apolline"))
+# print(client.create_joueur(('essai2')))
 print(client.get_nom_listes(5))
+client.create_liste(5, "super_liste")

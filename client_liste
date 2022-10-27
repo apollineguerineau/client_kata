@@ -13,7 +13,7 @@ class ClientListe(metaclass= Singleton):
 
     def get_mot(self, id:int) :
         req = requests.get(f"{self.__HOST}{END_POINT}/{id}")
-        return(req.json())
+        return(req)
 
 
     def ajouter_mot(self, id_liste, id_mot) :
@@ -28,4 +28,4 @@ class ClientListe(metaclass= Singleton):
         req = requests.delete(f"{self.__HOST}{END_POINT}/{id_liste}")
 
 client_liste=ClientListe()
-print(client_liste.get_mot(4))
+print(client_liste.get_mot(6))
