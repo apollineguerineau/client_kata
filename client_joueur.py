@@ -17,6 +17,14 @@ class ClientJoueur(metaclass= Singleton):
     def create_joueur(self, pseudo):
         req=requests.post(f"{self.__HOST}{END_POINT}/{pseudo}")
 
+    def get_nom_listes(self, id):
+        req=requests.get(f"{self.__HOST}{END_POINT}/{id}/liste")
+        if req.status_code==200:
+            row=req.json()
+        return(row)
+                
+
 client=ClientJoueur()
-print(client.get_pseudo(1))
-client.create_joueur(('essai'))
+print(client.get_pseudo(5))
+# client.create_joueur(('essai'))
+print(client.get_nom_listes(5))
