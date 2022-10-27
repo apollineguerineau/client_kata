@@ -12,7 +12,7 @@ class ClientJoueur(metaclass= Singleton):
 
     def get_pseudo(self, id:int) :
         req = requests.get(f"{self.__HOST}{END_POINT}/{id}")
-        return(req.json()['pseudo'])
+        return(req.json())
 
     def get_id(self, pseudo) :
         req = requests.get(f"{self.__HOST}{END_POINT}/pseudo/{pseudo}")
@@ -35,4 +35,4 @@ print(client.get_pseudo(5))
 print(client.get_id("Apolline"))
 # print(client.create_joueur(('essai2')))
 print(client.get_nom_listes(5))
-client.create_liste(5, "super_liste")
+# client.create_liste(5, "super_liste")
