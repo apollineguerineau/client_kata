@@ -1,0 +1,18 @@
+import os
+from typing import List, Optional
+from utils.singleton import Singleton
+import requests
+
+END_POINT="/liste"
+
+class ClientListe(metaclass= Singleton):
+
+    def __init__(self) -> None:
+        self.__HOST ="http://127.0.0.1:80"
+
+    def get_mot(self, id:int) :
+        req = requests.get(f"{self.__HOST}{END_POINT}/{id}")
+        return(req.json())
+
+client_liste=ClientListe()
+print(client_liste.get_mot(4))
