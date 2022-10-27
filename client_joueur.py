@@ -29,10 +29,20 @@ class ClientJoueur(metaclass= Singleton):
     def create_liste(self, id, name):
         req=requests.post(f"{self.__HOST}{END_POINT}/{id}/liste/{name}")
 
+    def consulter_top10(self, id):
+        req=requests.get(f"{self.__HOST}{END_POINT}/{id}/score/")
+        return(req.json())
+
+    #celle-ci marche pas
+    def ajoute_score(self, id, score):
+        req=requests.post(f"{self.__HOST}{END_POINT}/{id}/score/{score}")
 
 client=ClientJoueur()
-print(client.get_pseudo(5))
-print(client.get_id("Apolline"))
+# print(client.get_pseudo(5))
+# print(client.get_id("Apolline"))
 # print(client.create_joueur(('essai2')))
-print(client.get_nom_listes(5))
+# print(client.get_nom_listes(5))
 # client.create_liste(5, "super_liste")
+print(client.consulter_top10(5))
+client.ajoute_score(5, 3000.0)
+# print(client.consulter_meilleur_score(5))
