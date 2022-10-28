@@ -69,45 +69,30 @@ class ClientJoueur(metaclass= Singleton):
         req=requests.post(f"{self.__HOST}{END_POINT}/{id_joueur}/liste/{name}")
 
 
-    def get_partie(self, id_joueur):
-        req=requests.get(f"{self.__HOST}{END_POINT}/{id_joueur}/partie")
-        id=req.json()[0]
-        proposition=req.json()[2]
-        score=req.json()[1][0]
-        nom=req.json()[1][1]
-        id_joueur=req.json()[1][2]
-        mot_obj=req.json()[1][3]
-        temps_max=req.json()[1][4]
-        langue=req.json()[1][5]
-        nb_tentatives_max=req.json()[1][6]
-        indice=req.json()[1][7]
-        liste_perso=req.json()[1][8]
-        id_liste=req.json()[1][9]
-        difficultes=Difficultes(nb_tentatives_max,temps_max,indice, len(mot_obj))
-        return(Partie(nom, id, proposition, liste_perso, id_liste, difficultes, mot_obj))
+    # def get_partie(self, id_joueur):
+    #     req=requests.get(f"{self.__HOST}{END_POINT}/{id_joueur}/partie")
+    #     id=req.json()[0]
+    #     proposition=req.json()[2]
+    #     score=req.json()[1][0]
+    #     nom=req.json()[1][1]
+    #     id_joueur=req.json()[1][2]
+    #     mot_obj=req.json()[1][3]
+    #     temps_max=req.json()[1][4]
+    #     langue=req.json()[1][5]
+    #     nb_tentatives_max=req.json()[1][6]
+    #     indice=req.json()[1][7]
+    #     liste_perso=req.json()[1][8]
+    #     id_liste=req.json()[1][9]
+    #     difficultes=Difficultes(nb_tentatives_max,temps_max,indice, len(mot_obj))
+    #     return(Partie(nom, proposition, liste_perso, id_liste, difficultes, mot_obj))
+
+
+    #ça marche pas je crois
+    def create_partie_en_cours(self, id_joueur, partie):
+        req=requests.post(f"{self.__HOST}{END_POINT}/{id_joueur}/partie")
+        return(req)
 
 
     #celle-ci marche pas
     def ajoute_score(self, id, score):
         req=requests.post(f"{self.__HOST}{END_POINT}/{id}/score/{score}")
-
-client=ClientJoueur()
-# print(client.get_pseudo(5))
-# print(client.get_id("Mathis"))
-# print(client.get_id("erjk"))
-# print(client.create_joueur(('essai2')))
-# print(client.get_listes(5))
-# for liste in client.get_listes(5):
-#     print(liste)
-# client.create_liste(5, "super_liste")
-# print(client.consulter_top10(5))
-# client.ajoute_score(5, 3000.0)
-# print(client.consulter_meilleur_score(5))
-# print(client.get_joueur("Apolline"))
-
-
-partie=client.get_partie(1)
-for proposition in partie.liste_mots_proposes:
-    prop=partie.verifie_proposition(Proposition(proposition))
-    print(prop)
-    print("")
