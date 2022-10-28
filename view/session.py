@@ -2,7 +2,7 @@ from utils.singleton import Singleton
 
 
 class Session(metaclass=Singleton):
-    def __init__(self, pseudo, partie = None, liste = None):
+    def __init__(self, joueur, partie = None, liste = None):
         """
         Définition des variables que l'on stocke en session
 

@@ -6,6 +6,7 @@ from view.accueilkataview import AccueilKataView
 dotenv.load_dotenv()
 
 if __name__ == '__main__':
+    
     # Lancer l'écran d'accueil
     current_view = AccueilKataView()
 
