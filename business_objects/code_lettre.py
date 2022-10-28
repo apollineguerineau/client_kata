@@ -12,7 +12,7 @@ class CodeLettre :
         if self.code_couleur==False:
             couleur='\x1b[1;37;40m'
         if self.code_couleur=='Mal placee':
-            couleur='\x1b[1;37;41m' 
+            couleur='\x1b[1;30;43m' 
         return(couleur + ' ' + self.lettre + ' ' +'\x1b[0m')
 
     # def __str__(self):

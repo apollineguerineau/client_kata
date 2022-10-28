@@ -1,5 +1,5 @@
-from src.business_objects.abstract_generer_mot import AbstractGenererMot
-from src.dao.liste_dao import ListeDAO
+from business_objects.abstract_generer_mot import AbstractGenererMot
+from client_liste import ClientListe
 import random
 
 class GenererMotListePerso(AbstractGenererMot):
@@ -8,7 +8,14 @@ class GenererMotListePerso(AbstractGenererMot):
 
 
     def generer(self):
-        dao_liste=ListeDAO()
-        liste=dao_liste.get_mots_by_id_liste(self.id_liste)
+        clientliste=ClientListe()
+        liste=clientliste.get_mot(self.id_liste)[1]
+        print(liste)
         num=random.randint(0,len(liste)-1)
         return(liste[num])
+
+
+# gerenation=GenererMotListePerso(2)
+# print(gerenation.generer())
+
+            
