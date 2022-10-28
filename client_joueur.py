@@ -23,10 +23,10 @@ class ClientJoueur(metaclass= Singleton):
 
     def get_id(self, pseudo) :
         req = requests.get(f"{self.__HOST}{END_POINT}/pseudo/{pseudo}")
-        # if req.json()==None:
-        #     return(None)
-        # else:
-        return(req.json()) 
+        if type(req.json())==int:
+            return(req.json()) 
+        else: 
+            return(None)
 
     def consulter_top10(self, id):
         req=requests.get(f"{self.__HOST}{END_POINT}/{id}/score/")
@@ -64,7 +64,7 @@ class ClientJoueur(metaclass= Singleton):
 
 client=ClientJoueur()
 # print(client.get_pseudo(5))
-# print(client.get_id("ejkbfe"))
+# print(client.get_id("Mathis"))
 # print(client.get_id("erjk"))
 # print(client.create_joueur(('essai2')))
 # print(client.get_listes(5))
@@ -74,4 +74,4 @@ client=ClientJoueur()
 # print(client.consulter_top10(5))
 # client.ajoute_score(5, 3000.0)
 # print(client.consulter_meilleur_score(5))
-print(client.get_joueur("Apolline"))
+# print(client.get_joueur("Apolline"))
