@@ -20,13 +20,14 @@ class Partie :
     difficultes : Difficultes
     score : float
     '''
-    def __init__(self, id_partie, liste_mots_proposes, est_liste_perso, id_liste, difficultes, mot_objectif):
+    def __init__(self,nom, id_partie, liste_mots_proposes, est_liste_perso, id_liste, difficultes, mot_objectif):
         self.id_partie=id_partie
         self.liste_mots_proposes=liste_mots_proposes
         self.est_liste_perso=est_liste_perso
         self.id_liste=id_liste
         self.difficultes=difficultes
         self.score=0
+        self.nom=nom
         if mot_objectif == None:
             self.mot_objectif=self.donne_mot_obj()
         else:
@@ -116,7 +117,7 @@ class Partie :
         self.score=100 + coeff_tentatives_max * coeff_tentatives_max * coeff_longueur * coeff_limite_temps
 
     def __str__(self):
-        return("{},{},{},{},{}, difficultés :{}".format(self.id_liste, self.mot_objectif, self.liste_mots_proposes,self.score, self.id_liste, self.difficultes))
+        return("{},{},{},{},{},{}, difficultés :{}".format(self.id_liste, self.nom,self.mot_objectif, self.liste_mots_proposes,self.score, self.id_liste, self.difficultes))
 
 # difficultes=Difficultes(6,8,True,10)
 # partie=Partie(1, [], False, None, difficultes)
@@ -126,7 +127,7 @@ class Partie :
 
 
 # difficultes=Difficultes(6,8,True,None)
-# partie=Partie(1, [], True,1 , difficultes,"hola")
+# partie=Partie("essai",1, [], True,1 , difficultes,"hola")
 # print(partie)
 # print(partie.mot_objectif)
 # print("Faites une proposition : ")

@@ -84,7 +84,7 @@ class ClientJoueur(metaclass= Singleton):
         liste_perso=req.json()[1][8]
         id_liste=req.json()[1][9]
         difficultes=Difficultes(nb_tentatives_max,temps_max,indice, len(mot_obj))
-        return(Partie(id, proposition, liste_perso, id_liste, difficultes, mot_obj))
+        return(Partie(nom, id, proposition, liste_perso, id_liste, difficultes, mot_obj))
 
 
     #celle-ci marche pas
@@ -104,6 +104,8 @@ print(client.get_id("Mathis"))
 # client.ajoute_score(5, 3000.0)
 # print(client.consulter_meilleur_score(5))
 # print(client.get_joueur("Apolline"))
+
+
 partie=client.get_partie(1)
 for proposition in partie.liste_mots_proposes:
     prop=partie.verifie_proposition(Proposition(proposition))
