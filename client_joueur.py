@@ -2,6 +2,9 @@ import os
 from typing import List, Optional
 from utils.singleton import Singleton
 import requests
+from client_liste import ClientListe
+
+
 
 END_POINT="/joueur"
 
@@ -16,15 +19,24 @@ class ClientJoueur(metaclass= Singleton):
 
     def get_id(self, pseudo) :
         req = requests.get(f"{self.__HOST}{END_POINT}/pseudo/{pseudo}")
-        return(req.json()['id_joueur'])    
+        if req.json()==None:
+            return(None)
+        else:
+            return(req.json()['id_joueur']) 
+  
 
     def create_joueur(self, pseudo):
         req=requests.post(f"{self.__HOST}{END_POINT}/{pseudo}")
         return(req)
 
-    def get_nom_listes(self, id):
-        req=requests.get(f"{self.__HOST}{END_POINT}/{id}/liste")
-        return(req.json())
+    # def get_nom_listes(self, id):
+    #     req=requests.get(f"{self.__HOST}{END_POINT}/{id}/liste")
+    #     nom=req.json()[0]
+    #     contenu=req.json()[1]
+    #     listes=[]
+    #     for i in range(len(nom)):
+    #         listes.append(Liste)
+
                 
     def create_liste(self, id, name):
         req=requests.post(f"{self.__HOST}{END_POINT}/{id}/liste/{name}")
@@ -39,10 +51,11 @@ class ClientJoueur(metaclass= Singleton):
 
 client=ClientJoueur()
 # print(client.get_pseudo(5))
-# print(client.get_id("Apolline"))
+print(client.get_id("ejkbfe"))
+print(client.get_id("Apolline"))
 # print(client.create_joueur(('essai2')))
-# print(client.get_nom_listes(5))
+# print(client.get_nom_listes(1))
 # client.create_liste(5, "super_liste")
-print(client.consulter_top10(5))
-client.ajoute_score(5, 3000.0)
+# print(client.consulter_top10(5))
+# client.ajoute_score(5, 3000.0)
 # print(client.consulter_meilleur_score(5))

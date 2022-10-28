@@ -29,7 +29,7 @@ class ClientListe(metaclass= Singleton):
         req = requests.delete(f"{self.__HOST}{END_POINT}/{id_liste}")
 
 client_liste=ClientListe()
-print(client_liste.get_mot(5))
+print(client_liste.get_mot(1))
 # print(client_liste.supprimer_mot(5,2))
 # print(client_liste.get_mot(5))
-client_liste.supprimer_liste(7)
+# client_liste.supprimer_liste(7)
