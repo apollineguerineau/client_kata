@@ -1,4 +1,4 @@
-from src.business_objects.code_lettre import CodeLettre
+from business_objects.code_lettre import CodeLettre
 
 class PropositionVerifiee :
     '''Classe implémentant une proposition vérifiée 

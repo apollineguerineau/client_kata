@@ -5,7 +5,10 @@ import requests
 from client_liste import ClientListe
 from business_objects.liste import Liste
 from business_objects.joueur import Joueur
-
+from business_objects.partie import Partie
+from business_objects.difficultes import Difficultes
+from business_objects.proposition_verifiee import PropositionVerifiee
+from business_objects.proposition import Proposition
 
 END_POINT="/joueur"
 
@@ -66,9 +69,23 @@ class ClientJoueur(metaclass= Singleton):
         req=requests.post(f"{self.__HOST}{END_POINT}/{id_joueur}/liste/{name}")
 
 
-    # def get_partie(self, id_joueur):
-    #     req=requests.post(f"{self.__HOST}{END_POINT}/{id_joueur}/partie")
-    #     return(req)
+    def get_partie(self, id_joueur):
+        req=requests.get(f"{self.__HOST}{END_POINT}/{id_joueur}/partie")
+        id=req.json()[0]
+        proposition=req.json()[2]
+        score=req.json()[1][0]
+        nom=req.json()[1][1]
+        id_joueur=req.json()[1][2]
+        mot_obj=req.json()[1][3]
+        temps_max=req.json()[1][4]
+        langue=req.json()[1][5]
+        nb_tentatives_max=req.json()[1][6]
+        indice=req.json()[1][7]
+        liste_perso=req.json()[1][8]
+        id_liste=req.json()[1][9]
+        difficultes=Difficultes(nb_tentatives_max,temps_max,indice, len(mot_obj))
+        return(Partie(id, proposition, liste_perso, id_liste, difficultes, mot_obj))
+
 
     #celle-ci marche pas
     def ajoute_score(self, id, score):
@@ -87,3 +104,8 @@ print(client.get_id("Mathis"))
 # client.ajoute_score(5, 3000.0)
 # print(client.consulter_meilleur_score(5))
 # print(client.get_joueur("Apolline"))
+partie=client.get_partie(1)
+for proposition in partie.liste_mots_proposes:
+    prop=partie.verifie_proposition(Proposition(proposition))
+    print(prop)
+    print("")
