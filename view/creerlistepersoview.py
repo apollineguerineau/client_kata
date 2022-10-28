@@ -9,7 +9,7 @@ class CreerListePersoView (AbstractView) :
 
     def __init__(self):
         self.__questions = inquirer.select(
-            message=f'Bonjour {Session().pseudo}'
+            message=f'Bonjour {Session().joueur.nom_joueur}'
             , choices=[
                 Choice('Créer une liste manuellement')
                 ,Choice('Importer une liste CSV')

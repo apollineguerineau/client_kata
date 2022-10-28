@@ -18,7 +18,6 @@ class ClientMot(metaclass= Singleton):
     def add_mot_to_liste(self, mot : str, nom_liste : str, id_joueur : int) :
         """Renvoie si le mot a bien été ajouté à la liste. S'il n'a pas été ajouté, cela veut dire 
            que le mot était déjà dans la liste"""
-        print("aaaaaa")
         #On vérifie si le mot est déjà dans la base de données
         from client_mot import ClientMot
         clientmot = ClientMot()
@@ -58,5 +57,5 @@ class ClientMot(metaclass= Singleton):
 mot_client=ClientMot()
 # print(mot_client.create_mot("FENETRE"))
 # print(mot_client.get_id_by_mot("FENETRE"))
-print(mot_client.add_mot_to_liste("hello", "nouvelle liste", 5))
+# print(mot_client.add_mot_to_liste("hello", "nouvelle liste", 5))
 # print(mot_client.get_id("ekjc"))
