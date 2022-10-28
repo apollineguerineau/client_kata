@@ -23,6 +23,7 @@ class ClientJoueur(metaclass= Singleton):
 
     def get_id(self, pseudo) :
         req = requests.get(f"{self.__HOST}{END_POINT}/pseudo/{pseudo}")
+        print(req.json())
         if type(req.json())==int:
             return(req.json()) 
         else: 
