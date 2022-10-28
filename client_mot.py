@@ -52,4 +52,4 @@ class ClientMot(metaclass= Singleton):
 mot_client=ClientMot()
 # print(mot_client.create_mot("FENETRE"))
 print(mot_client.get_id_by_mot("FENETRE"))
-print(mot_client.add_mot_to_liste("FENETRE", "nouvelle liste", 5))
+print(mot_client.add_mot_to_liste("FENETRE", "nouvelle liste", 1))
