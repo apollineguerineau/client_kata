@@ -4,12 +4,14 @@ from InquirerPy.base.control import Choice
 from view.abstractview import AbstractView
 from view.session import Session
 
+from business_objects.joueur import Joueur
+
 
 class AccueilPersoView (AbstractView) :
 
     def __init__(self):
         self.__questions = inquirer.select(
-            message=f'Bonjour {Session().pseudo}'
+            message=f'Bonjour {Session().joueur.nom_joueur}'
             , choices=[
                 Choice('Jouer')
                 ,Choice('Créer une liste perso')

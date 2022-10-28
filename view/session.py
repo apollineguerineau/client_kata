@@ -9,8 +9,8 @@ class Session(metaclass=Singleton):
         Attributes
         ----------
 
-        pseudo : str
-        Pseudo du joueur connecté
+        joueur : Joueur
+        Joueur connecté
 
         partie : Partie
         Partie en cours du joueur connecté
@@ -19,6 +19,6 @@ class Session(metaclass=Singleton):
         liste : str
         Nom de la liste en cours d'utilisation
         """
-        self.pseudo = pseudo
+        self.joueur = joueur
         self.liste = liste
         self.partie = partie
