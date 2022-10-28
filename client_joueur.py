@@ -21,12 +21,19 @@ class ClientJoueur(metaclass= Singleton):
         return(req.json())
 
 
+    # def get_id(self, pseudo) :
+    #     req = requests.get(f"{self.__HOST}{END_POINT}/pseudo/{pseudo}")
+    #     if type(req.json())==int:
+    #         return(req.json()) 
+    #     else: 
+    #         return(None)
+
     def get_id(self, pseudo) :
         req = requests.get(f"{self.__HOST}{END_POINT}/pseudo/{pseudo}")
-        if type(req.json())==int:
-            return(req.json()) 
+        if req : 
+            print(req.json())
         else: 
-            return(None)
+            print(None)
 
     def consulter_top10(self, id):
         req=requests.get(f"{self.__HOST}{END_POINT}/{id}/score/")
@@ -58,6 +65,10 @@ class ClientJoueur(metaclass= Singleton):
         req=requests.post(f"{self.__HOST}{END_POINT}/{id_joueur}/liste/{name}")
 
 
+    # def get_partie(self, id_joueur):
+    #     req=requests.post(f"{self.__HOST}{END_POINT}/{id_joueur}/partie")
+    #     return(req)
+
     #celle-ci marche pas
     def ajoute_score(self, id, score):
         req=requests.post(f"{self.__HOST}{END_POINT}/{id}/score/{score}")
@@ -65,7 +76,7 @@ class ClientJoueur(metaclass= Singleton):
 client=ClientJoueur()
 # print(client.get_pseudo(5))
 print(client.get_id("Mathis"))
-print(client.get_id("erjk"))
+# print(client.get_id("erjk"))
 # print(client.create_joueur(('essai2')))
 # print(client.get_listes(5))
 # for liste in client.get_listes(5):
