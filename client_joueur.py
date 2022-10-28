@@ -76,7 +76,7 @@ class ClientJoueur(metaclass= Singleton):
 
 client=ClientJoueur()
 # print(client.get_pseudo(5))
-print(client.get_id("Mathis"))
+# print(client.get_id("Mathis"))
 # print(client.get_id("erjk"))
 # print(client.create_joueur(('essai2')))
 # print(client.get_listes(5))

@@ -16,7 +16,8 @@ class AccueilPersoView (AbstractView) :
                 Choice('Jouer')
                 ,Choice('Créer une liste perso')
                 ,Choice('Consulter une liste perso')
-                ,Choice('Meilleurs scores')]
+                ,Choice('Meilleurs scores')
+                ,Choice('Se déconnecter')]
         )
     
     def display_info(self):
@@ -38,3 +39,6 @@ class AccueilPersoView (AbstractView) :
         elif reponse == 'Meilleurs scores' :
             from view.toptenpersoview import TopTenPersoView
             return TopTenPersoView()
+        elif reponse == 'Se déconnecter' :
+            from view.accueilkataview import AccueilKataView
+            return AccueilKataView()

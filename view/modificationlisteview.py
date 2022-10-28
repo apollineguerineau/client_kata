@@ -1,8 +1,8 @@
 from InquirerPy import inquirer
 from InquirerPy.base.control import Choice
 
-from src.view.abstractview import AbstractView
-from src.view.session import Session
+from view.abstractview import AbstractView
+from view.session import Session
 
 
 class ModificationListeView (AbstractView) :
@@ -25,12 +25,12 @@ class ModificationListeView (AbstractView) :
         if reponse == 'Nothing':
             pass
         elif reponse== 'Ajouter un mot':
-            from src.view.ajoutermotview import AjouterMotView
+            from view.ajoutermotview import AjouterMotView
             return AjouterMotView()
         elif reponse== 'Supprimer un mot':
-            from src.view.supprimermotview import SupprimerMotView
+            from view.supprimermotview import SupprimerMotView
             return SupprimerMotView()
         elif reponse== "Retour à l'accueil":
-            from src.view.accueilpersoview import AccueilPersoView
+            from view.accueilpersoview import AccueilPersoView
             return AccueilPersoView()
     

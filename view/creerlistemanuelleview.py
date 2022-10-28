@@ -46,7 +46,7 @@ class CreerListeManuelleView(AbstractView):
 
         from client_mot import ClientMot
         clientmot = ClientMot()
-        clientmot.add_mot_to_liste(mot, nom_liste)
+        clientmot.add_mot_to_liste(mot, nom_liste, Session().joueur.id_joueur)
         
         from view.accueilpersoview import AccueilPersoView
         return AccueilPersoView()
