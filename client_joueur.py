@@ -21,7 +21,7 @@ class ClientJoueur(metaclass= Singleton):
         return(req.json())
 
 
-    def get_joueur(self, pseudo) :
+    def get_id(self, pseudo) :
         req = requests.get(f"{self.__HOST}{END_POINT}/pseudo/{pseudo}")
         # if req.json()==None:
         #     return(None)
@@ -35,6 +35,7 @@ class ClientJoueur(metaclass= Singleton):
 
     def get_listes(self, id):
         req=requests.get(f"{self.__HOST}{END_POINT}/{id}/liste")
+        # return(req.json())
         nom=req.json()[0]
         contenu=req.json()[1]
         id=req.json()[2]
@@ -58,10 +59,10 @@ class ClientJoueur(metaclass= Singleton):
 client=ClientJoueur()
 # print(client.get_pseudo(5))
 # print(client.get_id("ejkbfe"))
-print(client.get_joueur("Apolline"))
+print(client.get_id("erjk"))
 # print(client.create_joueur(('essai2')))
-# print(client.get_listes(1))
-# for liste in client.get_listes(1):
+# print(client.get_listes(5))
+# for liste in client.get_listes(5):
 #     print(liste)
 # client.create_liste(5, "super_liste")
 # print(client.consulter_top10(5))
