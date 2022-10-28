@@ -25,14 +25,14 @@ class AccueilPersoView (AbstractView) :
         if reponse == 'Nothing':
             pass
         elif reponse== 'Jouer':
-            from src.view.jouerview import JouerView
+            from view.jouerview import JouerView
             return JouerView()
         elif reponse== 'Créer une liste perso':
-            from src.view.creerlistepersoview import CreerListePersoView
+            from view.creerlistepersoview import CreerListePersoView
             return CreerListePersoView()
         elif reponse== 'Consulter une liste perso':
-            from src.view.consulterlistepersoview import ConsulterListePersoView
+            from view.consulterlistepersoview import ConsulterListePersoView
             return ConsulterListePersoView()
         elif reponse == 'Meilleurs scores' :
-            from src.view.toptenpersoview import TopTenPersoView
+            from view.toptenpersoview import TopTenPersoView
             return TopTenPersoView()

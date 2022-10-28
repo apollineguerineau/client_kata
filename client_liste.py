@@ -2,6 +2,8 @@ import os
 from typing import List, Optional
 from utils.singleton import Singleton
 import requests
+from business_objects.liste import Liste
+
 
 END_POINT="/liste"
 

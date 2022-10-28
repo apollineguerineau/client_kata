@@ -1,8 +1,8 @@
 from InquirerPy import inquirer
 from InquirerPy.base.control import Choice
 
-from src.view.abstractview import AbstractView
-from src.view.session import Session
+from view.abstractview import AbstractView
+from view.session import Session
 
 
 class CreerListePersoView (AbstractView) :
@@ -24,11 +24,11 @@ class CreerListePersoView (AbstractView) :
         if reponse == 'Nothing':
             pass
         elif reponse== 'Créer une liste manuellement':
-            from src.view.creerlistemanuelleview import CreerListeManuelleView
+            from view.creerlistemanuelleview import CreerListeManuelleView
             return CreerListeManuelleView()
         elif reponse== 'Importer une liste CSV':
-            from src.view.listeimporteecsvview import ListeImporteeCSVView
+            from view.listeimporteecsvview import ListeImporteeCSVView
             return ListeImporteeCSVView()
         elif reponse== 'Importer une liste JSON':
-            from src.view.listeimporteejsonview import ListeImporteeJSONView
+            from view.listeimporteejsonview import ListeImporteeJSONView
             return ListeImporteeJSONView()

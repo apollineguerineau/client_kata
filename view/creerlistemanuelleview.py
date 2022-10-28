@@ -5,8 +5,8 @@ from pprint import pprint
 from InquirerPy import inquirer
 from InquirerPy.base.control import Choice
 
-from src.view.abstractview import AbstractView
-from src.view.session import Session
+from view.abstractview import AbstractView
+from view.session import Session
 
 
 
@@ -26,26 +26,28 @@ class CreerListeManuelleView(AbstractView):
         mot = ASK_PREMIER_MOT.execute()
 
         #On transforme ensuite le mot pour supprimer les accents et mettre en majuscule
-        from src.business_objects.proposition import Proposition
+        from business_objects.proposition import Proposition
         proposition = Proposition(mot)
         mot = proposition.mot
 
-        from src.dao.joueur_dao import JoueurDAO
-        joueurdao = JoueurDAO()
-        id_joueur = joueurdao.get_id_by_pseudo(Session().pseudo)
+        #On récupère ensuite le nom de toutes les listes du joueur pour ne pas créer deux listes avec le même nom
+        id_joueur = (Session().joueur.id_joueur)
+        from client_joueur import ClientJoueur
+        clientjoueur = ClientJoueur()
+        listes = clientjoueur.get_listes(id_joueur)
+        from business_objects.liste import Liste
+        for liste in listes :
+            if liste.nom == nom_liste :
+                print("Tu as déjà une liste avec ce nom")
+                from view.accueilpersoview import AccueilPersoView
+                return AccueilPersoView()
 
-        from src.dao.liste_dao import ListeDAO
-        listedao = ListeDAO()
-        listedao.creer(id_joueur['id_joueur'], nom_liste)
+        clientjoueur.create_liste(id_joueur, nom_liste)
 
-        from src.dao.mot_dao import MotDAO
-        motdao = MotDAO()
-        if not motdao.find(mot) :
-            motdao.creer(mot)
-        id_mot = motdao.get_id_by_mot(mot)
-        id_liste = listedao.get_id_by_nom(nom_liste)
-        listedao.ajouter_mot(id_liste, id_mot)
-
-        from src.view.accueilpersoview import AccueilPersoView
+        from client_mot import ClientMot
+        clientmot = ClientMot()
+        clientmot.add_mot_to_liste(mot, nom_liste)
+        
+        from view.accueilpersoview import AccueilPersoView
         return AccueilPersoView()
 
