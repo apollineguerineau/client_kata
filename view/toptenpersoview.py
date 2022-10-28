@@ -1,8 +1,8 @@
 from InquirerPy import inquirer
 from InquirerPy.base.control import Choice
 
-from src.view.abstractview import AbstractView
-from src.view.session import Session
+from view.abstractview import AbstractView
+from view.session import Session
 
 
 
@@ -13,5 +13,9 @@ class ViewTopTenPerso(AbstractView):
         print(f"Voici tes 10 meilleurs scores") 
 
     def make_choice(self):
-        from src.dao.consultertoptenperso import ConsulterTopTenPerso
-        consultertoptenperso()
+        from business_objects.joueur import Joueur
+        meilleurs_scores = Session().joueur.topten
+        for score in meilleurs_scores :
+            print(score)
+        from view.accueilpersoview import AccueilPersoView
+        return AccueilPersoView()

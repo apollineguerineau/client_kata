@@ -69,22 +69,22 @@ class ClientJoueur(metaclass= Singleton):
         req=requests.post(f"{self.__HOST}{END_POINT}/{id_joueur}/liste/{name}")
 
 
-    def get_partie(self, id_joueur):
-        req=requests.get(f"{self.__HOST}{END_POINT}/{id_joueur}/partie")
-        id=req.json()[0]
-        proposition=req.json()[2]
-        score=req.json()[1][0]
-        nom=req.json()[1][1]
-        id_joueur=req.json()[1][2]
-        mot_obj=req.json()[1][3]
-        temps_max=req.json()[1][4]
-        langue=req.json()[1][5]
-        nb_tentatives_max=req.json()[1][6]
-        indice=req.json()[1][7]
-        liste_perso=req.json()[1][8]
-        id_liste=req.json()[1][9]
-        difficultes=Difficultes(nb_tentatives_max,temps_max,indice, len(mot_obj))
-        return(Partie(nom, id, proposition, liste_perso, id_liste, difficultes, mot_obj))
+    # def get_partie(self, id_joueur):
+    #     req=requests.get(f"{self.__HOST}{END_POINT}/{id_joueur}/partie")
+    #     id=req.json()[0]
+    #     proposition=req.json()[2]
+    #     score=req.json()[1][0]
+    #     nom=req.json()[1][1]
+    #     id_joueur=req.json()[1][2]
+    #     mot_obj=req.json()[1][3]
+    #     temps_max=req.json()[1][4]
+    #     langue=req.json()[1][5]
+    #     nb_tentatives_max=req.json()[1][6]
+    #     indice=req.json()[1][7]
+    #     liste_perso=req.json()[1][8]
+    #     id_liste=req.json()[1][9]
+    #     difficultes=Difficultes(nb_tentatives_max,temps_max,indice, len(mot_obj))
+    #     return(Partie(nom, id, proposition, liste_perso, id_liste, difficultes, mot_obj))
 
 
     #celle-ci marche pas
@@ -106,8 +106,8 @@ client=ClientJoueur()
 # print(client.get_joueur("Apolline"))
 
 
-partie=client.get_partie(1)
-for proposition in partie.liste_mots_proposes:
-    prop=partie.verifie_proposition(Proposition(proposition))
-    print(prop)
-    print("")
+# partie=client.get_partie(1)
+# for proposition in partie.liste_mots_proposes:
+#     prop=partie.verifie_proposition(Proposition(proposition))
+#     print(prop)
+#     print("")
