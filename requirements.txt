@@ -1,8 +1,7 @@
 auto_mix_prep==0.2.0
 colorama==0.4.4
-dao==0.1.3
 InquirerPy==0.3.4
-numpy==1.20.2
+numpy
 python-dotenv==0.21.0
-requests==2.23.0
+requests
 scr==0.12.0

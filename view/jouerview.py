@@ -1,22 +1,25 @@
 from InquirerPy import inquirer
 from InquirerPy.base.control import Choice
 
-from src.view.abstractview import AbstractView
-from src.view.session import Session
+from view.abstractview import AbstractView
+from view.session import Session
 
 class JouerView (AbstractView) :
     def __init__(self):
-        if partie_en_cours :
+        from client_joueur import ClientJoueur
+        clientjoueur = ClientJoueur()
+        partie = clientjoueur.get_partie(Session().joueur.id_joueur)
+        if partie != None :
 
             self.__questions = inquirer.select(
-                message=f'Bonjour {Session().pseudo}, que souhaites-tu faire?'
+                message=f'Que souhaites-tu faire?'
                 , choices=[
                     Choice('Nouvelle partie')
                     ,Choice('Reprendre la partie')
                 ]
         )
         else :
-            from src.view.difficulteview import DifficulteView
+            from view.difficulteview import DifficulteView
             return DifficulteView()
     
     def display_info(self):
@@ -25,14 +28,19 @@ class JouerView (AbstractView) :
     def make_choice(self):
         reponse = self.__questions.execute()
         if reponse == 'Nouvelle partie':
-            from src.view.difficulteview import DifficulteView
+            from view.difficulteview import DifficulteView
             return DifficulteView()
         elif reponse == 'Reprendre la partie':
-            #partie = #Importer la partie
-            mots_proposes = partie.liste_mots_proposes
-            for mot in liste_mots_proposes :
-                print(partie.verifie_proposition(mot))
-            from scr.view.propositionview import PropositionView
+            from client_joueur import ClientJoueur
+            clientjoueur = ClientJoueur()
+            partie = clientjoueur.get_partie(Session().joueur.id_joueur)
+            Session().partie = partie
+            from business_objects.proposition import Proposition
+            for mot in partie.liste_mots_proposes :
+                mot_propose = Proposition(mot)
+                proposition = partie.verifie_proposition(mot_propose)
+                print(proposition)
+            from view.propositionview import PropositionView
             return PropositionView()
             
         

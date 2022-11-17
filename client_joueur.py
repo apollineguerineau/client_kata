@@ -161,3 +161,9 @@ partie=Partie("test_partie", ["FOULE", "TRAIN", "FRERE", "CREVE"], True, 5, diff
 
 
 
+# partie=client.get_partie(1)
+# for proposition in partie.liste_mots_proposes:
+#     prop=partie.verifie_proposition(Proposition(proposition))
+#     print(prop)
+#     print("")
+#req=requests.post(f"{self.__HOST}{END_POINT}/{id}/score/{score}")
