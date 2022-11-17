@@ -6,7 +6,7 @@ from view.session import Session
 
 
 
-class ViewTopTenPerso(AbstractView):
+class TopTenPersoView(AbstractView):
 
 
     def display_info(self):

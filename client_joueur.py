@@ -84,9 +84,6 @@ class ClientJoueur(metaclass= Singleton):
     #     liste_perso=req.json()[1][8]
     #     id_liste=req.json()[1][9]
     #     difficultes=Difficultes(nb_tentatives_max,temps_max,indice, len(mot_obj))
-<<<<<<< HEAD
-    #     return(Partie(nom, id, proposition, liste_perso, id_liste, difficultes, mot_obj))
-=======
     #     return(Partie(nom, proposition, liste_perso, id_liste, difficultes, mot_obj))
 
 
@@ -94,12 +91,10 @@ class ClientJoueur(metaclass= Singleton):
     def create_partie_en_cours(self, id_joueur, partie):
         req=requests.post(f"{self.__HOST}{END_POINT}/{id_joueur}/partie")
         return(req)
->>>>>>> f105fab9443736753d6185f10dc98aff26782440
 
 
     #celle-ci marche pas
     def ajoute_score(self, id, score):
-<<<<<<< HEAD
         req=requests.post(f"{self.__HOST}{END_POINT}/{id}/score/{score}")
 
 client=ClientJoueur()
@@ -122,6 +117,4 @@ client=ClientJoueur()
 #     prop=partie.verifie_proposition(Proposition(proposition))
 #     print(prop)
 #     print("")
-=======
-        req=requests.post(f"{self.__HOST}{END_POINT}/{id}/score/{score}")
->>>>>>> f105fab9443736753d6185f10dc98aff26782440
+#req=requests.post(f"{self.__HOST}{END_POINT}/{id}/score/{score}")
