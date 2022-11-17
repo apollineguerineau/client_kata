@@ -12,7 +12,6 @@ class Partie :
 
     attributes
     ----------
-    id_partie : int
     mot_objectif : str
     liste_mots_proposes : list(Proposition)
     est_liste_perso : bool

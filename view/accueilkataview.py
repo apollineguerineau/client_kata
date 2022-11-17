@@ -14,7 +14,8 @@ class AccueilKataView (AbstractView) :
             , choices=[
                 Choice('Se connecter')
                 ,Choice('Créer un compte')
-                ,Choice("Consulter les 10 meilleurs scores")]
+                ,Choice("Consulter les 10 meilleurs scores")
+                ,Choice('Quitter le jeu')]
         )
 
     def display_info(self):
@@ -31,6 +32,8 @@ class AccueilKataView (AbstractView) :
         elif reponse == "Consulter les 10 meilleurs scores" :
             from view.toptenview import ViewTopTen
             return ViewTopTen()
+        elif reponse == "Quitter le jeu" :
+            print('Au revoir')
 
 
 
