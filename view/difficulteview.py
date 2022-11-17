@@ -60,13 +60,13 @@ class DifficulteView (AbstractView) :
             from client_joueur import ClientJoueur
             clientjoueur = ClientJoueur()
             listes = clientjoueur.get_listes(id_joueur)
-            for liste in liste :
+            for liste in listes :
                 if liste.nom == reponse2 :
                     id_liste = liste.id_liste
 
 
         from business_objects.partie import Partie
-        partie = Partie(nom = partie, liste_mots_proposes=[], difficultes=difficultes, est_liste_perso = est_liste_perso, id_liste = id_liste, mot_objectif = None )
+        partie = Partie(nom = "partie", liste_mots_proposes=[], difficultes=difficultes, est_liste_perso = est_liste_perso, id_liste = id_liste, mot_objectif = None )
         Session().partie = partie
         from view.propositionview import PropositionView
         return PropositionView()
