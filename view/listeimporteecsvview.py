@@ -27,7 +27,7 @@ class ListeImporteeCSVView(AbstractView):
         lien_dossier = ASK_LIEN_dossier.execute()
         lien_fichier = ASK_LIEN_fichier.execute()
 
-        from src.importation_objects.importationCsv import ImportationCsv
+        from importation_objects.importationCsv import ImportationCsv
         importation = ImportationCsv()
         liste_mots = importation.creer(lien_fichier, lien_dossier)
 
