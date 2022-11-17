@@ -168,12 +168,9 @@ class ClientJoueur(metaclass= Singleton):
 
 
 
-<<<<<<< HEAD
 # partie=client.get_partie(1)
 # for proposition in partie.liste_mots_proposes:
 #     prop=partie.verifie_proposition(Proposition(proposition))
 #     print(prop)
 #     print("")
 #req=requests.post(f"{self.__HOST}{END_POINT}/{id}/score/{score}")
-=======
->>>>>>> f067e8b5143447b7449712e77b747aa8b747b1a2
