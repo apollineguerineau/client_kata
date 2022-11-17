@@ -119,15 +119,15 @@ class Partie :
         return("{},{},{},{},{}, difficultés :{}".format(self.nom,self.mot_objectif, self.liste_mots_proposes,self.score, self.id_liste, self.difficultes))
 
 # difficultes=Difficultes(6,8,True,10)
-# partie=Partie(1, [], False, None, difficultes)
+# partie=Partie(1, [], False, None, difficultes,None)
 # print(partie.mot_objectif)
 # proposition=Proposition("ABCDEFGHIJ")
 # print(partie.verifie_proposition(proposition))
 
 
 # difficultes=Difficultes(6,8,True,None)
-# partie=Partie("essai",1, [], True,1 , difficultes,"hola")
-# print(partie)
+# partie=Partie("essai", [], True,8 , difficultes,None)
+# # print(partie)
 # print(partie.mot_objectif)
 # print("Faites une proposition : ")
 # proposition=Proposition(input())
