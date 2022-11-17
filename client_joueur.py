@@ -89,19 +89,26 @@ class ClientJoueur(metaclass= Singleton):
 
 
 
-    #ça marche pas je crois
+    #ça marche
     def create_partie_en_cours(self, id_joueur, partie):
-        # payload = {
-        #     "nom_partie" :partie.nom
-        #     ,"mot_objectif" : partie.mot_objectif
-        #     , "temps_max" : partie.difficultes.temps
-        #     , "nb_tentatives_max" : partie.difficultes.nb_tentatives
-        #     , "indice" : partie.difficultes.indice
-        #     , "liste_perso" : partie.est_liste_perso
-        #     , "id_liste" : partie.id_liste
-        # }
-        req=requests.post(f"{self.__HOST}{END_POINT}/{id_joueur}/partie/{partie}")
+        payload = {
+            "nom_partie" :partie.nom
+            ,"mot_objectif" : partie.mot_objectif
+            , "temps_max" : partie.difficultes.temps
+            , "nb_tentatives_max" : partie.difficultes.nb_tentatives
+            , "indice" : partie.difficultes.indice
+            , "liste_perso" : partie.est_liste_perso
+            , "id_liste" : partie.id_liste
+        }
+        req=requests.post(f"{self.__HOST}{END_POINT}/{id_joueur}/partie", json=payload)
 
+    #ça marche
+    def ajoute_proposition(self, id_joueur, proposition):
+            req=requests.post(f"{self.__HOST}{END_POINT}/{id_joueur}/proposition/{proposition}")
+
+    #ça marche
+    def supprime_partie_en_cours(self,id_joueur):
+        req=requests.delete(f"{self.__HOST}{END_POINT}/{id_joueur}/partie")
 
     #ça marche
     def ajoute_score(self, id, score):
@@ -114,14 +121,16 @@ client=ClientJoueur()
 # for score in scores: 
 #     client.ajoute_score(6, score)
 
-# client.ajoute_score(6, 55.0)
+# client.ajoute_score(6, 150.0)
 
 # print(client.consulter_top10(6))
 
-# difficultes=Difficultes(6,8,True,6)
-# partie=Partie("test_partie", ["FOULE", "TRAIN", "FRERE", "CREVE"], True, 5, difficultes, "TREVE")
+difficultes=Difficultes(6,8,True,6)
+partie=Partie("test_partie", ["FOULE", "TRAIN", "FRERE", "CREVE"], True, 5, difficultes, "TREVE")
 # print(partie)
 # client.create_partie_en_cours(2, partie)
+# client.ajoute_proposition(2, "TARIE")
+# client.supprime_partie_en_cours(2)
 # print(client.get_partie(2))
 # partie_cree=client.get_partie(6)
 # for mot in partie.liste_mots_proposes :
@@ -133,7 +142,7 @@ client=ClientJoueur()
 # print(client.get_joueur("Super_joueur"))
 
 # client.create_liste(6, "Super_liste")
-print(client.get_listes(2))
+# print(client.get_listes(2))
 # for liste in liste_listes:
 #     print(liste)
 
