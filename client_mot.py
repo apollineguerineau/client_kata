@@ -10,11 +10,12 @@ class ClientMot(metaclass= Singleton):
     def __init__(self) -> None:
         self.__HOST ="http://127.0.0.1:80"
 
-
+    #ça marche
     def create_mot(self, mot: str) :
         req = requests.post(f"{self.__HOST}{END_POINT}/contenu/{mot}")
 
 
+    #problème : la fonction s'exécute deux fois 
     def add_mot_to_liste(self, mot : str, nom_liste : str, id_joueur : int) :
         """Renvoie si le mot a bien été ajouté à la liste. S'il n'a pas été ajouté, cela veut dire 
            que le mot était déjà dans la liste"""
@@ -46,6 +47,8 @@ class ClientMot(metaclass= Singleton):
             clientliste.ajouter_mot(liste_d_ajout.id_liste, id_mot)
             return True
 
+
+    #ça marche
     def get_id(self,mot) :
         req = requests.get(f"{self.__HOST}{END_POINT}/mot/{mot}")
         if type(req.json())==int :
@@ -54,8 +57,8 @@ class ClientMot(metaclass= Singleton):
             return(None) 
         
 
-mot_client=ClientMot()
-# print(mot_client.create_mot("FENETRE"))
-# print(mot_client.get_id_by_mot("FENETRE"))
-# print(mot_client.add_mot_to_liste("hello", "nouvelle liste", 5))
+# mot_client=ClientMot()
+# print(mot_client.create_mot("TREVE"))
+# print(mot_client.get_id("TREVE"))
+# print(mot_client.add_mot_to_liste("TARIE", "Super_liste", 6))
 # print(mot_client.get_id("ekjc"))

@@ -15,7 +15,7 @@ class GenererMotListePerso(AbstractGenererMot):
         return(liste[num])
 
 
-# gerenation=GenererMotListePerso(2)
+# gerenation=GenererMotListePerso(8)
 # print(gerenation.generer())
 
             
