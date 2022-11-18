@@ -181,7 +181,9 @@ client=ClientJoueur()
 
 # client.ajoute_score(6, 150.0)
 
-# print(client.consulter_top10(6))
+print(client.consulter_top10(6))
+client.ajoute_score(6, 50.0)
+print(client.consulter_top10(6))
 
 # difficultes=Difficultes(6,8,True,6)
 # partie=Partie("test_partie", ["FOULE", "TRAIN", "FRERE", "CREVE"], True, 5, difficultes, "TREVE")
