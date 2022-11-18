@@ -36,11 +36,12 @@ class CreerListeManuelleView(AbstractView):
         clientjoueur = ClientJoueur()
         listes = clientjoueur.get_listes(id_joueur)
         from business_objects.liste import Liste
-        for liste in listes :
-            if liste.nom == nom_liste :
-                print("Tu as déjà une liste avec ce nom")
-                from view.accueilpersoview import AccueilPersoView
-                return AccueilPersoView()
+        if listes != None :
+            for liste in listes :
+                if liste.nom == nom_liste :
+                    print("Tu as déjà une liste avec ce nom")
+                    from view.accueilpersoview import AccueilPersoView
+                    return AccueilPersoView()
 
         clientjoueur.create_liste(id_joueur, nom_liste)
 

@@ -22,6 +22,7 @@ class AjouterMotView (AbstractView) :
         from client_mot import ClientMot
         clientmot = ClientMot()
         clientmot.add_mot_to_liste(mot, Session().liste.nom, Session().joueur.id_joueur)
+        Session().liste.liste.append(mot)
         
         from view.modificationlisteview import ModificationListeView
         return ModificationListeView()

@@ -73,12 +73,13 @@ class DifficulteView (AbstractView) :
                 if liste.nom == reponse2 :
                     id_liste = liste.id_liste
 
-
         from business_objects.partie import Partie
         partie = Partie(nom = "partie", liste_mots_proposes=[], difficultes=difficultes, est_liste_perso = est_liste_perso, id_liste = id_liste, mot_objectif = None )
         Session().partie = partie
-        from view.propositionview import PropositionView
-        return PropositionView()
+        if indice :
+            print(partie.mot_objectif[0])
+        from view.pauseview import PauseView
+        return PauseView()
 
             
         
