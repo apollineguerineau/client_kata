@@ -79,12 +79,13 @@ class ClientJoueur(metaclass= Singleton):
 
 
     def get_listes(self, id):
-        '''Retourne les listes personnelles du joueur
+        '''Retourne les listes personnelles du joueur (si il en a)
 
         Parameters: l'identifiant du joueur : int
 
         Returns:
-            list(Liste) : la liste des listes personnelles'''
+            list(Liste) : la liste des listes personnelles
+            None si le joueur n'a pas de liste'''
         req=requests.get(f"{self.__HOST}{END_POINT}/{id}/liste")
         nom=req.json()[0]
         contenu=req.json()[1]
@@ -150,16 +151,25 @@ class ClientJoueur(metaclass= Singleton):
         }
         req=requests.post(f"{self.__HOST}{END_POINT}/{id_joueur}/partie", json=payload)
 
-    #ça marche
-    def ajoute_proposition(self, id_joueur, proposition):
-            req=requests.post(f"{self.__HOST}{END_POINT}/{id_joueur}/proposition/{proposition}")
 
-    #ça marche
+    def ajoute_proposition(self, id_joueur, proposition):
+        '''Ajoute une proposition à une partie
+
+        Parameters: l'identifiant du joueur : int, proposition : str'''
+        req=requests.post(f"{self.__HOST}{END_POINT}/{id_joueur}/proposition/{proposition}")
+
+
     def supprime_partie_en_cours(self,id_joueur):
+        '''Supprime la partie en cours du joueur
+
+        Parameters: l'identifiant du joueur : int'''
         req=requests.delete(f"{self.__HOST}{END_POINT}/{id_joueur}/partie")
 
-    #ça marche
+
     def ajoute_score(self, id, score):
+        '''Ajoute un score au joueur
+
+        Parameters: l'identifiant du joueur : int, score : float'''
         req=requests.post(f"{self.__HOST}{END_POINT}/{id}/score/{score}")
 
 client=ClientJoueur()
