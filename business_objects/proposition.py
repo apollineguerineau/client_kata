@@ -92,7 +92,7 @@ class Proposition :
         return(self.mot)
 
 
-# proposition=Proposition("hkzbef")
+# proposition=Proposition("ezjhezec")
 # print(proposition)
 
 # print(proposition.est_autorise())
