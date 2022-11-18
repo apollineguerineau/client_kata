@@ -45,6 +45,10 @@ class PropositionView(AbstractView) :
             print("Félicitations, vous avez trouvé le mot")
             partie.calcul_score()
             score = str(partie.score)
+            from client_joueur import ClientJoueur
+            clientjoueur = ClientJoueur()
+            clientjoueur.ajoute_score(Session().joueur.id_joueur, partie.score)
+            Session().joueur = clientjoueur.get_joueur(Session().joueur.nom_joueur)
             print(f'Votre score est de {score} points')
             from view.accueilpersoview import AccueilPersoView
             return AccueilPersoView()

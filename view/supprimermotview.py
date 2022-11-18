@@ -30,6 +30,7 @@ class SupprimerMotView (AbstractView) :
         id_liste = liste_mots.id_liste
         clientliste.supprimer_mot(id_liste, id_mot)
         from business_objects.proposition import Proposition
+        #A revoir cette partie
         for i in range (0, len(Session().liste.liste)) :
             if Session().liste.liste[i] == reponse :
                 Session().liste.liste.pop(i)

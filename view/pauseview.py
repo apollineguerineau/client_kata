@@ -23,6 +23,10 @@ class PauseView (AbstractView) :
             from view.propositionview import PropositionView
             return PropositionView()
         elif reponse == 'Pause' :
-            #create_partie_en_cours(Session)
+            from client_joueur import ClientJoueur
+            clientjoueur = ClientJoueur()
+            clientjoueur.create_partie_en_cours(Session().joueur.id_joueur, Session().partie)
+            for mot in Session().partie.liste_mots_proposes :
+                clientjoueur.ajoute_proposition(Session().joueur.id_joueur, mot)
             from view.accueilpersoview import AccueilPersoView
             return AccueilPersoView()
