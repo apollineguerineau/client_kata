@@ -181,14 +181,14 @@ client=ClientJoueur()
 
 # client.ajoute_score(6, 150.0)
 
-print(client.consulter_top10(6))
-client.ajoute_score(6, 50.0)
-print(client.consulter_top10(6))
+# print(client.consulter_top10(6))
+# client.ajoute_score(6, 50.0)
+# print(client.consulter_top10(6))
 
 # difficultes=Difficultes(6,8,True,6)
-# partie=Partie("test_partie", ["FOULE", "TRAIN", "FRERE", "CREVE"], True, 5, difficultes, "TREVE")
+# partie=Partie("test_partie", ["FOULE", "TRAIN", "FRERE", "CREVE"],False,None, difficultes, "TREVE")
 # print(partie)
-# client.create_partie_en_cours(2, partie)
+# client.create_partie_en_cours(1, partie)
 # client.ajoute_proposition(2, "TARIE")
 # client.supprime_partie_en_cours(2)
 # print(client.get_partie(2))
@@ -202,7 +202,7 @@ print(client.consulter_top10(6))
 # print(client.get_joueur("Super_joueur"))
 
 # client.create_liste(6, "Super_liste")
-print(client.get_listes(8))
+# print(client.get_listes(8))
 # for liste in liste_listes:
 #     print(liste)
 
@@ -213,7 +213,8 @@ print(client.get_listes(8))
 # print(client.get_joueur("Linh-Da"))
 # print(client.get_joueur("Apolline"))
 
-# partie=client.get_partie(5)
+partie=client.get_partie(5)
+print(partie.id_liste)
 # for mot in partie.liste_mots_proposes :
 #     mot_propose=Proposition(mot)
 #     proposition=partie.verifie_proposition(mot_propose)
