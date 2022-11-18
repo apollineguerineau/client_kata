@@ -9,12 +9,11 @@ from client_liste import ClientListe
 import random
 
 class GenererMotListePerso(AbstractGenererMot):
-    """_summary_
+    """
 Cette classe sert à generer aléatoirement un mot à partir d'une liste personnelle du joueur
     """
     def __init__(self, id_liste):
-        """_summary_
-
+        """
         Args:
             id_liste (int): identifiant de la liste dont on veut generer un mot
         """

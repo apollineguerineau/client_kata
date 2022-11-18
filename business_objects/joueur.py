@@ -6,8 +6,7 @@ class Joueur :
     son nom et la liste des top ten
     """
     def __init__(self, id_joueur : int, nom_joueur : str, topten : list()) -> None:
-        """_summary_
-
+        """
         Args:
             id_joueur (int): c'est l'identifiant du joueur
             nom_joueur (str): c'est le nom du joueur
@@ -24,8 +23,7 @@ class Joueur :
         self.topten = topten
 
     def __str__(self) -> str:
-        """_summary_
-
+        """
         Returns:
             str: l'identifiant du joueur et le nom du joueur
         EXAMPLE
