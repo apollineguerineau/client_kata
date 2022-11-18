@@ -1,5 +1,5 @@
 class Difficultes:
-    """C'est la classe Difficultes qui définit la difficulté d'une partie de jeux par :
+    """C'est la classe qui définit la difficulté d'une partie de jeux par :
     - nb_tentatives 
     - temps 
     - indice
@@ -9,10 +9,10 @@ class Difficultes:
         """_summary_
 
         Args:
-            nb_tentatives (int, optional): le nombres de tentative. Defaults to 6.
-            temps (int, optional): Durée de la partie. Defaults to 8.
-            indice (bool, optional): Le joueur veut un indice ou non. Defaults to True.
-            nb_lettres (int, optional): Le nombre de lettres du mot objectif. Defaults to 6.
+            - nb_tentatives (int, optional): le nombres de tentative. Defaults to 6.
+            - temps (int, optional): Durée de la partie. Defaults to 8.
+            - indice (bool, optional): Le joueur veut un indice ou non. Defaults to True.
+            - nb_lettres (int, optional): Le nombre de lettres du mot objectif. Defaults to 6.
         """
         self.nb_tentatives=nb_tentatives
         self.temps=temps
