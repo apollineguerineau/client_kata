@@ -2,6 +2,7 @@ import os
 from typing import List, Optional
 from utils.singleton import Singleton
 import requests
+import re #import regex
 
 END_POINT="/mot"
 
@@ -65,8 +66,8 @@ class ClientMot(metaclass= Singleton):
             return(None) 
         
 
-# mot_client=ClientMot()
+mot_client=ClientMot()
 # print(mot_client.create_mot("TREVE"))
 # print(mot_client.get_id("TREVE"))
-# print(mot_client.add_mot_to_liste("TARIE", "Super_liste", 6))
+print(mot_client.add_mot_to_liste("jshts !", "Super_liste", 6))
 # print(mot_client.get_id("ekjc"))
