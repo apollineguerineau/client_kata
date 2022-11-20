@@ -4,19 +4,23 @@ Création de la classe Difficulte
 from numpy import Infinity
 
 class Difficulte :
+    # pylint: disable=too-few-public-methods
     """
     Cette classe sert à définir un niveau de difficulté en se basant sur les critères suivants :
-         - l'indice d'une lettre du mot objectif dans le cas ou le joueur veut savoir une lettre pour faciliter la partie
+         - l'indice d'une lettre du mot objectif dans le cas où
+         le joueur veut savoir une lettre pour faciliter la partie
          - la longueur de mot objectif
          - le temps maximal de la partie
-         - le nombre de tentatives maximals
+         - le nombre de tentatives maximales
     """
     def __init__(self,nb_lettres_indices : int = 0,langue : str = 'Anglais',
                 longueur_mot : int = 6, temps_max = Infinity, nb_tentatives_max : int = 6 ) -> None:
+        # pylint: disable=too-many-arguments
         """_summary_
 
         Args:
-            nb_lettres_indices (int, optional): ici on met l'indice de la lettre qu'on veut savoir par rapport au mot objectif
+            nb_lettres_indices (int, optional): ici on met l'indice de la
+            lettre qu'on veut savoir par rapport au mot objectif
             langue (str, optional): la langue est qui est généralement l'anglais
             longueur_mot (int, optional): la longueur du mot objectif. Defaults to 6.
             temps_max (_type_, optional): le temps maximal de la partie. Defaults to Infinity.
@@ -40,12 +44,14 @@ class Difficulte :
         self.longueur_mot = longueur_mot
         self.temps_max = temps_max
         self.nb_tentatives_max = nb_tentatives_max
-    
+
     def __str__(self) -> str:
         """_summary_
 
         Returns:
-            str: l'affichage de l'indice de la lettre demandé par le joueur, la langue, la longueur de mot objectif, le temps maximal d'une partie et le nombre de tentatives maximals dans la partie
+            str: l'affichage de l'indice de la lettre demandé par le joueur,
+            la langue, la longueur de mot objectif, le temps maximal d'une partie
+            et le nombre de tentatives maximals dans la partie
         EXAMPLE
         -------
         >>> difficulte1=Difficulte()
