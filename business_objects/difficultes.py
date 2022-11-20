@@ -1,9 +1,12 @@
+"""contient la classe Difficultes
+"""
 class Difficultes:
+    # pylint: disable=too-few-public-methods
     """C'est la classe qui définit la difficulté d'une partie de jeux par :
-    - nb_tentatives 
-    - temps 
+    - nb_tentatives
+    - temps
     - indice
-    - nb_lettres 
+    - nb_lettres
     """
     def __init__(self,nb_tentatives=6, temps=8, indice=True, nb_lettres=6):
         """
@@ -29,11 +32,8 @@ class Difficultes:
         6 tentatives, 8 secondes par tentatives, sans indice, mot de 8 lettres
         """
         avec_indice = ""
-        if self.indice==True:
+        if self.indice:
             avec_indice="avec indice"
         else:
             avec_indice="sans indice"
-        return(f"{self.nb_tentatives} tentatives, {self.temps} secondes par tentatives, {avec_indice}, mot de {self.nb_lettres} lettres")
-
-
-difficultes=Difficultes(None, None ,False,8)
+        return f"{self.nb_tentatives} tentatives, {self.temps} secondes par tentatives, {avec_indice}, mot de {self.nb_lettres} lettres"
