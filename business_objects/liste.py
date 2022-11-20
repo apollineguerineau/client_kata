@@ -2,6 +2,7 @@
 Création de la classe Liste
 """
 class Liste :
+    # pylint: disable=too-few-public-methods
     """c'est la classe liste définissant un objet liste par un identifiant de la liste,
     le nom de la liste et la liste des mots
     """
@@ -27,7 +28,7 @@ class Liste :
         self.nom = nom
 
     def __str__(self) -> str:
- 
+
         """
         Returns:
             str: l'identifiant de la liste, le nom de la liste et la liste des mots

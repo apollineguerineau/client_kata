@@ -2,10 +2,11 @@
 Création de la classe Joueur
 """
 class Joueur :
-    """c'est la classe Joueur définissant un joueur par son identifiant, 
+    # pylint: disable=too-few-public-methods
+    """c'est la classe Joueur définissant un joueur par son identifiant,
     son nom et la liste des top ten
     """
-    def __init__(self, id_joueur : int, nom_joueur : str, topten : list()) -> None:
+    def __init__(self, id_joueur : int, nom_joueur : str, topten : []) -> None:
         """
         Args:
             id_joueur (int): c'est l'identifiant du joueur
@@ -16,7 +17,7 @@ class Joueur :
         >>> joueur1=Joueur(1,"oussama",[1])
         >>> joueur1.id_joueur
         1
-   
+
         """
         self.id_joueur = id_joueur
         self.nom_joueur = nom_joueur

@@ -19,7 +19,8 @@ class Partie :
     difficultes : Difficultes
     score : float
     '''
-    def __init__(self,nom, liste_mots_proposes, est_liste_perso, id_liste, difficultes, mot_objectif):
+    def __init__(self,nom, liste_mots_proposes,
+                 est_liste_perso, id_liste, difficultes, mot_objectif):
         self.liste_mots_proposes=liste_mots_proposes
         self.est_liste_perso=est_liste_perso
         self.id_liste=id_liste
@@ -33,7 +34,8 @@ class Partie :
 
 
     def donne_mot_obj(self):
-        '''donne le mot objectif de la partie, soit par l'api random-word-api, soit un mot dans la liste perso
+        '''donne le mot objectif de la partie, soit par l'api random-word-api,
+        soit un mot dans la liste perso
         return
         ------
         le mot objectif  : str
@@ -42,11 +44,12 @@ class Partie :
             generer=GenererMotListePerso(self.id_liste)
         else :
             generer=GenererMotApi(self.difficultes.nb_lettres)
-        return(generer.generer())
+        return generer.generer()
 
 
     def occurence_lettres(self):
-        '''retourne une liste avec pour chaque lettre apparaissant dans le mot objectif, l'occurence de cette lettre dans le mot objectif
+        '''retourne une liste avec pour chaque lettre apparaissant
+        dans le mot objectif, l'occurence de cette lettre dans le mot objectif
         '''
         lettres=[]
         for lettre in self.mot_objectif:
