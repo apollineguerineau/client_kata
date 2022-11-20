@@ -4,11 +4,12 @@ importation des modules et classes nécessaires :
 - la classe ClientList
 - le module Random
 """
-from business_objects.abstract_generer_mot import AbstractGenererMot
-from client_liste import ClientListe
 import random
+from client_liste import ClientListe
+from business_objects.abstract_generer_mot import AbstractGenererMot
 
 class GenererMotListePerso(AbstractGenererMot):
+    # pylint: disable=too-few-public-methods
     """
 Cette classe sert à generer aléatoirement un mot à partir d'une liste personnelle du joueur
     """
@@ -22,17 +23,11 @@ Cette classe sert à generer aléatoirement un mot à partir d'une liste personn
 
     def generer(self):
         """
-        c'est la méthode qui sert à generer un mot à partir de la liste dont on a déjà fixé 
+        c'est la méthode qui sert à generer un mot à partir de la liste dont on a déjà fixé
         son identifiant
         """
         clientliste=ClientListe()
         liste=clientliste.get_mot(self.id_liste)[1]
         print(liste)
         num=random.randint(0,len(liste)-1)
-        return(liste[num])
-
-
-# gerenation=GenererMotListePerso(8)
-# print(gerenation.generer())
-
-            
+        return liste[num]

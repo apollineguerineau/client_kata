@@ -9,7 +9,7 @@ class GenererMotApi(AbstractGenererMot):
     un mot en fixant le nombre de lettres de ce mot
     """
     def __init__(self, nb_lettres):
-        # pylint: disable=super-init-not-called
+
         """
         Args:
             nb_lettres (int): le nombre de lettres du mot qu'on cherche à generer
