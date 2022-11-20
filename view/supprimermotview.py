@@ -29,9 +29,15 @@ class SupprimerMotView (AbstractView) :
         clientliste = ClientListe()
         id_liste = liste_mots.id_liste
         clientliste.supprimer_mot(id_liste, id_mot)
+        from business_objects.proposition import Proposition
+        #A revoir cette partie
+        for i in range (0, len(Session().liste.liste)) :
+            if Session().liste.liste[i] == reponse :
+                Session().liste.liste.pop(i)
 
         if len(liste_mots.liste) == 1 :
             clientliste.supprimer_liste(id_liste)
+            print("La liste a été supprimée")
             from view.accueilpersoview import AccueilPersoView
             return AccueilPersoView()
 

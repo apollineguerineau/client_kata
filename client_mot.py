@@ -2,6 +2,7 @@ import os
 from typing import List, Optional
 from utils.singleton import Singleton
 import requests
+import re #import regex
 
 END_POINT="/mot"
 
@@ -20,6 +21,14 @@ class ClientMot(metaclass= Singleton):
         """Renvoie si le mot a bien été ajouté à la liste. S'il n'a pas été ajouté, cela veut dire 
            que le mot était déjà dans la liste"""
         #On vérifie si le mot est déjà dans la base de données
+        regex = "^[A-zÀ-ú]+$"
+        resultat = re.match(regex, mot)
+        if resultat==None:
+            print(f"Le mot {mot} ne respecte pas les conditions: uniquement des lettres avec ou sans accents, pas de chiffres, pas de caractères spéciaux ")
+            return(False)
+        if len(mot)>50:
+            print(f"Le mot {mot} est trop long ")
+            return(False)
         from client_mot import ClientMot
         clientmot = ClientMot()
 
@@ -57,8 +66,8 @@ class ClientMot(metaclass= Singleton):
             return(None) 
         
 
-# mot_client=ClientMot()
+mot_client=ClientMot()
 # print(mot_client.create_mot("TREVE"))
 # print(mot_client.get_id("TREVE"))
-# print(mot_client.add_mot_to_liste("TARIE", "Super_liste", 6))
+print(mot_client.add_mot_to_liste("jshts !", "Super_liste", 6))
 # print(mot_client.get_id("ekjc"))

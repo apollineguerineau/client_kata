@@ -18,27 +18,51 @@ class ClientJoueur(metaclass= Singleton):
         self.__HOST ="http://127.0.0.1:80"
 
 
-    #ça marche
+
     def get_pseudo(self, id:int) :
+        '''Retourne le pseudo du joueur selon son identifiant
+
+        Parameters: l'identifiant du joueur : int
+
+        Returns:
+            str: le pseudo du joueur'''
         req = requests.get(f"{self.__HOST}{END_POINT}/{id}")
         return(req.json())
 
-    #ça marche
+
     def get_id(self, pseudo) :
+        '''Retourne l'identifiant du joueur selon son pseudo
+
+        Parameters: le pseudo du joueur : str
+
+        Returns:
+            int : l'identifiant du joueur
+            None si le pseudo n'est pas dans la base de données'''
         req = requests.get(f"{self.__HOST}{END_POINT}/pseudo/{pseudo}")
         if type(req.json())==int:
             return(req.json()) 
         else: 
             return(None)
 
-    #ça marche
+
     def consulter_top10(self, id):
+        '''Retourne le top 10 du joueur
+
+        Parameters: l'identifiant du joueur : int
+
+        Returns:
+            list : le top 10 du joueur'''
         req=requests.get(f"{self.__HOST}{END_POINT}/{id}/score/")
         return(req.json())
     
 
-    #ça marche
     def get_joueur(self, pseudo):
+        '''Retourne un joueur
+
+        Parameters: le pseudo du joueur : str
+
+        Returns:
+            Joueur : le joueur'''
         id=self.get_id(pseudo)
         if id!=None:
             top_10=self.consulter_top10(id)
@@ -46,14 +70,22 @@ class ClientJoueur(metaclass= Singleton):
         else: 
             return(None)
 
-    #ça marche
+
     def create_joueur(self, pseudo):
+        '''Crée un joueur dans la base de données 
+        '''
         req=requests.post(f"{self.__HOST}{END_POINT}/{pseudo}")
         return(req)
 
 
-    #ça marche
     def get_listes(self, id):
+        '''Retourne les listes personnelles du joueur (si il en a)
+
+        Parameters: l'identifiant du joueur : int
+
+        Returns:
+            list(Liste) : la liste des listes personnelles
+            None si le joueur n'a pas de liste'''
         req=requests.get(f"{self.__HOST}{END_POINT}/{id}/liste")
         nom=req.json()[0]
         contenu=req.json()[1]
@@ -61,14 +93,28 @@ class ClientJoueur(metaclass= Singleton):
         listes=[]
         for i in range(len(nom)):
             listes.append(Liste(id[i],contenu[i], nom[i]))
+        if listes==[]:
+            return(None)
         return(listes)
 
-    #ça marche          
+
+         
     def create_liste(self, id_joueur, name):
+        '''Crée une liste personnelles dans la base de données
+
+        Parameters : l'identifiant du joueur : int et le nom de la liste crée : str
+        '''
         req=requests.post(f"{self.__HOST}{END_POINT}/{id_joueur}/liste/{name}")
 
-    #ça marche
+
     def get_partie(self, id_joueur):
+        '''Retourne la partie en cours du joueur (si elle existe)
+
+        Parameters: l'identifiant du joueur : int
+
+        Returns:
+            Partie : la partie en cours
+            None si le joueur n'a pas de partie en cours'''
         req=requests.get(f"{self.__HOST}{END_POINT}/{id_joueur}/partie_en_cours")
         if req.json()[0]!=None :
             id=req.json()[0]
@@ -89,8 +135,11 @@ class ClientJoueur(metaclass= Singleton):
 
 
 
-    #ça marche
     def create_partie_en_cours(self, id_joueur, partie):
+        '''Crée une partie en cours du joueur
+
+        Parameters : l'identifiant du joueur et la partie : Partie
+        '''
         payload = {
             "nom_partie" :partie.nom
             ,"mot_objectif" : partie.mot_objectif
@@ -102,16 +151,25 @@ class ClientJoueur(metaclass= Singleton):
         }
         req=requests.post(f"{self.__HOST}{END_POINT}/{id_joueur}/partie", json=payload)
 
-    #ça marche
-    def ajoute_proposition(self, id_joueur, proposition):
-            req=requests.post(f"{self.__HOST}{END_POINT}/{id_joueur}/proposition/{proposition}")
 
-    #ça marche
+    def ajoute_proposition(self, id_joueur, proposition):
+        '''Ajoute une proposition à une partie
+
+        Parameters: l'identifiant du joueur : int, proposition : str'''
+        req=requests.post(f"{self.__HOST}{END_POINT}/{id_joueur}/proposition/{proposition}")
+
+
     def supprime_partie_en_cours(self,id_joueur):
+        '''Supprime la partie en cours du joueur
+
+        Parameters: l'identifiant du joueur : int'''
         req=requests.delete(f"{self.__HOST}{END_POINT}/{id_joueur}/partie")
 
-    #ça marche
+
     def ajoute_score(self, id, score):
+        '''Ajoute un score au joueur
+
+        Parameters: l'identifiant du joueur : int, score : float'''
         req=requests.post(f"{self.__HOST}{END_POINT}/{id}/score/{score}")
 
 client=ClientJoueur()
@@ -124,11 +182,13 @@ client=ClientJoueur()
 # client.ajoute_score(6, 150.0)
 
 # print(client.consulter_top10(6))
+# client.ajoute_score(6, 50.0)
+# print(client.consulter_top10(6))
 
-difficultes=Difficultes(6,8,True,6)
-partie=Partie("test_partie", ["FOULE", "TRAIN", "FRERE", "CREVE"], True, 5, difficultes, "TREVE")
+# difficultes=Difficultes(6,8,True,6)
+# partie=Partie("test_partie", ["FOULE", "TRAIN", "FRERE", "CREVE"],False,None, difficultes, "TREVE")
 # print(partie)
-# client.create_partie_en_cours(2, partie)
+# client.create_partie_en_cours(1, partie)
 # client.ajoute_proposition(2, "TARIE")
 # client.supprime_partie_en_cours(2)
 # print(client.get_partie(2))
@@ -142,7 +202,7 @@ partie=Partie("test_partie", ["FOULE", "TRAIN", "FRERE", "CREVE"], True, 5, diff
 # print(client.get_joueur("Super_joueur"))
 
 # client.create_liste(6, "Super_liste")
-# print(client.get_listes(2))
+# print(client.get_listes(8))
 # for liste in liste_listes:
 #     print(liste)
 
@@ -153,7 +213,8 @@ partie=Partie("test_partie", ["FOULE", "TRAIN", "FRERE", "CREVE"], True, 5, diff
 # print(client.get_joueur("Linh-Da"))
 # print(client.get_joueur("Apolline"))
 
-# partie=client.get_partie(5)
+partie=client.get_partie(5)
+print(partie.id_liste)
 # for mot in partie.liste_mots_proposes :
 #     mot_propose=Proposition(mot)
 #     proposition=partie.verifie_proposition(mot_propose)
@@ -161,7 +222,7 @@ partie=Partie("test_partie", ["FOULE", "TRAIN", "FRERE", "CREVE"], True, 5, diff
 
 
 
-# partie=client.get_partie(1)
+# partie=client.get_partie(5)
 # for proposition in partie.liste_mots_proposes:
 #     prop=partie.verifie_proposition(Proposition(proposition))
 #     print(prop)

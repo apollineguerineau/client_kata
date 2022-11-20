@@ -6,8 +6,7 @@ class Liste :
     le nom de la liste et la liste des mots
     """
     def __init__(self,id_liste : int, liste : list, nom : str) :
-        """_summary_
-
+        """
         Args:
             id_liste (_type_): c'est l'identifiant de notre liste
             liste (_type_): c'est notre liste des mots
@@ -29,8 +28,7 @@ class Liste :
 
     def __str__(self) -> str:
  
-        """_summary_
-
+        """
         Returns:
             str: l'identifiant de la liste, le nom de la liste et la liste des mots
         EXAMPLE

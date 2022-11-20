@@ -18,15 +18,18 @@ class JouerView (AbstractView) :
                     ,Choice('Reprendre la partie')
                 ]
         )
-        else :
-            from view.difficulteview import DifficulteView
-            return DifficulteView()
     
     def display_info(self):
         pass
 
     def make_choice(self):
-        reponse = self.__questions.execute()
+        from client_joueur import ClientJoueur
+        clientjoueur = ClientJoueur()
+        partie_ = clientjoueur.get_partie(Session().joueur.id_joueur)
+        if partie_ != None :
+            reponse = self.__questions.execute()
+        else :
+            reponse = 'Nouvelle partie'
         if reponse == 'Nouvelle partie':
             from view.difficulteview import DifficulteView
             return DifficulteView()
@@ -40,7 +43,7 @@ class JouerView (AbstractView) :
                 mot_propose = Proposition(mot)
                 proposition = partie.verifie_proposition(mot_propose)
                 print(proposition)
-            from view.propositionview import PropositionView
-            return PropositionView()
+            from view.pauseview import PauseView
+            return PauseView()
             
         

@@ -44,8 +44,17 @@ class DifficulteView (AbstractView) :
         else :
             indice = False
         nb_tentatives = ASK_NB_TENTATIVES.execute()
+        if type(int(nb_tentatives)) != int :
+            print("Le nombre de tentatives donné est incorrect. La partie se jouera en 6 tentatives")
+            nb_tentatives = 6
         temps = ASK_TEMPS.execute()
-        nb_lettres = ASK_NB_LETTRES.execute()
+        if type(int(temps)) != int :
+            print("Le temps donné est incorrect. Tu auras 8 secondes entre chaque proposition")
+            temps = 8
+        nb_lettres = int(ASK_NB_LETTRES.execute())
+        if type(nb_lettres) != int and (nb_lettres < 1 or nb_lettres > 15):
+            print("Le nombre de lettres donné est incorrect. La partie se jouera avec un mot de 6 lettres")
+            nb_tentatives = 6
         from business_objects.difficultes import Difficultes
         difficultes = Difficultes(nb_tentatives, temps, indice, nb_lettres)
         print(difficultes)
@@ -64,12 +73,13 @@ class DifficulteView (AbstractView) :
                 if liste.nom == reponse2 :
                     id_liste = liste.id_liste
 
-
         from business_objects.partie import Partie
         partie = Partie(nom = "partie", liste_mots_proposes=[], difficultes=difficultes, est_liste_perso = est_liste_perso, id_liste = id_liste, mot_objectif = None )
         Session().partie = partie
-        from view.propositionview import PropositionView
-        return PropositionView()
+        if indice :
+            print(partie.mot_objectif[0])
+        from view.pauseview import PauseView
+        return PauseView()
 
             
         

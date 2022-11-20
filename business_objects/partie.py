@@ -109,9 +109,9 @@ class Partie :
     def calcul_score(self):
         '''calcul le score selon les paramètres de difficulté de la partie
         '''
-        coeff_tentatives_max = 1 + 0.1 * (6 - self.difficultes.nb_tentatives)
-        coeff_longueur = 1 + 0.1 *(self.difficultes.nb_lettres - 6)
-        coeff_limite_temps = (self.difficultes.temps - 8) / 8
+        coeff_tentatives_max = 1 + 0.1 * (6 - int(self.difficultes.nb_tentatives))
+        coeff_longueur = 1 + 0.1 *int((self.difficultes.nb_lettres - 6))
+        coeff_limite_temps = int(self.difficultes.temps) - 8 / 8
         self.score=100 + coeff_tentatives_max * coeff_tentatives_max * coeff_longueur * coeff_limite_temps
 
     def __str__(self):
