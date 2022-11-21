@@ -1,11 +1,11 @@
 import csv
 import sys
-from src.importation_objects.abstract_importation_liste import AbstractImportationListe
+from importation_objects.abstract_importation_liste import AbstractImportationListe
 
 
 fichier = "listeformatCSV.csv" #le nom du fichier de test
 dossier = sys.path[1] #récupération chemin du projet
-dossier = dossier.replace(os.sep, '/') #transformation 
+dossier = dossier.replace(os.sep, '/') #transformation
 
 
 

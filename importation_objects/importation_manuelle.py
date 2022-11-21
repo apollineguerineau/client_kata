@@ -14,6 +14,7 @@ class ImportationManuelle(AbstractImportationListe):
         """
         pass
 
+    #pylint: disable=no-self-use
     def ajouter_mot(self, nouveau_mot):
         """permet d'ajouter un mot.
 
