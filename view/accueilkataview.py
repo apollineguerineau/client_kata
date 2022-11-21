@@ -1,16 +1,26 @@
+"""module pour l'accueil du jeu
+"""
 
-
+import sys
 from InquirerPy import inquirer
 from InquirerPy.base.control import Choice
-
 from view.abstractview import AbstractView
-from view.session import Session
+from view.connectionview import ConnectionView
+from view.creercompteview import CreerCompteView
+from view.toptenview import ViewTopTen
 
 class AccueilKataView (AbstractView) :
+    """permet d'afficher le menu d'accueil
 
+    Parameters
+    ----------
+    AbstractView : AbstractView mère
+        classe mère
+
+    """
     def __init__(self):
         self.__questions = inquirer.select(
-            message=f'Bonjour'
+            message='Bonjour'
             , choices=[
                 Choice('Se connecter')
                 ,Choice('Créer un compte')
@@ -24,17 +34,11 @@ class AccueilKataView (AbstractView) :
     def make_choice(self):
         reponse = self.__questions.execute()
         if reponse == 'Se connecter' :
-            from view.connectionview import ConnectionView
             return ConnectionView()
-        elif reponse == 'Créer un compte' :
-            from view.creercompteview import CreerCompteView
+        if reponse == 'Créer un compte' :
             return CreerCompteView()
-        elif reponse == "Consulter les 10 meilleurs scores" :
-            from view.toptenview import ViewTopTen
+        if reponse == "Consulter les 10 meilleurs scores" :
             return ViewTopTen()
-        elif reponse == "Quitter le jeu" :
-            print('Au revoir')
-
-
-
-
+        # if reponse == "Quitter le jeu":
+        print('Au revoir')
+        sys.exit(1)
