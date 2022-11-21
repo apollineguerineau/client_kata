@@ -1,5 +1,5 @@
 """classe abstraite pour l'importation des fichiers
-classe mère de ImportationJson, ImportationCsv et ImportationManuelle
+classe mère de ImportationJson, Importation_csv et ImportationManuelle
 """
 from abc import ABC, abstractmethod
 

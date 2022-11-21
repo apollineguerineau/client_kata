@@ -9,7 +9,7 @@ La structure du fichier est :
 """
 
 import json
-from src.importation_objects.abstract_importation_liste import AbstractImportationListe
+from importation_objects.abstract_importation_liste import AbstractImportationListe
 
 class ImportationJson(AbstractImportationListe):
     """_summary_

@@ -27,14 +27,14 @@ class ListeImporteeCSVView(AbstractView):
         lien_dossier = ASK_LIEN_dossier.execute()
         lien_fichier = ASK_LIEN_fichier.execute()
 
-        from importation_objects.importationCsv import ImportationCsv
+        from importation_objects.importation_csv import ImportationCsv
         importation = ImportationCsv()
         liste_mots = importation.creer(lien_fichier, lien_dossier)
 
         from src.dao.joueur_dao import JoueurDAO
         joueurdao = JoueurDAO()
         id_joueur = joueurdao.get_id_by_pseudo(Session().pseudo)
-        
+
         from src.dao.liste_dao import ListeDAO
         listedao = ListeDAO()
         listedao.creer(id_joueur, nom_liste)
@@ -48,8 +48,8 @@ class ListeImporteeCSVView(AbstractView):
             #On transforme ensuite le mot pour supprimer les accents et mettre en majuscule
             mot = Proposition(mot)
             mot = Proposition.mot
-        
-        
+
+
             if not motdao.find(mot) :
                 motdao.creer(mot)
             id_mot = motdao.get_id_by_mot(mot)

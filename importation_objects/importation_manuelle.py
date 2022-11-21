@@ -1,12 +1,14 @@
 """classe ImportationManuelle pour créer une liste personnalisée à la main
 """
 
-from src.importation_objects.abstract_importation_liste import AbstractImportationListe
-from src.business_objects.proposition import Proposition
+from business_objects.proposition import Proposition
+from importation_objects.abstract_importation_liste import AbstractImportationListe
 
 class ImportationManuelle(AbstractImportationListe):
     """permet d'importer une liste manuellement
     """
+    #pylint: disable=unnecessary-pass
+    #pylint: disable=super-init-not-called
     def __init__(self):
         """_summary_
         """
@@ -29,5 +31,3 @@ class ImportationManuelle(AbstractImportationListe):
         mon_mot = Proposition(nouveau_mot)
 
         return mon_mot.mot
-
-
