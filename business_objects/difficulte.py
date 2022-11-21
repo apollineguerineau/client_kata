@@ -66,9 +66,15 @@ class Difficulte :
         if self.nb_lettres_indices == 0 :
             affichage_lettres_indices = "il n y a pas un indice de lettre demandé par le joueur"
         else :
-            affichage_lettres_indices = f"la lettre {self.nb_lettres_indices} du mot objectif est demandé par le joueur"
-        return f"{affichage_lettres_indices}\nla langue est fixée sur {self.langue}\nla longueur de mot est : {self.longueur_mot} lettres\nle temps maximal de la partie est : {self.temps_max}\nle nombre de tentatives maximals est : {self.nb_tentatives_max} tentatives"
+            # attention aux espaces invisible avec le backslash
+            affichage_lettres_indices = f"la lettre {self.nb_lettres_indices}" + \
+            " du mot objectif est demandé par le joueur"
+
+        return (f"{affichage_lettres_indices}\nla langue est fixée " +
+        f"sur {self.langue}\nla longueur de mot est : {self.longueur_mot} lettres\nle" +
+        f" temps maximal de la partie est : {self.temps_max}\nle nombre de tentatives" +
+        f" maximals est : {self.nb_tentatives_max} tentatives")
 
 if __name__ == "__main__" :
     import doctest
-    doctest.testmod()
+    doctest.testmod(verbose=True)
