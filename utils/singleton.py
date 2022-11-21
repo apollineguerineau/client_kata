@@ -1,3 +1,5 @@
+"""permet de s'assurer qu'il n'existe qu'une seule instance d'une classe
+"""
 class Singleton(type):
     """
     -> https://refactoring.guru/fr/design-patterns/singleton
