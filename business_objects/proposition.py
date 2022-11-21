@@ -1,84 +1,105 @@
-import requests as requests
+"""gère les propositions
+"""
+import requests
 class Proposition :
     '''Classe implémentant une proposition de mot (faite par le joueur)
 
     attributes
     ---------
     mot : str
+    Examples
+    --------
+    >>> proposition=Proposition("éèâàçîïôùê")
+    >>> print(proposition)
+    EEAACIIOUE
     '''
     def __init__(self, mot):
         self.mot=mot
         self.transforme_proposition()
 
     def est_autorise(self):
-        '''Vérifie si la proposition existe dans le dictionnaire par l'intermédiaire de l'API dictionaryapi
+        '''Vérifie si la proposition existe dans le dictionnaire
+        par l'intermédiaire de l'API dictionaryapi
         return : bool
         True si le mot existe
         False sinon
+
+        Examples
+        --------
+        >>> import requests
+        >>> proposition=Proposition("horse")
+        >>> proposition.est_autorise()
+        True
+        >>> proposition=Proposition("zhtwxr")
+        >>> proposition.est_autorise()
+        False
         '''
-        req=requests.get("https://api.dictionaryapi.dev/api/v2/entries/en/{}".format(self.mot)) 
+        req=requests.get(f'https://api.dictionaryapi.dev/api/v2/entries/en/{self.mot}')
         res=req.json()
-        if type(res)==dict:
+        if isinstance(res, dict):
             return False
         return True
 
 
     def majuscule(self):
         '''Remplace les minuscules en majuscules d'une chaîne de caractères
-        
-        parameters : str 
 
-        return : str 
+        parameters : str
+
+        return : str
         La chaîne en majuscule
         '''
-        s=''
-        if self.mot==None:
-            return(None)
-        else:
-            for caractere in self.mot:
-                s+=caractere.upper()
-            return(s)
+        chaine=''
+        if self.mot is None:
+            return None
+        for caractere in self.mot:
+            chaine +=caractere.upper()
+        return chaine
 
-    
+
     def supprime_accent(self):
         '''Supprime les accents d'une chaîne de caracteres
-        
-        parameters : str 
 
-        return : str 
+        parameters : str
+
+        return : str
         La chaîne sans les accents
+
+        Examples
+        --------
+
         '''
-        s=""
-        if self.mot==None:
-            return(None)
-        else : 
-            copie=''
-            for caractere in self.mot:
-                copie+=caractere.lower()
-            for caractere in copie:
-                if caractere=='é':
-                    s+='e'
-                elif caractere=='è':
-                    s+='e'
-                elif caractere=='à':
-                    s+='a'
-                elif caractere=='ù':
-                    s+='u'
-                elif caractere=='î':
-                    s+='i'
-                elif caractere=='ï':
-                    s+='i'
-                elif caractere=='ç':
-                    s+='c'
-                elif caractere=='â':
-                    s+='a'
-                elif caractere=='ô':
-                    s+='o'
-                elif caractere=='ê':
-                    s+='e'
-                else:
-                    s+=caractere
-            return(s)
+        chaine=""
+        # traitement du cas NULL
+        if self.mot is None:
+            return None
+        #création d'une copie du mot
+        copie=''
+        # mise en minuscules
+        for caractere in self.mot:
+            copie+=caractere.lower()
+        # dictionnaire qui référence les accents
+        #TODO amélioration possible : rendre le dictionnaire des accents "unicode-ready"
+        dictionnaire_accents = {
+                    "é": "e",
+                    "è": "e",
+                    "à": "a",
+                    "ù": "u",
+                    "î": "i",
+                    "ï": "i",
+                    "ç": "c",
+                    "â": "a",
+                    "ô": "o",
+                    "ê": "e",
+                }
+        # remplacement des accents
+        for caractere in copie:
+            # pylint: disable=consider-iterating-dictionary
+            if caractere in dictionnaire_accents.keys():
+                chaine += dictionnaire_accents.get(caractere)
+            else:
+                chaine +=caractere
+        return chaine
 
     def transforme_proposition(self):
         '''Met en majuscule et enlève les accents de la proposition
@@ -89,10 +110,8 @@ class Proposition :
     def __str__(self):
         '''affiche la proposition
         '''
-        return(self.mot)
+        return self.mot
 
-
-# proposition=Proposition("ezjhezec")
-# print(proposition)
-
-# print(proposition.est_autorise())
+if __name__ == "__main__":
+    import doctest
+    doctest.testmod(verbose=True)
