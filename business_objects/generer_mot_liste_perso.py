@@ -18,6 +18,7 @@ Cette classe sert à generer aléatoirement un mot à partir d'une liste personn
         Args:
             id_liste (int): identifiant de la liste dont on veut generer un mot
         """
+        #pylint: disable=super-init-not-called
         self.id_liste=id_liste
 
 

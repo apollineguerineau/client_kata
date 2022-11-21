@@ -35,7 +35,8 @@ class Joueur :
         le nom du joueur est oussama
         la liste des top ten est [1]
         """
-        return f"l'identifiant du joueur est {self.id_joueur}\nle nom du joueur est {self.nom_joueur}\nla liste des top ten est {self.topten}"
+        return (f"l'identifiant du joueur est {self.id_joueur}\nle nom du" +
+                f" joueur est {self.nom_joueur}\nla liste des top ten est {self.topten}")
 
 if __name__ == "__main__" :
     import doctest

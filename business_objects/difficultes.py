@@ -24,7 +24,8 @@ class Difficultes:
     def __str__(self):
         """
         Returns:
-            str: nombre de tentatives, nombre de secondes par tentatives, avec ou sans indice, mot de "un nombre" lettres
+            str: nombre de tentatives, nombre de secondes
+                par tentatives, avec ou sans indice, mot de "un nombre" lettres
         EXAMPLE
         -------
         >>> difficultes=Difficultes(None, None ,False,8)
@@ -36,4 +37,6 @@ class Difficultes:
             avec_indice="avec indice"
         else:
             avec_indice="sans indice"
-        return f"{self.nb_tentatives} tentatives, {self.temps} secondes par tentatives, {avec_indice}, mot de {self.nb_lettres} lettres"
+        return (f"{self.nb_tentatives} tentatives," +
+                f" {self.temps} secondes par tentatives," +
+                f" {avec_indice}, mot de {self.nb_lettres} lettres")

@@ -79,7 +79,6 @@ class Proposition :
         for caractere in self.mot:
             copie+=caractere.lower()
         # dictionnaire qui référence les accents
-        #TODO amélioration possible : rendre le dictionnaire des accents "unicode-ready"
         dictionnaire_accents = {
                     "é": "e",
                     "è": "e",

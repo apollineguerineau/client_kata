@@ -40,7 +40,8 @@ class Liste :
         le nom de la liste est : liste_oussama
         la liste des mots est : ['jouer', 'tester']
         """
-        return f"l'identifiant de la liste est : {self.id_liste}\nle nom de la liste est : {self.nom}\nla liste des mots est : {self.liste}"
+        return (f"l'identifiant de la liste est : {self.id_liste}\nle" +
+                f" nom de la liste est : {self.nom}\nla liste des mots est : {self.liste}")
 
 if __name__ == "__main__" :
     import doctest

@@ -49,8 +49,10 @@ class Partie :
     def occurence_lettres(self):
         '''retourne une liste avec pour chaque lettre apparaissant
         dans le mot objectif, l'occurence de cette lettre dans le mot objectif
+        returns:
+            list[list]
         '''
-        #TODO commenter la fonction
+        # on fait la liste des lettres présentes dans le mot objectif
         lettres=[]
         for lettre in self.mot_objectif:
             if lettre not in lettres:
@@ -58,6 +60,7 @@ class Partie :
         #pylint: disable=consider-using-enumerate
         # parce que enumerate revoie un tuple
         liste_finale=[[]*i for i in range(len(lettres))]
+
         for i in range(len(lettres)):
             liste_finale[i].append(lettres[i])
             liste_finale[i].append(0)

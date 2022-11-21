@@ -14,6 +14,7 @@ class GenererMotApi(AbstractGenererMot):
         Args:
             nb_lettres (int): le nombre de lettres du mot qu'on cherche à generer
         """
+        #pylint: disable=super-init-not-called
         self.nb_lettres=nb_lettres
 
     def generer(self):
