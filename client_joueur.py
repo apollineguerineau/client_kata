@@ -127,7 +127,7 @@ class ClientJoueur(metaclass= Singleton):
             indice=req.json()[1][3]
             liste_perso=req.json()[1][4]
             difficultes=Difficultes(nb_tentatives_max,0,indice, len(mot_obj))
-            return(Partie( proposition, liste_perso, difficultes, mot_obj))
+            return(Partie( proposition, liste_perso, difficultes, mot_obj,0))
         else:
             return(None)
 
@@ -168,65 +168,6 @@ class ClientJoueur(metaclass= Singleton):
         Parameters: l'identifiant du joueur : int, score : float'''
         req=requests.post(f"{self.__HOST}{END_POINT}/{id}/score/{score}")
 
+
 client=ClientJoueur()
-
-
-# scores=[75.0, 125.0, 68.0, 27.0, 54.0, 46.0]
-# for score in scores:
-#     client.ajoute_score(6, score)
-
-# client.ajoute_score(6, 150.0)
-
-# print(client.consulter_top10(6))
-# client.ajoute_score(6, 50.0)
-# print(client.consulter_top10(6))
-
-difficultes=Difficultes(6,8,True,6)
-partie=Partie(["FOULE", "TRAIN", "FRERE", "CREVE"],False, difficultes, "TREVE")
-# if partie.id_liste :
-#     print("ok")
-# else:
-#     print("non")
-# print(partie)
-client.create_partie_en_cours(4, partie)
-for proposition in partie.liste_mots_proposes :
-    client.ajoute_proposition(4, proposition)
-# client.supprime_partie_en_cours(4)
 print(client.get_partie(4))
-# client.supprime_partie_en_cours(4)
-# partie_cree=client.get_partie(6)
-# for mot in partie.liste_mots_proposes :
-#     mot_propose=Proposition(mot)
-#     proposition=partie.verifie_proposition(mot_propose)
-#     print(proposition)
-
-#client.create_joueur("Super_joueur")
-# print(client.get_joueur("Super_joueur"))
-
-# client.create_liste(6, "Super_liste")
-# print(client.get_listes(8))
-# for liste in liste_listes:
-#     print(liste)
-
-# liste_listes=client.get_listes(1)
-# for liste in liste_listes:
-#     print(liste)
-
-# print(client.get_joueur("Linh-Da"))
-# print(client.get_joueur("Apolline"))
-
-# partie=client.get_partie(5)
-# print(partie.id_liste)
-# for mot in partie.liste_mots_proposes :
-#     mot_propose=Proposition(mot)
-#     proposition=partie.verifie_proposition(mot_propose)
-#     print(proposition)
-
-
-
-# partie=client.get_partie(5)
-# for proposition in partie.liste_mots_proposes:
-#     prop=partie.verifie_proposition(Proposition(proposition))
-#     print(prop)
-#     print("")
-#req=requests.post(f"{self.__HOST}{END_POINT}/{id}/score/{score}")

@@ -19,11 +19,12 @@ class Partie :
     difficultes : Difficultes
     score : float
     '''
-    def __init__(self, liste_mots_proposes, est_liste_perso, difficultes, mot_objectif):
+    def __init__(self, liste_mots_proposes, est_liste_perso, difficultes, mot_objectif, id_liste):
         self.liste_mots_proposes=liste_mots_proposes
         self.est_liste_perso=est_liste_perso
         self.difficultes=difficultes
         self.score=0
+        self.id_liste=id_liste
         if mot_objectif == None:
             self.mot_objectif=self.donne_mot_obj()
         else:
