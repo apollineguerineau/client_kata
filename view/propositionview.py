@@ -9,9 +9,10 @@ from business_objects.difficultes import Difficultes
 
 import time
 
-
+#pylint: disable=import-outside-toplevel
+#justification: permet d'éviter les imports circulaires (TP du prof et crash test)
 class PropositionView(AbstractView) :
-    
+
     def display_info(self):
         pass
 
@@ -33,9 +34,9 @@ class PropositionView(AbstractView) :
         proposition = Proposition(mot)
         print(proposition)
         from business_objects.proposition_verifiee import PropositionVerifiee
-        
+
         partie = Session().partie
-        Session().partie.liste_mots_proposes.append(proposition.mot) 
+        Session().partie.liste_mots_proposes.append(proposition.mot)
         prop_faites = len(Session().partie.liste_mots_proposes)
         nb_prop_restantes = nb_tentatives - prop_faites
         if (proposition.est_autorise() or partie.est_liste_perso) and len(proposition.mot) == partie.difficultes.nb_lettres  :
@@ -59,7 +60,7 @@ class PropositionView(AbstractView) :
                 print(f'Votre score est de {score} points')
             from view.accueilpersoview import AccueilPersoView
             return AccueilPersoView()
-        
+
         elif nb_prop_restantes == 0 :
             print("Tu as perdu car tu as dépassé le nombre de tentatives autorisé")
             from view.accueilpersoview import AccueilPersoView
@@ -68,11 +69,10 @@ class PropositionView(AbstractView) :
         else :
             from view.pauseview import PauseView
             return PauseView()
-            
-
-        
 
 
 
-        
-        
+
+
+
+

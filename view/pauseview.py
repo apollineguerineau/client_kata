@@ -4,6 +4,8 @@ from InquirerPy.base.control import Choice
 from view.abstractview import AbstractView
 from view.session import Session
 
+#pylint: disable=import-outside-toplevel
+#justification: permet d'éviter les imports circulaires (TP du prof et crash test)
 class PauseView (AbstractView) :
     def __init__(self):
         self.__questions = inquirer.select(

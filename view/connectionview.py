@@ -14,7 +14,8 @@ from view.session import Session
 ASK_PSEUDO=inquirer.text(message = 'Quel est ton pseudo?')
 
 
-
+#pylint: disable=import-outside-toplevel
+#justification: permet d'éviter les imports circulaires (TP du prof et crash test)
 class ConnectionView(AbstractView):
     """permet de gérer la connexion d'un joueur à son compte
 

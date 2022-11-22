@@ -1,7 +1,11 @@
+"""fait le lien entre le client et le webservice pour Joueur
+"""
+
 import os
 from typing import List, Optional
-from utils.singleton import Singleton
 import requests
+
+from utils.singleton import Singleton
 
 from client_liste import ClientListe
 
@@ -14,22 +18,38 @@ from business_objects.proposition import Proposition
 
 END_POINT="/joueur"
 
+#pylint: disable=unused-variable
+#justification: les request.post nécessite l'attribution à une
+# variable. Même si c'est la seule chose que fait la fonction.
+#pylint: disable=unused-import
+#justification: get_partie retourne une Partie qui prend
+# en paramètre une proposition
 class ClientJoueur(metaclass= Singleton):
+    """gère les relations avec l'API
 
+    Parameters
+    ----------
+    metaclass : Singleton
+        permet de s'assurer qu'il n'existe qu'une seule instance
+    """
     def __init__(self) -> None:
+        #pylint disable=invalid-name
+        #justification: on pourrait avoir un fichier de configuration
+        # qui définirait une API ailleurs qu'en local
+        # alors on aurait besoin d'écrire la variable telle qu'elle l'est
         self.__HOST ="http://127.0.0.1:80"
 
 
 
-    def get_pseudo(self, id:int) :
+    def get_pseudo(self, id_joueur:int) :
         '''Retourne le pseudo du joueur selon son identifiant
 
         Parameters: l'identifiant du joueur : int
 
         Returns:
             str: le pseudo du joueur'''
-        req = requests.get(f"{self.__HOST}{END_POINT}/{id}")
-        return(req.json())
+        req = requests.get(f"{self.__HOST}{END_POINT}/{id_joueur}")
+        return req.json()
 
 
     def get_id(self, pseudo) :
@@ -41,21 +61,21 @@ class ClientJoueur(metaclass= Singleton):
             int : l'identifiant du joueur
             None si le pseudo n'est pas dans la base de données'''
         req = requests.get(f"{self.__HOST}{END_POINT}/pseudo/{pseudo}")
-        if type(req.json())==int:
-            return(req.json())
-        else:
-            return(None)
+        if isinstance(req.json(), int):
+            return req.json()
+        return None
 
 
-    def consulter_top10(self, id):
+    def consulter_top10(self, id_joueur):
         '''Retourne le top 10 du joueur
 
-        Parameters: l'identifiant du joueur : int
+        Parameters: id_joueur: int
+            l'identifiant du joueur
 
         Returns:
             list : le top 10 du joueur'''
-        req=requests.get(f"{self.__HOST}{END_POINT}/{id}/score/")
-        return(req.json())
+        req=requests.get(f"{self.__HOST}{END_POINT}/{id_joueur}/score/")
+        return req.json()
 
 
     def get_joueur(self, pseudo):
@@ -65,22 +85,21 @@ class ClientJoueur(metaclass= Singleton):
 
         Returns:
             Joueur : le joueur'''
-        id=self.get_id(pseudo)
-        if id!=None:
-            top_10=self.consulter_top10(id)
-            return(Joueur(id, pseudo, top_10))
-        else:
-            return(None)
+        id_joueur=self.get_id(pseudo)
+        if id_joueur is not None:
+            top_10=self.consulter_top10(id_joueur)
+            return Joueur(id_joueur, pseudo, top_10)
+        return None
 
 
     def create_joueur(self, pseudo):
         '''Crée un joueur dans la base de données
         '''
         req=requests.post(f"{self.__HOST}{END_POINT}/{pseudo}")
-        return(req)
+        return req
 
 
-    def get_listes(self, id):
+    def get_listes(self, id_joueur):
         '''Retourne les listes personnelles du joueur (si il en a)
 
         Parameters: l'identifiant du joueur : int
@@ -88,16 +107,19 @@ class ClientJoueur(metaclass= Singleton):
         Returns:
             list(Liste) : la liste des listes personnelles
             None si le joueur n'a pas de liste'''
-        req=requests.get(f"{self.__HOST}{END_POINT}/{id}/liste")
+        req=requests.get(f"{self.__HOST}{END_POINT}/{id_joueur}/liste")
         nom=req.json()[0]
         contenu=req.json()[1]
-        id=req.json()[2]
+        id_joueur=req.json()[2]
         listes=[]
+
+        #pylint: disable=consider-using-enumerate
+        #justification: enumerate va renvoyer un tuple, et pas range(len())
         for i in range(len(nom)):
-            listes.append(Liste(id[i],contenu[i], nom[i]))
-        if listes==[]:
-            return(None)
-        return(listes)
+            listes.append(Liste(id_joueur[i],contenu[i], nom[i]))
+        if not listes:
+            return None
+        return listes
 
 
 
@@ -106,6 +128,7 @@ class ClientJoueur(metaclass= Singleton):
 
         Parameters : l'identifiant du joueur : int et le nom de la liste crée : str
         '''
+
         req=requests.post(f"{self.__HOST}{END_POINT}/{id_joueur}/liste/{name}")
 
 
@@ -127,9 +150,9 @@ class ClientJoueur(metaclass= Singleton):
             indice=req.json()[1][3]
             liste_perso=req.json()[1][4]
             difficultes=Difficultes(nb_tentatives_max,0,indice, len(mot_obj))
-            return(Partie( proposition, liste_perso, difficultes, mot_obj,0))
+            return Partie( proposition, liste_perso, difficultes, mot_obj,0)
         else:
-            return(None)
+            return None
 
 
 
@@ -162,10 +185,15 @@ class ClientJoueur(metaclass= Singleton):
         req=requests.delete(f"{self.__HOST}{END_POINT}/{id_joueur}/partie")
 
 
-    def ajoute_score(self, id, score):
+    def ajoute_score(self, id_joueur, score):
         '''Ajoute un score au joueur
 
         Parameters: l'identifiant du joueur : int, score : float'''
+<<<<<<< HEAD
         req=requests.post(f"{self.__HOST}{END_POINT}/{id}/score/{score}")
 
-
+client=ClientJoueur()
+client.supprime_partie_en_cours(4)
+=======
+        req=requests.post(f"{self.__HOST}{END_POINT}/{id_joueur}/score/{score}")
+>>>>>>> c1a06988736473f7c8bbf7c68e77b27c098fe24a

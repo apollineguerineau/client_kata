@@ -13,7 +13,8 @@ from view.session import Session
 #pylint: disable=no-value-for-parameter
 # justification : voir axe d'amélioration sur les bloc TRY Except + doc API
 ASK_MOT=inquirer.text(message = f'Quel mot veux tu ajouter à ta liste {Session().liste.nom}?')
-
+#pylint: disable=import-outside-toplevel
+#justification: permet d'éviter les imports circulaires (TP du prof et crash test)
 
 class AjouterMotView (AbstractView) :
     """_summary_
