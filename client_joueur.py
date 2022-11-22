@@ -189,11 +189,4 @@ class ClientJoueur(metaclass= Singleton):
         '''Ajoute un score au joueur
 
         Parameters: l'identifiant du joueur : int, score : float'''
-<<<<<<< HEAD
-        req=requests.post(f"{self.__HOST}{END_POINT}/{id}/score/{score}")
-
-client=ClientJoueur()
-client.supprime_partie_en_cours(4)
-=======
         req=requests.post(f"{self.__HOST}{END_POINT}/{id_joueur}/score/{score}")
->>>>>>> c1a06988736473f7c8bbf7c68e77b27c098fe24a

@@ -94,16 +94,13 @@ class DifficulteView (AbstractView) :
         difficultes = Difficultes(nb_tentatives, temps, indice, nb_lettres)
 
         from business_objects.partie import Partie
-<<<<<<< HEAD
-        partie = Partie(liste_mots_proposes=[], difficultes=difficultes, est_liste_perso = est_liste_perso, id_liste = id_liste, mot_objectif = None )
-        partie.difficultes.nb_lettres = len(partie.mot_objectif)
-=======
+        
         partie = Partie(liste_mots_proposes=[],
                         difficultes=difficultes,
                         est_liste_perso = est_liste_perso,
                         id_liste = id_liste,
                         mot_objectif = None )
->>>>>>> fc15b9fe61191e4c3c5bfa125c5684dc514d47d6
+        partie.difficultes.nb_lettres = len(partie.mot_objectif)
         Session().partie = partie
         if indice :
             print(partie.mot_objectif[0])
