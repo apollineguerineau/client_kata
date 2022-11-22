@@ -11,6 +11,8 @@ class ClientTopTen(metaclass= Singleton):
         self.__HOST ="http://127.0.0.1:80"
 
     def consulter_top_ten_general(self):
+        '''Retourne le top 10 général
+        '''
         req = requests.get(f"{self.__HOST}{END_POINT}")
         return(req.json())
 
