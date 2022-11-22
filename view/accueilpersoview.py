@@ -13,6 +13,7 @@ class AccueilPersoView (AbstractView) :
     """
     def __init__(self):
         #pylint: disable=no-value-for-parameter
+        # justification: la Session a bien un Joueur
         self.__questions = inquirer.select(
             message=f'Bonjour {Session().joueur.nom_joueur}'
             , choices=[
