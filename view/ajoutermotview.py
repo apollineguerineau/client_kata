@@ -11,6 +11,8 @@ from view.modificationlisteview import ModificationListeView
 from view.abstractview import AbstractView
 from view.session import Session
 
+#pylint: disable=no-value-for-parameter
+# justification : voir axe d'amélioration sur les bloc TRY Except + doc API
 ASK_MOT=inquirer.text(message = f'Quel mot veux tu ajouter à ta liste {Session().liste.nom}?')
 
 
