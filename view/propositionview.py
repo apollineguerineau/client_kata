@@ -7,6 +7,7 @@ from view.session import Session
 from business_objects.partie import Partie
 from business_objects.difficultes import Difficultes
 
+import time
 
 
 class PropositionView(AbstractView) :
@@ -19,21 +20,26 @@ class PropositionView(AbstractView) :
         nb_tentatives = int(Session().partie.difficultes.nb_tentatives)
 
         nb_prop_restantes = nb_tentatives - prop_faites
+        temps = time.time()
         ASK_PROPOSITION =inquirer.text(message = f'Quel mot veux tu proposer? Il te reste {nb_prop_restantes} proposition(s)')
-
         mot = ASK_PROPOSITION.execute()
-        
+        temps2 = time.time()
+        if temps2 - temps > float(Session().partie.difficultes.temps) :
+            print("Tu as dépassé le temps autorisé pour faire une proposition")
+            from view.pauseview import PauseView
+            return PauseView()
+
         from business_objects.proposition import Proposition
         proposition = Proposition(mot)
         print(proposition)
         from business_objects.proposition_verifiee import PropositionVerifiee
         
         partie = Session().partie
+        Session().partie.liste_mots_proposes.append(proposition.mot) 
+        prop_faites = len(Session().partie.liste_mots_proposes)
+        nb_prop_restantes = nb_tentatives - prop_faites
         if proposition.est_autorise() and len(proposition.mot) == partie.difficultes.nb_lettres :
             propositionverifiee = partie.verifie_proposition(proposition)
-            Session().partie.liste_mots_proposes.append(proposition.mot) 
-            prop_faites = len(Session().partie.liste_mots_proposes)
-            nb_prop_restantes = nb_tentatives - prop_faites
             print(propositionverifiee)
         else :
             print("Le mot proposé n'est pas autorisé") 

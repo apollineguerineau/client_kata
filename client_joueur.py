@@ -213,8 +213,8 @@ client=ClientJoueur()
 # print(client.get_joueur("Linh-Da"))
 # print(client.get_joueur("Apolline"))
 
-partie=client.get_partie(5)
-print(partie.id_liste)
+#partie=client.get_partie(5)
+#print(partie.id_liste)
 # for mot in partie.liste_mots_proposes :
 #     mot_propose=Proposition(mot)
 #     proposition=partie.verifie_proposition(mot_propose)

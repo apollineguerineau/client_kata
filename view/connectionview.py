@@ -25,7 +25,6 @@ class ConnectionView(AbstractView):
         pseudo = ASK_PSEUDO.execute()
         from client_joueur import ClientJoueur
         clientjoueur = ClientJoueur()
-        print(clientjoueur.get_id(pseudo))
         if type(clientjoueur.get_id(pseudo)) == int :
             #Compléter les infos de la session
             from view.session import Session
