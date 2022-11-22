@@ -119,17 +119,13 @@ class ClientJoueur(metaclass= Singleton):
         if req.json()[0]!=None :
             id=req.json()[0]
             proposition=req.json()[2]
-            score=req.json()[1][0]
-            nom=req.json()[1][1]
-            id_joueur=req.json()[1][2]
-            mot_obj=req.json()[1][3]
-            temps_max=req.json()[1][4]
-            nb_tentatives_max=req.json()[1][5]
-            indice=req.json()[1][6]
-            liste_perso=req.json()[1][7]
-            id_liste=req.json()[1][8]
-            difficultes=Difficultes(nb_tentatives_max,temps_max,indice, len(mot_obj))
-            return(Partie(nom, proposition, liste_perso, id_liste, difficultes, mot_obj))
+            id_joueur=req.json()[1][0]
+            mot_obj=req.json()[1][1]
+            nb_tentatives_max=req.json()[1][2]
+            indice=req.json()[1][3]
+            liste_perso=req.json()[1][4]
+            difficultes=Difficultes(nb_tentatives_max,0,indice, len(mot_obj))
+            return(Partie( proposition, liste_perso, difficultes, mot_obj))
         else: 
             return(None)
 
@@ -141,13 +137,11 @@ class ClientJoueur(metaclass= Singleton):
         Parameters : l'identifiant du joueur et la partie : Partie
         '''
         payload = {
-            "nom_partie" :partie.nom
-            ,"mot_objectif" : partie.mot_objectif
-            , "temps_max" : partie.difficultes.temps
+            "mot_objectif" : partie.mot_objectif
             , "nb_tentatives_max" : partie.difficultes.nb_tentatives
             , "indice" : partie.difficultes.indice
             , "liste_perso" : partie.est_liste_perso
-            , "id_liste" : partie.id_liste
+            , "temps_max" : partie.difficultes.temps
         }
         req=requests.post(f"{self.__HOST}{END_POINT}/{id_joueur}/partie", json=payload)
 
@@ -185,13 +179,19 @@ client=ClientJoueur()
 # client.ajoute_score(6, 50.0)
 # print(client.consulter_top10(6))
 
-# difficultes=Difficultes(6,8,True,6)
-# partie=Partie("test_partie", ["FOULE", "TRAIN", "FRERE", "CREVE"],False,None, difficultes, "TREVE")
+difficultes=Difficultes(6,8,True,6)
+partie=Partie(["FOULE", "TRAIN", "FRERE", "CREVE"],False, difficultes, "TREVE")
+# if partie.id_liste :
+#     print("ok")
+# else:
+#     print("non")
 # print(partie)
-# client.create_partie_en_cours(1, partie)
-# client.ajoute_proposition(2, "TARIE")
-# client.supprime_partie_en_cours(2)
-# print(client.get_partie(2))
+client.create_partie_en_cours(4, partie)
+for proposition in partie.liste_mots_proposes : 
+    client.ajoute_proposition(4, proposition)
+# client.supprime_partie_en_cours(4)
+print(client.get_partie(4))
+# client.supprime_partie_en_cours(4)
 # partie_cree=client.get_partie(6)
 # for mot in partie.liste_mots_proposes :
 #     mot_propose=Proposition(mot)
@@ -213,8 +213,8 @@ client=ClientJoueur()
 # print(client.get_joueur("Linh-Da"))
 # print(client.get_joueur("Apolline"))
 
-partie=client.get_partie(5)
-print(partie.id_liste)
+# partie=client.get_partie(5)
+# print(partie.id_liste)
 # for mot in partie.liste_mots_proposes :
 #     mot_propose=Proposition(mot)
 #     proposition=partie.verifie_proposition(mot_propose)

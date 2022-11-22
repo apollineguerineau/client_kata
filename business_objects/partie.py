@@ -1,7 +1,9 @@
-"""module partie, coeur du programme.
-"""
+from compileall import compile_dir
+
+from business_objects.proposition import Proposition
 from business_objects.code_lettre import CodeLettre
 from business_objects.proposition_verifiee import PropositionVerifiee
+from business_objects.difficultes import Difficultes
 from business_objects.generer_mot_api import GenererMotApi
 from business_objects.generer_mot_liste_perso import GenererMotListePerso
 
@@ -17,93 +19,77 @@ class Partie :
     difficultes : Difficultes
     score : float
     '''
-    #pylint: disable=too-many-arguments
-    def __init__(self,nom, liste_mots_proposes,
-                 est_liste_perso, id_liste, difficultes, mot_objectif):
+    def __init__(self, liste_mots_proposes, est_liste_perso, difficultes, mot_objectif):
         self.liste_mots_proposes=liste_mots_proposes
         self.est_liste_perso=est_liste_perso
-        self.id_liste=id_liste
         self.difficultes=difficultes
         self.score=0
-        self.nom=nom
-        if mot_objectif is None:
+        if mot_objectif == None:
             self.mot_objectif=self.donne_mot_obj()
         else:
             self.mot_objectif=mot_objectif
 
 
     def donne_mot_obj(self):
-        '''donne le mot objectif de la partie, soit par l'api random-word-api,
-        soit un mot dans la liste perso
+        '''donne le mot objectif de la partie, soit par l'api random-word-api, soit un mot dans la liste perso
         return
         ------
         le mot objectif  : str
         '''
-        if self.est_liste_perso:
+        if self.est_liste_perso==True:
             generer=GenererMotListePerso(self.id_liste)
         else :
             generer=GenererMotApi(self.difficultes.nb_lettres)
-        return generer.generer()
+        return(generer.generer())
 
 
     def occurence_lettres(self):
-        '''retourne une liste avec pour chaque lettre apparaissant
-        dans le mot objectif, l'occurence de cette lettre dans le mot objectif
-        returns:
-            list[list]
+        '''retourne une liste avec pour chaque lettre apparaissant dans le mot objectif, l'occurence de cette lettre dans le mot objectif
         '''
-        # on fait la liste des lettres présentes dans le mot objectif
         lettres=[]
         for lettre in self.mot_objectif:
             if lettre not in lettres:
                 lettres.append(lettre)
-        #pylint: disable=consider-using-enumerate
-        # parce que enumerate revoie un tuple
-        liste_finale=[[]*i for i in range(len(lettres))]
-
+        L=[[]*i for i in range(len(lettres))]
         for i in range(len(lettres)):
-            liste_finale[i].append(lettres[i])
-            liste_finale[i].append(0)
+            L[i].append(lettres[i])
+            L[i].append(0)
             for lettre in self.mot_objectif:
                 if lettre==lettres[i]:
-                    liste_finale[i][1]+=1
-        return liste_finale
+                    L[i][1]+=1
+        return(L)
 
 
     def lettres_bien_placees(self, mot_propose):
-        '''retourne une liste avec chaque lettre du mot_propose
-        et True si la lettre est bien placee et False sinon
+        '''retourne une liste avec chaque lettre du mot_propose et True si la lettre est bien placee et False sinon
         '''
-        lettres_bien_placees=[]
-        #pylint: disable=consider-using-enumerate
+        L=[]
         for i in range(len(mot_propose.mot)):
             if mot_propose.mot[i]==self.mot_objectif[i]:
-                lettres_bien_placees.append([mot_propose.mot[i], True])
+                L.append([mot_propose.mot[i], True])
             else:
-                lettres_bien_placees.append([mot_propose.mot[i], False])
-        return lettres_bien_placees
+                L.append([mot_propose.mot[i], False])
+        return L
 
 
     def lettres_mal_placees(self, mot_propose):
-        '''retourne une liste avec chaque lettre du mot propose, True si
-        la lettre est bien placée, 'Mal placée' si mal placée et False si
-        la lettre n'est pas dans le mot objectif
+        '''retourne une liste avec chaque lettre du mot propose, True si la lettre est bien placée, 'Mal placée' si mal placée et False si la lettre n'est pas dans le mot objectif
         '''
         bien_placees=self.lettres_bien_placees(mot_propose)
         occurence=self.occurence_lettres()
         for i in range(len(mot_propose.mot)):
             lettre=bien_placees[i][0]
-            if bien_placees[i][1]:
+            if bien_placees[i][1]==True:
                 for elm in occurence:
                     if elm[0]==lettre:
                         elm[1]-=1
-            if not bien_placees[i][1]:
+            if bien_placees[i][1]==False:
                 for elm in occurence:
                     if elm[0]==lettre:
                         if elm[1]!=0:
                             bien_placees[i][1]="Mal placee"
                             elm[1]-=1
-        return bien_placees
+        return(bien_placees)
 
     def verifie_proposition(self, mot_propose):
         '''Vérifie une proposition
@@ -116,7 +102,7 @@ class Partie :
         for elt in verification:
             lettre=CodeLettre(elt[0],elt[1])
             liste_lettres.append(lettre)
-        return PropositionVerifiee(liste_lettres)
+        return(PropositionVerifiee(liste_lettres))
 
     def calcul_score(self):
         '''calcul le score selon les paramètres de difficulté de la partie
@@ -124,24 +110,18 @@ class Partie :
         coeff_tentatives_max = 1 + 0.1 * (6 - int(self.difficultes.nb_tentatives))
         coeff_longueur = 1 + 0.1 *int((self.difficultes.nb_lettres - 6))
         coeff_limite_temps = int(self.difficultes.temps) - 8 / 8
-        self.score=100 + coeff_tentatives_max * \
-        coeff_tentatives_max * coeff_longueur * coeff_limite_temps
+        self.score=100 + coeff_tentatives_max * coeff_tentatives_max * coeff_longueur * coeff_limite_temps
 
     def __str__(self):
-        message = (f'{self.nom},{self.mot_objectif},{self.liste_mots_proposes},'
-                   f'{self.score},{self.id_liste}, difficultés :{self.difficultes}'
-        )
-        return message
+        return("Mot objectif : {}, mots proposés : {}, score : {}, difficultés :{}".format(self.mot_objectif, self.liste_mots_proposes,self.score, self.difficultes))
 
-# from compileall import compile_dir
 # difficultes=Difficultes(6,8,True,10)
 # partie=Partie(1, [], False, None, difficultes,None)
 # print(partie.mot_objectif)
-# from business_objects.proposition import Proposition
 # proposition=Proposition("ABCDEFGHIJ")
 # print(partie.verifie_proposition(proposition))
 
-# from business_objects.difficultes import Difficultes
+
 # difficultes=Difficultes(6,8,True,None)
 # partie=Partie("essai", [], True,8 , difficultes,None)
 # # print(partie)
