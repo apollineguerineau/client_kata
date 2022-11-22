@@ -37,11 +37,18 @@ class Partie :
         ------
         le mot objectif  : str
         '''
-        if self.est_liste_perso==True:
-            generer=GenererMotListePerso(self.id_liste)
-        else :
-            generer=GenererMotApi(self.difficultes.nb_lettres)
-        return(generer.generer())
+        mot_existe = False
+        while not mot_existe :
+            if self.est_liste_perso:
+                generer=GenererMotListePerso(self.id_liste)
+            else :
+                generer=GenererMotApi(self.difficultes.nb_lettres)
+            mot = generer.generer()
+            from business_objects.proposition import Proposition
+            mot_propose = Proposition(mot)
+            mot_existe = mot_propose.est_autorise()
+            
+        return mot
 
 
     def occurence_lettres(self):
