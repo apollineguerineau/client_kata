@@ -30,19 +30,25 @@ class JouerView (AbstractView) :
             reponse = self.__questions.execute()
         else :
             reponse = 'Nouvelle partie'
+
+        from client_joueur import ClientJoueur
+        clientjoueur = ClientJoueur()
+
         if reponse == 'Nouvelle partie':
+            clientjoueur.supprime_partie_en_cours(Session().joueur.id_joueur)
             from view.difficulteview import DifficulteView
             return DifficulteView()
         elif reponse == 'Reprendre la partie':
-            from client_joueur import ClientJoueur
-            clientjoueur = ClientJoueur()
+            
             partie = clientjoueur.get_partie(Session().joueur.id_joueur)
+            clientjoueur.supprime_partie_en_cours(Session().joueur.id_joueur)
             Session().partie = partie
             from business_objects.proposition import Proposition
             for mot in partie.liste_mots_proposes :
                 mot_propose = Proposition(mot)
-                proposition = partie.verifie_proposition(mot_propose)
-                print(proposition)
+                if mot_propose.est_autorise() :
+                    proposition = partie.verifie_proposition(mot_propose)
+                    print(proposition)
             from view.pauseview import PauseView
             return PauseView()
             

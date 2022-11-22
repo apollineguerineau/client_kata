@@ -11,7 +11,7 @@ class Session(metaclass=Singleton):
     metaclass : Singleton
         permet de s'assurer qu'il n'existe qu'une seule instance de Session
     """
-    def __init__(self, joueur: Joueur,
+    def __init__(self, joueur: Joueur = None,
                  partie = None, liste:Liste = None):
         """
         Définition des variables que l'on stocke en session

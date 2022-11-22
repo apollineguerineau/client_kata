@@ -5,8 +5,8 @@ from pprint import pprint
 from InquirerPy import inquirer
 from InquirerPy.base.control import Choice
 
-from src.view.abstractview import AbstractView
-from src.view.session import Session
+from view.abstractview import AbstractView
+from view.session import Session
 
 
 

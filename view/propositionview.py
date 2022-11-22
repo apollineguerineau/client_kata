@@ -38,24 +38,25 @@ class PropositionView(AbstractView) :
         Session().partie.liste_mots_proposes.append(proposition.mot) 
         prop_faites = len(Session().partie.liste_mots_proposes)
         nb_prop_restantes = nb_tentatives - prop_faites
-        if proposition.est_autorise() and len(proposition.mot) == partie.difficultes.nb_lettres :
+        if (proposition.est_autorise() or partie.est_liste_perso) and len(proposition.mot) == partie.difficultes.nb_lettres  :
             propositionverifiee = partie.verifie_proposition(proposition)
             print(propositionverifiee)
         else :
-            print("Le mot proposé n'est pas autorisé") 
+            print(f"Le mot proposé n'est pas autorisé. Le mot attendu est de {partie.difficultes.nb_lettres} lettres") 
 
 
         mot_obj = Proposition(partie.mot_objectif)
         print(mot_obj.mot)
         if mot_obj.mot == proposition.mot :
             print("Félicitations, vous avez trouvé le mot")
-            partie.calcul_score()
-            score = str(partie.score)
-            from client_joueur import ClientJoueur
-            clientjoueur = ClientJoueur()
-            clientjoueur.ajoute_score(Session().joueur.id_joueur, partie.score)
-            Session().joueur = clientjoueur.get_joueur(Session().joueur.nom_joueur)
-            print(f'Votre score est de {score} points')
+            if not Session().partie.est_liste_perso :
+                partie.calcul_score()
+                score = str(partie.score)
+                from client_joueur import ClientJoueur
+                clientjoueur = ClientJoueur()
+                clientjoueur.ajoute_score(Session().joueur.id_joueur, partie.score)
+                Session().joueur = clientjoueur.get_joueur(Session().joueur.nom_joueur)
+                print(f'Votre score est de {score} points')
             from view.accueilpersoview import AccueilPersoView
             return AccueilPersoView()
         

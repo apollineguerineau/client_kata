@@ -35,7 +35,8 @@ class ConnectionView(AbstractView):
             # d'où les disable pylint
             #pylint: disable=unused-variable
             joueur = clientjoueur.get_joueur(pseudo)
-            session = Session(joueur)
+            session = Session()
+            Session().joueur = joueur
 
             from view.accueilpersoview import AccueilPersoView
             return AccueilPersoView()
