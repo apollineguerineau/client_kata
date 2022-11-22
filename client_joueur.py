@@ -2,7 +2,9 @@ import os
 from typing import List, Optional
 from utils.singleton import Singleton
 import requests
+
 from client_liste import ClientListe
+
 from business_objects.liste import Liste
 from business_objects.joueur import Joueur
 from business_objects.partie import Partie
@@ -40,8 +42,8 @@ class ClientJoueur(metaclass= Singleton):
             None si le pseudo n'est pas dans la base de données'''
         req = requests.get(f"{self.__HOST}{END_POINT}/pseudo/{pseudo}")
         if type(req.json())==int:
-            return(req.json()) 
-        else: 
+            return(req.json())
+        else:
             return(None)
 
 
@@ -54,7 +56,7 @@ class ClientJoueur(metaclass= Singleton):
             list : le top 10 du joueur'''
         req=requests.get(f"{self.__HOST}{END_POINT}/{id}/score/")
         return(req.json())
-    
+
 
     def get_joueur(self, pseudo):
         '''Retourne un joueur
@@ -67,12 +69,12 @@ class ClientJoueur(metaclass= Singleton):
         if id!=None:
             top_10=self.consulter_top10(id)
             return(Joueur(id, pseudo, top_10))
-        else: 
+        else:
             return(None)
 
 
     def create_joueur(self, pseudo):
-        '''Crée un joueur dans la base de données 
+        '''Crée un joueur dans la base de données
         '''
         req=requests.post(f"{self.__HOST}{END_POINT}/{pseudo}")
         return(req)
@@ -98,7 +100,7 @@ class ClientJoueur(metaclass= Singleton):
         return(listes)
 
 
-         
+
     def create_liste(self, id_joueur, name):
         '''Crée une liste personnelles dans la base de données
 
@@ -126,7 +128,7 @@ class ClientJoueur(metaclass= Singleton):
             liste_perso=req.json()[1][4]
             difficultes=Difficultes(nb_tentatives_max,0,indice, len(mot_obj))
             return(Partie( proposition, liste_perso, difficultes, mot_obj))
-        else: 
+        else:
             return(None)
 
 
@@ -170,7 +172,7 @@ client=ClientJoueur()
 
 
 # scores=[75.0, 125.0, 68.0, 27.0, 54.0, 46.0]
-# for score in scores: 
+# for score in scores:
 #     client.ajoute_score(6, score)
 
 # client.ajoute_score(6, 150.0)
@@ -187,7 +189,7 @@ partie=Partie(["FOULE", "TRAIN", "FRERE", "CREVE"],False, difficultes, "TREVE")
 #     print("non")
 # print(partie)
 client.create_partie_en_cours(4, partie)
-for proposition in partie.liste_mots_proposes : 
+for proposition in partie.liste_mots_proposes :
     client.ajoute_proposition(4, proposition)
 # client.supprime_partie_en_cours(4)
 print(client.get_partie(4))
