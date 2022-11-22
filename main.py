@@ -1,12 +1,15 @@
+"""fichier de lancement du client
+à lancer après avoir lancé l'API
+"""
 import dotenv
-from collections.abc import Mapping
+
 from view.accueilkataview import AccueilKataView
 
 # This script is the entry point of your application
 dotenv.load_dotenv()
 
 if __name__ == '__main__':
-    
+
     # Lancer l'écran d'accueil
     current_view = AccueilKataView()
 
@@ -18,4 +21,3 @@ if __name__ == '__main__':
         current_view.display_info()
         # ask user for a choice
         current_view = current_view.make_choice()
-
