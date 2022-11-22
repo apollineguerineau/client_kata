@@ -56,18 +56,7 @@ class DifficulteView (AbstractView) :
         if reponse2 == 'Choisir un mot aléatoire' :
             est_liste_perso = False
             id_liste = None
-<<<<<<< HEAD
             
-=======
-            reponse1 = self.__questions1.execute()
-            #pylint: disable=simplifiable-if-statement
-            #justification: pas plus simple avec la solution de pylint
-            if reponse1 == 'Oui' :
-                indice = True
-            else :
-                indice = False
-
->>>>>>> fc15b9fe61191e4c3c5bfa125c5684dc514d47d6
             nb_lettres = int(ASK_NB_LETTRES.execute())
             if (not isinstance(nb_lettres, int)) and (nb_lettres < 1 or nb_lettres > 15):
                 print("Le nombre de lettres donné est incorrect."+
