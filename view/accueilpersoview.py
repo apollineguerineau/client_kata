@@ -1,15 +1,22 @@
+"""gère la vue e nconsole pour l'accueil personnalisé
+"""
 from InquirerPy import inquirer
 from InquirerPy.base.control import Choice
 
 from view.abstractview import AbstractView
 from view.session import Session
-
-from business_objects.joueur import Joueur
+from view.jouerview import JouerView
+from view.creerlistepersoview import CreerListePersoView
+from view.consulterlistepersoview import ConsulterListePersoView
+from view.toptenpersoview import TopTenPersoView
+from view.accueilkataview import AccueilKataView
 
 
 class AccueilPersoView (AbstractView) :
-
+    """permet de gérer l'accueil personnalisé
+    """
     def __init__(self):
+        #pylint: disable=no-value-for-parameter
         self.__questions = inquirer.select(
             message=f'Bonjour {Session().joueur.nom_joueur}'
             , choices=[
@@ -19,7 +26,7 @@ class AccueilPersoView (AbstractView) :
                 ,Choice('Meilleurs scores')
                 ,Choice('Se déconnecter')]
         )
-    
+
     def display_info(self):
         pass
 
@@ -27,18 +34,13 @@ class AccueilPersoView (AbstractView) :
         reponse = self.__questions.execute()
         if reponse == 'Nothing':
             pass
-        elif reponse== 'Jouer':
-            from view.jouerview import JouerView
+        if reponse== 'Jouer':
             return JouerView()
-        elif reponse== 'Créer une liste perso':
-            from view.creerlistepersoview import CreerListePersoView
+        if reponse== 'Créer une liste perso':
             return CreerListePersoView()
-        elif reponse== 'Consulter une liste perso':
-            from view.consulterlistepersoview import ConsulterListePersoView
+        if reponse== 'Consulter une liste perso':
             return ConsulterListePersoView()
-        elif reponse == 'Meilleurs scores' :
-            from view.toptenpersoview import TopTenPersoView
+        if reponse == 'Meilleurs scores' :
             return TopTenPersoView()
-        elif reponse == 'Se déconnecter' :
-            from view.accueilkataview import AccueilKataView
-            return AccueilKataView()
+        # if reponse == 'Se déconnecter' :
+        return AccueilKataView()

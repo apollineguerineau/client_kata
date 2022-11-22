@@ -1,7 +1,7 @@
 """module pour gérer la couleur des lettres affichées
 pendant le jeu.
 """
-#TODO demander confirmation pour garder les deux lignes suivantes
+
 from colorama import init
 init()
 class CodeLettre :
