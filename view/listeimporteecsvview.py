@@ -1,14 +1,13 @@
-from email.message import Message
-from pprint import pprint
+"""gère l'affichage lors de l'importation des listes au format CSV
+"""
 
 
 from InquirerPy import inquirer
-from InquirerPy.base.control import Choice
 
-from src.view.abstractview import AbstractView
-from src.view.session import Session
+from view.abstractview import AbstractView
+from view.session import Session
 
-
+#TODO code à finir
 
 
 ASK_NOM_LISTE=inquirer.text(message = 'Quel est le nom de ta nouvelle liste?')
@@ -19,12 +18,14 @@ ASK_SEPARATEUR=inquirer.text(message = 'Quel est le séparateur dans ton fichier
 #pylint: disable=import-outside-toplevel
 #justification: permet d'éviter les imports circulaires (TP du prof et crash test)
 class ListeImporteeCSVView(AbstractView):
-
-
+    """gère l'affichage pour l'import des listes au format CSV
+    """
     def display_info(self):
-        print(f"Création d'une liste CSV")
+        print("Création d'une liste CSV")
 
     def make_choice(self):
+        #pylint: disable=too-many-locals
+        #justification: on en a besoin
         nom_liste = ASK_NOM_LISTE.execute()
         lien_dossier = ASK_LIEN_dossier.execute()
         lien_fichier = ASK_LIEN_fichier.execute()
@@ -33,11 +34,11 @@ class ListeImporteeCSVView(AbstractView):
         importation = ImportationCsv()
         liste_mots = importation.creer(lien_fichier, lien_dossier)
 
-        from src.dao.joueur_dao import JoueurDAO
+        # from src.dao.joueur_dao import JoueurDAO
         joueurdao = JoueurDAO()
         id_joueur = joueurdao.get_id_by_pseudo(Session().pseudo)
 
-        from src.dao.liste_dao import ListeDAO
+        # from src.dao.liste_dao import ListeDAO
         listedao = ListeDAO()
         listedao.creer(id_joueur, nom_liste)
         id_liste = listedao.id(Session().liste)
@@ -45,7 +46,7 @@ class ListeImporteeCSVView(AbstractView):
 
         from src.dao.mot_dao import MotDAO
         motdao = MotDAO()
-        from src.business_objects.proposition import Proposition
+        from business_objects.proposition import Proposition
         for mot in liste_mots :
             #On transforme ensuite le mot pour supprimer les accents et mettre en majuscule
             mot = Proposition(mot)
@@ -59,4 +60,3 @@ class ListeImporteeCSVView(AbstractView):
 
         from src.view.listeimporteejsonview import ListeImporteeJSONView
         return ListeImporteeJSONView()
-

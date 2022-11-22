@@ -3,12 +3,12 @@ from pprint import pprint
 
 
 from InquirerPy import inquirer
-from InquirerPy.base.control import Choice
+
 
 from view.abstractview import AbstractView
 from view.session import Session
 
-
+#TODO code à finir
 
 
 ASK_NOM_LISTE=inquirer.text(message = 'Quel est le nom de ta nouvelle liste?')
@@ -18,10 +18,11 @@ ASK_LIEN_fichier=inquirer.text(message = 'Quel est le lien du fichier où se tro
 #pylint: disable=import-outside-toplevel
 #justification: permet d'éviter les imports circulaires (TP du prof et crash test)
 class ListeImporteeJSONView(AbstractView):
-
+    """gère l'affichage des listes importées au format JSON
+    """
 
     def display_info(self):
-        print(f"Création d'une liste JSON")
+        print("Création d'une liste JSON")
 
     def make_choice(self):
         nom_liste = ASK_NOM_LISTE.execute()
@@ -56,6 +57,6 @@ class ListeImporteeJSONView(AbstractView):
             id_mot = motdao.get_id_by_mot(mot)
             listedao.ajouter_mot(self, id_liste, id_mot)
 
-        from src.view.listeimporteejsonview import ListeImporteeJSONView
+        from view.listeimporteejsonview import ListeImporteeJSONView
         return ListeImporteeJSONView()
 
