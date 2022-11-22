@@ -7,8 +7,6 @@ from client_joueur import ClientJoueur
 
 from view.abstractview import AbstractView
 from view.session import Session
-from view.accueilkataview import AccueilKataView
-from view.accueilpersoview import AccueilPersoView
 
 
 
@@ -39,8 +37,10 @@ class ConnectionView(AbstractView):
             joueur = clientjoueur.get_joueur(pseudo)
             session = Session(joueur)
 
+            from view.accueilpersoview import AccueilPersoView
             return AccueilPersoView()
 
         print("Le pseudo n'existe pas")
 
+        from view.accueilkataview import AccueilKataView
         return AccueilKataView()

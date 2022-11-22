@@ -5,9 +5,7 @@ import sys
 from InquirerPy import inquirer
 from InquirerPy.base.control import Choice
 from view.abstractview import AbstractView
-from view.connectionview import ConnectionView
-from view.creercompteview import CreerCompteView
-from view.toptenview import ViewTopTen
+
 
 class AccueilKataView (AbstractView) :
     """permet d'afficher le menu d'accueil
@@ -34,10 +32,13 @@ class AccueilKataView (AbstractView) :
     def make_choice(self):
         reponse = self.__questions.execute()
         if reponse == 'Se connecter' :
+            from view.connectionview import ConnectionView
             return ConnectionView()
         if reponse == 'Créer un compte' :
+            from view.creercompteview import CreerCompteView
             return CreerCompteView()
         if reponse == "Consulter les 10 meilleurs scores" :
+            from view.toptenview import ViewTopTen
             return ViewTopTen()
         # if reponse == "Quitter le jeu":
         print('Au revoir')

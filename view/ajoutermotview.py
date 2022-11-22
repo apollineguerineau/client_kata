@@ -7,7 +7,6 @@ from client_mot import ClientMot
 
 from business_objects.proposition import Proposition
 
-from view.modificationlisteview import ModificationListeView
 from view.abstractview import AbstractView
 from view.session import Session
 
@@ -39,4 +38,5 @@ class AjouterMotView (AbstractView) :
         Session().liste.liste.append(mot)
 
 
+        from view.modificationlisteview import ModificationListeView
         return ModificationListeView()

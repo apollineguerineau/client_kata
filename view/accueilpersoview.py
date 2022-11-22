@@ -5,11 +5,6 @@ from InquirerPy.base.control import Choice
 
 from view.abstractview import AbstractView
 from view.session import Session
-from view.jouerview import JouerView
-from view.creerlistepersoview import CreerListePersoView
-from view.consulterlistepersoview import ConsulterListePersoView
-from view.toptenpersoview import TopTenPersoView
-from view.accueilkataview import AccueilKataView
 
 
 class AccueilPersoView (AbstractView) :
@@ -35,12 +30,17 @@ class AccueilPersoView (AbstractView) :
         if reponse == 'Nothing':
             pass
         if reponse== 'Jouer':
+            from view.jouerview import JouerView
             return JouerView()
         if reponse== 'Créer une liste perso':
+            from view.creerlistepersoview import CreerListePersoView
             return CreerListePersoView()
         if reponse== 'Consulter une liste perso':
+            from view.consulterlistepersoview import ConsulterListePersoView
             return ConsulterListePersoView()
         if reponse == 'Meilleurs scores' :
+            from view.toptenpersoview import TopTenPersoView
             return TopTenPersoView()
         # if reponse == 'Se déconnecter' :
+        from view.accueilkataview import AccueilKataView
         return AccueilKataView()
