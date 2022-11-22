@@ -168,4 +168,3 @@ class ClientJoueur(metaclass= Singleton):
         Parameters: l'identifiant du joueur : int, score : float'''
         req=requests.post(f"{self.__HOST}{END_POINT}/{id}/score/{score}")
 
-
