@@ -1,3 +1,5 @@
+"""gère l'affichage lors de la suppression d'un mot d'une liste
+"""
 from InquirerPy import inquirer
 from InquirerPy.base.control import Choice
 
@@ -7,6 +9,8 @@ from view.session import Session
 #pylint: disable=import-outside-toplevel
 #justification: permet d'éviter les imports circulaires (TP du prof et crash test)
 class SupprimerMotView (AbstractView) :
+    """gère l'affichage lors de la suppression d'un mot d'une liste
+    """
     def __init__(self):
 
         self.__questions = inquirer.select(
@@ -26,13 +30,17 @@ class SupprimerMotView (AbstractView) :
         id_mot = clientmot.get_id(reponse)
 
         liste_mots = Session().liste
-        taille_liste = len(liste_mots.liste)
         from client_liste import ClientListe
         clientliste = ClientListe()
         id_liste = liste_mots.id_liste
         clientliste.supprimer_mot(id_liste, id_mot)
+        #pylint: disable=unused-import
+        #justification: on utilise des objets à importer quand même. cf amélioration possible
         from business_objects.proposition import Proposition
+
         #A revoir cette partie
+        #pylint: disable=consider-using-enumerate
+        #justification: ne renvoie pas le même type
         for i in range (0, len(Session().liste.liste)) :
             if Session().liste.liste[i] == reponse :
                 Session().liste.liste.pop(i)
@@ -45,5 +53,3 @@ class SupprimerMotView (AbstractView) :
 
         from view.modificationlisteview import ModificationListeView
         return ModificationListeView()
-
-
