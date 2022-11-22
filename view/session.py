@@ -1,3 +1,5 @@
+"""permet de définir une Session unique
+"""
 from utils.singleton import Singleton
 
 from business_objects.joueur import Joueur
@@ -6,7 +8,10 @@ from business_objects.liste import Liste
 #pylint: disable=import-outside-toplevel
 #justification: permet d'éviter les imports circulaires (TP du prof et crash test)
 class Session(metaclass=Singleton):
-    """permet de
+    #pylint: disable=too-few-public-methods
+    #justification: pas besoin d'autres méthodes
+    """permet de créer une Session unique
+    C'est un objet qui est transmis entre les View au cours du jeu.
 
     Parameters
     ----------
