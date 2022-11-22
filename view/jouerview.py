@@ -1,3 +1,6 @@
+"""permet de gérer l'affichage quand on lance une partie
+"""
+
 from InquirerPy import inquirer
 from InquirerPy.base.control import Choice
 
@@ -8,14 +11,16 @@ from view.session import Session
 #pylint: disable=import-outside-toplevel
 #justification: permet d'éviter les imports circulaires (TP du prof et crash test)
 class JouerView (AbstractView) :
+    """affiche en console si on veut faire une nouvelle partie ou reprendre l'ancienne
+    """
     def __init__(self):
         from client_joueur import ClientJoueur
         clientjoueur = ClientJoueur()
         partie = clientjoueur.get_partie(Session().joueur.id_joueur)
-        if partie != None :
+        if partie is not None :
 
             self.__questions = inquirer.select(
-                message=f'Que souhaites-tu faire?'
+                message='Que souhaites-tu faire?'
                 , choices=[
                     Choice('Nouvelle partie')
                     ,Choice('Reprendre la partie')
@@ -29,30 +34,27 @@ class JouerView (AbstractView) :
         from client_joueur import ClientJoueur
         clientjoueur = ClientJoueur()
         partie_ = clientjoueur.get_partie(Session().joueur.id_joueur)
-        if partie_ != None :
+        if partie_ is not None :
             reponse = self.__questions.execute()
         else :
             reponse = 'Nouvelle partie'
 
-        from client_joueur import ClientJoueur
         clientjoueur = ClientJoueur()
 
         if reponse == 'Nouvelle partie':
             clientjoueur.supprime_partie_en_cours(Session().joueur.id_joueur)
             from view.difficulteview import DifficulteView
             return DifficulteView()
-        elif reponse == 'Reprendre la partie':
-            
-            partie = clientjoueur.get_partie(Session().joueur.id_joueur)
-            clientjoueur.supprime_partie_en_cours(Session().joueur.id_joueur)
-            Session().partie = partie
-            from business_objects.proposition import Proposition
-            for mot in partie.liste_mots_proposes :
-                mot_propose = Proposition(mot)
-                if mot_propose.est_autorise() :
-                    proposition = partie.verifie_proposition(mot_propose)
-                    print(proposition)
-            from view.pauseview import PauseView
-            return PauseView()
 
-
+        # elif reponse == 'Reprendre la partie':
+        partie = clientjoueur.get_partie(Session().joueur.id_joueur)
+        clientjoueur.supprime_partie_en_cours(Session().joueur.id_joueur)
+        Session().partie = partie
+        from business_objects.proposition import Proposition
+        for mot in partie.liste_mots_proposes :
+            mot_propose = Proposition(mot)
+            if mot_propose.est_autorise() :
+                proposition = partie.verifie_proposition(mot_propose)
+                print(proposition)
+        from view.pauseview import PauseView
+        return PauseView()
