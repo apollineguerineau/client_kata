@@ -4,15 +4,17 @@ from InquirerPy.base.control import Choice
 from view.abstractview import AbstractView
 from view.session import Session
 
+#pylint: disable=import-outside-toplevel
+#justification: permet d'éviter les imports circulaires (TP du prof et crash test)
 class SupprimerMotView (AbstractView) :
     def __init__(self):
-        
+
         self.__questions = inquirer.select(
             message=f'Quel mot veux tu supprimer à ta liste {Session().liste.nom}?'
             , choices = [Choice(mot) for mot in Session().liste.liste]
         )
-        
-    
+
+
     def display_info(self):
         pass
 
@@ -44,4 +46,4 @@ class SupprimerMotView (AbstractView) :
         from view.modificationlisteview import ModificationListeView
         return ModificationListeView()
 
-        
+

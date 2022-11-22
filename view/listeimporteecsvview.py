@@ -16,6 +16,8 @@ ASK_LIEN_dossier=inquirer.text(message = 'Quel est le lien du dossier où se tro
 ASK_LIEN_fichier=inquirer.text(message = 'Quel est le lien du fichier où se trouve ta liste?')
 ASK_SEPARATEUR=inquirer.text(message = 'Quel est le séparateur dans ton fichier CSV?')
 
+#pylint: disable=import-outside-toplevel
+#justification: permet d'éviter les imports circulaires (TP du prof et crash test)
 class ListeImporteeCSVView(AbstractView):
 
 

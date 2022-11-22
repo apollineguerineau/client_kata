@@ -15,6 +15,8 @@ ASK_NOM_LISTE=inquirer.text(message = 'Quel est le nom de ta nouvelle liste?')
 ASK_LIEN_dossier=inquirer.text(message = 'Quel est le lien du dossier où se trouve ta liste?')
 ASK_LIEN_fichier=inquirer.text(message = 'Quel est le lien du fichier où se trouve ta liste?')
 
+#pylint: disable=import-outside-toplevel
+#justification: permet d'éviter les imports circulaires (TP du prof et crash test)
 class ListeImporteeJSONView(AbstractView):
 
 
