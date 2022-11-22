@@ -2,7 +2,9 @@ import os
 from typing import List, Optional
 from utils.singleton import Singleton
 import requests
+
 from client_liste import ClientListe
+
 from business_objects.liste import Liste
 from business_objects.joueur import Joueur
 from business_objects.partie import Partie
@@ -40,8 +42,8 @@ class ClientJoueur(metaclass= Singleton):
             None si le pseudo n'est pas dans la base de données'''
         req = requests.get(f"{self.__HOST}{END_POINT}/pseudo/{pseudo}")
         if type(req.json())==int:
-            return(req.json()) 
-        else: 
+            return(req.json())
+        else:
             return(None)
 
 
@@ -54,7 +56,7 @@ class ClientJoueur(metaclass= Singleton):
             list : le top 10 du joueur'''
         req=requests.get(f"{self.__HOST}{END_POINT}/{id}/score/")
         return(req.json())
-    
+
 
     def get_joueur(self, pseudo):
         '''Retourne un joueur
@@ -67,12 +69,12 @@ class ClientJoueur(metaclass= Singleton):
         if id!=None:
             top_10=self.consulter_top10(id)
             return(Joueur(id, pseudo, top_10))
-        else: 
+        else:
             return(None)
 
 
     def create_joueur(self, pseudo):
-        '''Crée un joueur dans la base de données 
+        '''Crée un joueur dans la base de données
         '''
         req=requests.post(f"{self.__HOST}{END_POINT}/{pseudo}")
         return(req)
@@ -98,7 +100,7 @@ class ClientJoueur(metaclass= Singleton):
         return(listes)
 
 
-         
+
     def create_liste(self, id_joueur, name):
         '''Crée une liste personnelles dans la base de données
 
@@ -119,18 +121,14 @@ class ClientJoueur(metaclass= Singleton):
         if req.json()[0]!=None :
             id=req.json()[0]
             proposition=req.json()[2]
-            score=req.json()[1][0]
-            nom=req.json()[1][1]
-            id_joueur=req.json()[1][2]
-            mot_obj=req.json()[1][3]
-            temps_max=req.json()[1][4]
-            nb_tentatives_max=req.json()[1][5]
-            indice=req.json()[1][6]
-            liste_perso=req.json()[1][7]
-            id_liste=req.json()[1][8]
-            difficultes=Difficultes(nb_tentatives_max,temps_max,indice, len(mot_obj))
-            return(Partie(nom, proposition, liste_perso, id_liste, difficultes, mot_obj))
-        else: 
+            id_joueur=req.json()[1][0]
+            mot_obj=req.json()[1][1]
+            nb_tentatives_max=req.json()[1][2]
+            indice=req.json()[1][3]
+            liste_perso=req.json()[1][4]
+            difficultes=Difficultes(nb_tentatives_max,0,indice, len(mot_obj))
+            return(Partie( proposition, liste_perso, difficultes, mot_obj,0))
+        else:
             return(None)
 
 
@@ -141,13 +139,11 @@ class ClientJoueur(metaclass= Singleton):
         Parameters : l'identifiant du joueur et la partie : Partie
         '''
         payload = {
-            "nom_partie" :partie.nom
-            ,"mot_objectif" : partie.mot_objectif
-            , "temps_max" : partie.difficultes.temps
+            "mot_objectif" : partie.mot_objectif
             , "nb_tentatives_max" : partie.difficultes.nb_tentatives
             , "indice" : partie.difficultes.indice
             , "liste_perso" : partie.est_liste_perso
-            , "id_liste" : partie.id_liste
+            , "temps_max" : partie.difficultes.temps
         }
         req=requests.post(f"{self.__HOST}{END_POINT}/{id_joueur}/partie", json=payload)
 
@@ -172,59 +168,6 @@ class ClientJoueur(metaclass= Singleton):
         Parameters: l'identifiant du joueur : int, score : float'''
         req=requests.post(f"{self.__HOST}{END_POINT}/{id}/score/{score}")
 
+
 client=ClientJoueur()
-
-
-# scores=[75.0, 125.0, 68.0, 27.0, 54.0, 46.0]
-# for score in scores: 
-#     client.ajoute_score(6, score)
-
-# client.ajoute_score(6, 150.0)
-
-# print(client.consulter_top10(6))
-# client.ajoute_score(6, 50.0)
-# print(client.consulter_top10(6))
-
-# difficultes=Difficultes(6,8,True,6)
-# partie=Partie("test_partie", ["FOULE", "TRAIN", "FRERE", "CREVE"],False,None, difficultes, "TREVE")
-# print(partie)
-# client.create_partie_en_cours(1, partie)
-# client.ajoute_proposition(2, "TARIE")
-# client.supprime_partie_en_cours(2)
-# print(client.get_partie(2))
-# partie_cree=client.get_partie(6)
-# for mot in partie.liste_mots_proposes :
-#     mot_propose=Proposition(mot)
-#     proposition=partie.verifie_proposition(mot_propose)
-#     print(proposition)
-
-#client.create_joueur("Super_joueur")
-# print(client.get_joueur("Super_joueur"))
-
-# client.create_liste(6, "Super_liste")
-# print(client.get_listes(8))
-# for liste in liste_listes:
-#     print(liste)
-
-# liste_listes=client.get_listes(1)
-# for liste in liste_listes:
-#     print(liste)
-
-# print(client.get_joueur("Linh-Da"))
-# print(client.get_joueur("Apolline"))
-
-partie=client.get_partie(5)
-print(partie.id_liste)
-# for mot in partie.liste_mots_proposes :
-#     mot_propose=Proposition(mot)
-#     proposition=partie.verifie_proposition(mot_propose)
-#     print(proposition)
-
-
-
-# partie=client.get_partie(5)
-# for proposition in partie.liste_mots_proposes:
-#     prop=partie.verifie_proposition(Proposition(proposition))
-#     print(prop)
-#     print("")
-#req=requests.post(f"{self.__HOST}{END_POINT}/{id}/score/{score}")
+print(client.get_partie(4))

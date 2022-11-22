@@ -29,7 +29,6 @@ class ConnectionView(AbstractView):
         pseudo = ASK_PSEUDO.execute()
 
         clientjoueur = ClientJoueur()
-        print(clientjoueur.get_id(pseudo))
         if isinstance(clientjoueur.get_id(pseudo), int)  :
             #Compléter les infos de la session
 
