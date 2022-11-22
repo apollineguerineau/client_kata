@@ -19,11 +19,12 @@ class Partie :
     difficultes : Difficultes
     score : float
     '''
-    def __init__(self, liste_mots_proposes, est_liste_perso, difficultes, mot_objectif):
+    def __init__(self, liste_mots_proposes, est_liste_perso, difficultes, mot_objectif, id_liste):
         self.liste_mots_proposes=liste_mots_proposes
         self.est_liste_perso=est_liste_perso
         self.difficultes=difficultes
         self.score=0
+        self.id_liste=id_liste
         if mot_objectif == None:
             self.mot_objectif=self.donne_mot_obj()
         else:
@@ -36,16 +37,20 @@ class Partie :
         ------
         le mot objectif  : str
         '''
-        mot_existe = False
-        while not mot_existe :
-            if self.est_liste_perso:
-                generer=GenererMotListePerso(self.id_liste)
-            else :
-                generer=GenererMotApi(self.difficultes.nb_lettres)
+       
+        
+        if self.est_liste_perso:
+            generer=GenererMotListePerso(self.id_liste)
             mot = generer.generer()
-            from business_objects.proposition import Proposition
-            mot_propose = Proposition(mot)
-            mot_existe = mot_propose.est_autorise()
+        else :
+            mot_existe = False
+            
+            while not mot_existe :
+                generer=GenererMotApi(self.difficultes.nb_lettres)
+                mot = generer.generer()
+                from business_objects.proposition import Proposition
+                mot_propose = Proposition(mot)
+                mot_existe = mot_propose.est_autorise()
             
         return mot
 
