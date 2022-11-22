@@ -1,8 +1,18 @@
 from utils.singleton import Singleton
+
 from business_objects.joueur import Joueur
+from business_objects.liste import Liste
 
 class Session(metaclass=Singleton):
-    def __init__(self, joueur: Joueur, partie = None, liste = None):
+    """permet de
+
+    Parameters
+    ----------
+    metaclass : Singleton
+        permet de s'assurer qu'il n'existe qu'une seule instance de Session
+    """
+    def __init__(self, joueur: Joueur,
+                 partie = None, liste:Liste = None):
         """
         Définition des variables que l'on stocke en session
 
