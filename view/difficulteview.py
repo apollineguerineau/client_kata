@@ -10,7 +10,8 @@ ASK_NB_TENTATIVES=inquirer.text(message = 'Quel est le nombre maximum de tentati
 ASK_TEMPS=inquirer.text(message = 'Quel est le temps maximum souhaité pour faire une proposition?')
 ASK_NB_LETTRES=inquirer.text(message = 'Combien veux tu que ton mot comporte de lettres? (15 maximum)')
 
-
+#pylint: disable=import-outside-toplevel
+#justification: permet d'éviter les imports circulaires (TP du prof et crash test)
 class DifficulteView (AbstractView) :
     def __init__(self):
         self.__questions1 = inquirer.select(
@@ -19,7 +20,7 @@ class DifficulteView (AbstractView) :
                 Choice('Oui')
                 ,Choice('Non')
             ])
-        
+
         id_joueur = Session().joueur.id_joueur
         from client_joueur import ClientJoueur
         clientjoueur = ClientJoueur()
@@ -33,7 +34,7 @@ class DifficulteView (AbstractView) :
             message=f'Quelle liste veux tu sélectionner?'
             , choices = choix
         )
-    
+
     def display_info(self):
         pass
 
@@ -48,7 +49,7 @@ class DifficulteView (AbstractView) :
                 indice = True
             else :
                 indice = False
-            
+
             nb_lettres = int(ASK_NB_LETTRES.execute())
             if type(nb_lettres) != int and (nb_lettres < 1 or nb_lettres > 15):
                 print("Le nombre de lettres donné est incorrect. La partie se jouera avec un mot de 6 lettres")
@@ -71,7 +72,7 @@ class DifficulteView (AbstractView) :
         if type(int(temps)) != int :
             print("Le temps donné est incorrect. Tu auras 8 secondes entre chaque proposition")
             temps = 8
-        
+
         from business_objects.difficultes import Difficultes
         difficultes = Difficultes(nb_tentatives, temps, indice, nb_lettres)
 
@@ -83,5 +84,4 @@ class DifficulteView (AbstractView) :
         from view.pauseview import PauseView
         return PauseView()
 
-            
-        
+

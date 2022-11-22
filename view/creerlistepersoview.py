@@ -4,7 +4,8 @@ from InquirerPy.base.control import Choice
 from view.abstractview import AbstractView
 from view.session import Session
 
-
+#pylint: disable=import-outside-toplevel
+#justification: permet d'éviter les imports circulaires (TP du prof et crash test)
 class CreerListePersoView (AbstractView) :
 
     def __init__(self):
@@ -15,7 +16,7 @@ class CreerListePersoView (AbstractView) :
                 ,Choice('Importer une liste CSV')
                 ,Choice('Importer une liste JSON')]
         )
-    
+
     def display_info(self):
         pass
 

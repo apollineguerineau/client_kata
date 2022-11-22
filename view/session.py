@@ -3,6 +3,8 @@ from utils.singleton import Singleton
 from business_objects.joueur import Joueur
 from business_objects.liste import Liste
 
+#pylint: disable=import-outside-toplevel
+#justification: permet d'éviter les imports circulaires (TP du prof et crash test)
 class Session(metaclass=Singleton):
     """permet de
 
