@@ -11,15 +11,27 @@ class ClientMot(metaclass= Singleton):
     def __init__(self) -> None:
         self.__HOST ="http://127.0.0.1:80"
 
-    #ça marche
     def create_mot(self, mot: str) :
+        '''Ajouter un mot dans la bdd
+
+        Parameters
+        mot : str
+        '''
         req = requests.post(f"{self.__HOST}{END_POINT}/contenu/{mot}")
 
 
-    #problème : la fonction s'exécute deux fois 
     def add_mot_to_liste(self, mot : str, nom_liste : str, id_joueur : int) :
-        """Renvoie si le mot a bien été ajouté à la liste. S'il n'a pas été ajouté, cela veut dire 
-           que le mot était déjà dans la liste"""
+        """Ajoute un mot à une liste personelle d'un joueur
+
+        Parameters : 
+        mot : str
+        nom_liste : str
+        id_joueur : int
+        
+        Returns
+        Renvoie True si le mot a bien été ajouté à la liste. S'il n'a pas été ajouté, cela veut dire 
+        que le mot était déjà dans la liste où qu'il ne respectait pas les conditions"""
+
         #On vérifie si le mot est déjà dans la base de données
         regex = "^[A-zÀ-ú]+$"
         resultat = re.match(regex, mot)
@@ -46,7 +58,7 @@ class ClientMot(metaclass= Singleton):
         for liste in listes :
             if liste.nom == nom_liste :
                 liste_d_ajout = liste
-        # print(liste_d_ajout)
+
         if mot in liste_d_ajout.liste :
             print(f"Le mot {mot} est déjà dans la liste")
             return False
@@ -57,17 +69,19 @@ class ClientMot(metaclass= Singleton):
             return True
 
 
-    #ça marche
-    def get_id(self,mot) :
+
+    def get_id(self, mot) :
+        '''Retourne l'id du mot (s'il existe dans la bdd)
+
+        Parameters : 
+        mot : str
+
+        Returns : 
+        L'id du mot ou None
+        '''
         req = requests.get(f"{self.__HOST}{END_POINT}/mot/{mot}")
         if type(req.json())==int :
             return(req.json())
         else : 
             return(None) 
         
-
-mot_client=ClientMot()
-# print(mot_client.create_mot("TREVE"))
-# print(mot_client.get_id("TREVE"))
-print(mot_client.add_mot_to_liste("jshts !", "Super_liste", 6))
-# print(mot_client.get_id("ekjc"))
