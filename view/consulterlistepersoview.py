@@ -11,8 +11,6 @@ from client_joueur import ClientJoueur
 
 from view.abstractview import AbstractView
 from view.session import Session
-from view.modificationlisteview import ModificationListeView
-from view.accueilpersoview import AccueilPersoView
 
 
 #pylint: disable=no-value-for-parameter
@@ -57,8 +55,10 @@ class ConsulterListePersoView (AbstractView) :
             for mot in liste_mots :
                 print(mot)
 
+            from view.modificationlisteview import ModificationListeView
             return ModificationListeView()
 
         print("Tu n'as pas encore de liste perosnnalisée")
 
+        from view.accueilpersoview import AccueilPersoView
         return AccueilPersoView()

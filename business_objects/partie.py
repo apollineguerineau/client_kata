@@ -37,16 +37,20 @@ class Partie :
         ------
         le mot objectif  : str
         '''
-        mot_existe = False
-        while not mot_existe :
-            if self.est_liste_perso:
-                generer=GenererMotListePerso(self.id_liste)
-            else :
-                generer=GenererMotApi(self.difficultes.nb_lettres)
+       
+        
+        if self.est_liste_perso:
+            generer=GenererMotListePerso(self.id_liste)
             mot = generer.generer()
-            from business_objects.proposition import Proposition
-            mot_propose = Proposition(mot)
-            mot_existe = mot_propose.est_autorise()
+        else :
+            mot_existe = False
+            
+            while not mot_existe :
+                generer=GenererMotApi(self.difficultes.nb_lettres)
+                mot = generer.generer()
+                from business_objects.proposition import Proposition
+                mot_propose = Proposition(mot)
+                mot_existe = mot_propose.est_autorise()
             
         return mot
 
