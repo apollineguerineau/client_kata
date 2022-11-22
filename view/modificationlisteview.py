@@ -4,7 +4,8 @@ from InquirerPy.base.control import Choice
 from view.abstractview import AbstractView
 from view.session import Session
 
-
+#pylint: disable=import-outside-toplevel
+#justification: permet d'éviter les imports circulaires (TP du prof et crash test)
 class ModificationListeView (AbstractView) :
 
     def __init__(self):
@@ -16,7 +17,7 @@ class ModificationListeView (AbstractView) :
                 ,Choice("Retour à l'accueil")
                 ]
         )
-    
+
     def display_info(self):
         pass
 
@@ -33,4 +34,3 @@ class ModificationListeView (AbstractView) :
         elif reponse== "Retour à l'accueil":
             from view.accueilpersoview import AccueilPersoView
             return AccueilPersoView()
-    

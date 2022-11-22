@@ -6,7 +6,8 @@ from InquirerPy.base.control import Choice
 from view.abstractview import AbstractView
 from view.session import Session
 
-
+#pylint: disable=import-outside-toplevel
+#justification: permet d'éviter les imports circulaires (TP du prof et crash test)
 class AccueilPersoView (AbstractView) :
     """permet de gérer l'accueil personnalisé
     """

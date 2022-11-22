@@ -4,6 +4,9 @@ from InquirerPy.base.control import Choice
 from view.abstractview import AbstractView
 from view.session import Session
 
+
+#pylint: disable=import-outside-toplevel
+#justification: permet d'éviter les imports circulaires (TP du prof et crash test)
 class JouerView (AbstractView) :
     def __init__(self):
         from client_joueur import ClientJoueur
@@ -18,7 +21,7 @@ class JouerView (AbstractView) :
                     ,Choice('Reprendre la partie')
                 ]
         )
-    
+
     def display_info(self):
         pass
 
@@ -45,5 +48,5 @@ class JouerView (AbstractView) :
                 print(proposition)
             from view.pauseview import PauseView
             return PauseView()
-            
-        
+
+

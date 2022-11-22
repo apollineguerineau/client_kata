@@ -12,7 +12,8 @@ from client_joueur import ClientJoueur
 from view.abstractview import AbstractView
 from view.session import Session
 
-
+#pylint: disable=import-outside-toplevel
+#justification: permet d'éviter les imports circulaires (TP du prof et crash test)
 #pylint: disable=no-value-for-parameter
 class ConsulterListePersoView (AbstractView) :
     """gère la vue en console de l'affichage des listes de mots personnalisées

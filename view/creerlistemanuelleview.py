@@ -14,7 +14,8 @@ from view.session import Session
 ASK_NOM_LISTE=inquirer.text(message = 'Quel est le nom de ta nouvelle liste?')
 ASK_PREMIER_MOT=inquirer.text(message = 'Quel est le premier mot de la liste?')
 
-
+#pylint: disable=import-outside-toplevel
+#justification: permet d'éviter les imports circulaires (TP du prof et crash test)
 class CreerListeManuelleView(AbstractView):
 
 
@@ -48,7 +49,7 @@ class CreerListeManuelleView(AbstractView):
         from client_mot import ClientMot
         clientmot = ClientMot()
         clientmot.add_mot_to_liste(mot, nom_liste, Session().joueur.id_joueur)
-        
+
         from view.accueilpersoview import AccueilPersoView
         return AccueilPersoView()
 

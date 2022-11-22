@@ -13,7 +13,8 @@ from view.session import Session
 
 ASK_PSEUDO=inquirer.text(message = 'Entre un pseudo')
 
-
+#pylint: disable=import-outside-toplevel
+#justification: permet d'éviter les imports circulaires (TP du prof et crash test)
 
 class CreerCompteView(AbstractView):
 
@@ -26,7 +27,7 @@ class CreerCompteView(AbstractView):
         from client_joueur import ClientJoueur
         clientjoueur = ClientJoueur()
         if clientjoueur.get_id(pseudo) == None :
-            #Le joueur est inséré dans la base de données 
+            #Le joueur est inséré dans la base de données
             clientjoueur.create_joueur(pseudo = pseudo)
         else :
             #Message d'erreur

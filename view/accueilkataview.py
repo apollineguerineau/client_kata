@@ -6,7 +6,8 @@ from InquirerPy import inquirer
 from InquirerPy.base.control import Choice
 from view.abstractview import AbstractView
 
-
+#pylint: disable=import-outside-toplevel
+#justification: permet d'éviter les imports circulaires (TP du prof et crash test)
 class AccueilKataView (AbstractView) :
     """permet d'afficher le menu d'accueil
 
