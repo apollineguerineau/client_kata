@@ -38,7 +38,7 @@ class DifficulteView (AbstractView) :
         listes = clientjoueur.get_listes(id_joueur)
 
         choix = [Choice("Choisir un mot aléatoire")]
-        if listes != None :
+        if listes is not None :
             for liste in listes :
                 choix.append(Choice(liste.nom))
         self.__questions2 = inquirer.select(
@@ -56,7 +56,6 @@ class DifficulteView (AbstractView) :
         if reponse2 == 'Choisir un mot aléatoire' :
             est_liste_perso = False
             id_liste = None
-            
             nb_lettres = int(ASK_NB_LETTRES.execute())
             if (not isinstance(nb_lettres, int)) and (nb_lettres < 1 or nb_lettres > 15):
                 print("Le nombre de lettres donné est incorrect."+
@@ -74,6 +73,8 @@ class DifficulteView (AbstractView) :
                     id_liste = liste.id_liste
 
         reponse1 = self.__questions1.execute()
+        #pylint: disable=simplifiable-if-statement
+        #justification: ça ne simplifie pas la lecture
         if reponse1 == 'Oui' :
             indice = True
         else :
@@ -94,7 +95,7 @@ class DifficulteView (AbstractView) :
         difficultes = Difficultes(nb_tentatives, temps, indice, nb_lettres)
 
         from business_objects.partie import Partie
-        
+
         partie = Partie(liste_mots_proposes=[],
                         difficultes=difficultes,
                         est_liste_perso = est_liste_perso,
