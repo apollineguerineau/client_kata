@@ -29,5 +29,3 @@ class GenererMotApi(AbstractGenererMot):
                 mot+=lettre.upper()
         return mot
 
-generation=GenererMotApi(5)
-print(generation.generer())
