@@ -1,8 +1,19 @@
+""" Importation des classes TestCase et Proposition
+"""
 from unittest import TestCase
 from business_objects.proposition import Proposition
 
 class TestProposition(TestCase) :
+    """ Cette classe sert à tester les méthodes :
+    - est_autorise()
+    - majuscule()
+    - supprime_accent()
+    - transforme_proposition
+    de la classe Proposition
+    """
     def test_est_autorise(self) :
+        """ test de la méthode : est_autorise()
+        """
         mot1 = "uhujhbj"
         mot2 = "Sky"
 
@@ -13,6 +24,8 @@ class TestProposition(TestCase) :
         self.assertEqual(True, prop2.est_autorise())
     
     def test_majuscule(self) :
+        """test de la méthode : majuscule()
+        """
         mot = "hEllO WorLD"
 
         prop = Proposition(mot)
@@ -20,6 +33,8 @@ class TestProposition(TestCase) :
         self.assertEqual("HELLO WORLD", prop.majuscule())
     
     def test_supprime_accent(self) :
+        """ test de la méthode : supprime_accent()
+        """
         mot = "éàlîêmc"
 
         prop = Proposition(mot)
@@ -27,6 +42,8 @@ class TestProposition(TestCase) :
         self.assertEqual("ealiemc", prop.supprime_accent())
     
     def test_transforme_proposition(self) :
+        """ test de la méthode : transforme_proposition()
+        """
         mot = "EyêLmîkà"
 
         prop = Proposition(mot)
