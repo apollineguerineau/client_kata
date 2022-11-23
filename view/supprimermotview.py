@@ -41,11 +41,14 @@ class SupprimerMotView (AbstractView) :
         #A revoir cette partie
         #pylint: disable=consider-using-enumerate
         #justification: ne renvoie pas le même type
-        for i in range (0, len(Session().liste.liste)) :
+        supprime = False
+        i = 0
+        while not supprime and  i < len(Session().liste.liste) :
             if Session().liste.liste[i] == reponse :
                 Session().liste.liste.pop(i)
+            i += 1
 
-        if len(liste_mots.liste) == 1 :
+        if len(liste_mots.liste) == 0 :
             clientliste.supprimer_liste(id_liste)
             print("La liste a été supprimée")
             from view.accueilpersoview import AccueilPersoView

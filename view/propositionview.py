@@ -1,6 +1,7 @@
 """gère l'affichage pour faire une proposition au cours d'une partie
 """
 import time
+import re
 from InquirerPy import inquirer
 
 #pylint: disable=unused-import
@@ -38,38 +39,45 @@ class PropositionView(AbstractView) :
             from view.pauseview import PauseView
             return PauseView()
 
-        from business_objects.proposition import Proposition
-        proposition = Proposition(mot)
-        print(proposition)
-        from business_objects.proposition_verifiee import PropositionVerifiee
+        exp_reg1 = r'\w+'
+        exp_reg2 = r'\D*'
+        if re.fullmatch(exp_reg1, mot) is None or re.fullmatch(exp_reg2, mot) is None :
+            print("Le mot ajouté n'est pas valide. Il ne doit contenir que des lettres")
+            Session().partie.liste_mots_proposes.append("Proposition invalide")
 
-        partie = Session().partie
-        Session().partie.liste_mots_proposes.append(proposition.mot)
-        prop_faites = len(Session().partie.liste_mots_proposes)
-        nb_prop_restantes = nb_tentatives - prop_faites
-        if (proposition.est_autorise() or partie.est_liste_perso) \
-        and len(proposition.mot) == partie.difficultes.nb_lettres  :
-            propositionverifiee = partie.verifie_proposition(proposition)
-            print(propositionverifiee)
         else :
-            print("Le mot proposé n'est pas autorisé. " +
-                  "Le mot attendu est de {partie.difficultes.nb_lettres} lettres")
+            from business_objects.proposition import Proposition
+            proposition = Proposition(mot)
+            print(proposition)
+            from business_objects.proposition_verifiee import PropositionVerifiee
+
+            partie = Session().partie
+            Session().partie.liste_mots_proposes.append(proposition.mot)
+            prop_faites = len(Session().partie.liste_mots_proposes)
+            nb_prop_restantes = nb_tentatives - prop_faites
+            if (proposition.est_autorise() or partie.est_liste_perso) \
+            and len(proposition.mot) == partie.difficultes.nb_lettres  :
+                propositionverifiee = partie.verifie_proposition(proposition)
+                print(propositionverifiee)
+            else :
+                print("Le mot proposé n'est pas autorisé. " +
+                    "Le mot attendu est de {partie.difficultes.nb_lettres} lettres")
 
 
-        mot_obj = Proposition(partie.mot_objectif)
-        print(mot_obj.mot)
-        if mot_obj.mot == proposition.mot :
-            print("Félicitations, vous avez trouvé le mot")
-            if not Session().partie.est_liste_perso :
-                partie.calcul_score()
-                score = str(partie.score)
-                from client_joueur import ClientJoueur
-                clientjoueur = ClientJoueur()
-                clientjoueur.ajoute_score(Session().joueur.id_joueur, partie.score)
-                Session().joueur = clientjoueur.get_joueur(Session().joueur.nom_joueur)
-                print(f'Votre score est de {score} points')
-            from view.accueilpersoview import AccueilPersoView
-            return AccueilPersoView()
+            mot_obj = Proposition(partie.mot_objectif)
+            print(mot_obj.mot)
+            if mot_obj.mot == proposition.mot :
+                print("Félicitations, tu as trouvé le mot")
+                if not Session().partie.est_liste_perso :
+                    partie.calcul_score()
+                    score = str(partie.score)
+                    from client_joueur import ClientJoueur
+                    clientjoueur = ClientJoueur()
+                    clientjoueur.ajoute_score(Session().joueur.id_joueur, partie.score)
+                    Session().joueur = clientjoueur.get_joueur(Session().joueur.nom_joueur)
+                    print(f'Ton score est de {score} points')
+                from view.accueilpersoview import AccueilPersoView
+                return AccueilPersoView()
 
         if nb_prop_restantes == 0 :
             print("Tu as perdu car tu as dépassé le nombre de tentatives autorisé")

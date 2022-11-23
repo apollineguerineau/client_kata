@@ -2,6 +2,7 @@
 """
 
 from InquirerPy import inquirer
+import re
 
 from client_joueur import ClientJoueur
 
@@ -26,6 +27,11 @@ class ConnectionView(AbstractView):
 
     def make_choice(self):
         pseudo = ASK_PSEUDO.execute()
+        reg_exp = r'\w+'
+        if re.fullmatch(reg_exp, pseudo) is None :
+            print('Le pseudo entré est invalide. Il ne doit contenir que des chiffres et des lettrres')
+            from view.accueilkataview import AccueilKataView
+            return AccueilKataView()
 
         clientjoueur = ClientJoueur()
         if isinstance(clientjoueur.get_id(pseudo), int)  :

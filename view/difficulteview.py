@@ -1,5 +1,6 @@
 """gère l'affichage pour le choix des difficultés du jeu
 """
+import re
 from InquirerPy import inquirer
 from InquirerPy.base.control import Choice
 
@@ -56,11 +57,14 @@ class DifficulteView (AbstractView) :
         if reponse2 == 'Choisir un mot aléatoire' :
             est_liste_perso = False
             id_liste = None
-            nb_lettres = int(ASK_NB_LETTRES.execute())
-            if (not isinstance(nb_lettres, int)) and (nb_lettres < 1 or nb_lettres > 15):
+            nb_lettres = ASK_NB_LETTRES.execute()
+            exp_reg = r'1[0-5]|[0-9]'
+            if re.fullmatch(exp_reg, nb_lettres) is None:
                 print("Le nombre de lettres donné est incorrect."+
-                      " La partie se jouera avec un mot de 6 lettres")
+                      " La partie se jouera donc avec un mot de 6 lettres")
                 nb_lettres = 6
+            else :
+                int(nb_lettres)
         else :
             est_liste_perso = True
             id_joueur = Session().joueur.id_joueur
@@ -80,16 +84,21 @@ class DifficulteView (AbstractView) :
         else :
             indice = False
 
+        exp_reg_int = r'[1-9][0-9]*'
         nb_tentatives = ASK_NB_TENTATIVES.execute()
         # pour contrôler les chaînes de caractères malicieusement introduites
-        if not isinstance(int(nb_tentatives), int):
+        if re.fullmatch(exp_reg_int, nb_tentatives) is None :
             print("Le nombre de tentatives donné est incorrect."+
                   " La partie se jouera en 6 tentatives")
             nb_tentatives = 6
+        else :
+            int(nb_tentatives)
         temps = ASK_TEMPS.execute()
-        if not isinstance(int(temps), int):
-            print("Le temps donné est incorrect. Tu auras 8 secondes entre chaque proposition")
-            temps = 8
+        if re.fullmatch(exp_reg_int, temps) is None :
+            print("Le temps donné est incorrect. Tu auras 10 secondes entre chaque proposition")
+            temps = 10
+        else :
+            int (temps)
 
         from business_objects.difficultes import Difficultes
         difficultes = Difficultes(nb_tentatives, temps, indice, nb_lettres)
@@ -102,6 +111,7 @@ class DifficulteView (AbstractView) :
                         id_liste = id_liste,
                         mot_objectif = None )
         partie.difficultes.nb_lettres = len(partie.mot_objectif)
+        print(f"Le mot à trouver est de {partie.difficultes.nb_lettres} lettres")
         Session().partie = partie
         if indice :
             print(partie.mot_objectif[0])

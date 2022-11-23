@@ -4,6 +4,8 @@ from InquirerPy import inquirer
 
 from view.abstractview import AbstractView
 
+import re
+
 ASK_PSEUDO=inquirer.text(message = 'Entre un pseudo')
 
 #pylint: disable=import-outside-toplevel
@@ -19,14 +21,18 @@ class CreerCompteView(AbstractView):
 
     def make_choice(self):
         pseudo = ASK_PSEUDO.execute()
+        reg_exp = r'\w+'
         from client_joueur import ClientJoueur
         clientjoueur = ClientJoueur()
-        if clientjoueur.get_id(pseudo) is None :
-            #Le joueur est inséré dans la base de données
-            clientjoueur.create_joueur(pseudo = pseudo)
+        if re.fullmatch(reg_exp, pseudo) is None :
+            print("Le pseudo n'est pas autorisé. Seuls les lettres et les chiffres sont autorisés")
         else :
-            #Message d'erreur
-            print("Le pseudo existe déjà")
+            if clientjoueur.get_id(pseudo) is None :
+                #Le joueur est inséré dans la base de données
+                clientjoueur.create_joueur(pseudo = pseudo)
+            else :
+                #Message d'erreur
+                print("Le pseudo existe déjà")
         #Dans tous les cas, on revient ensuite à l'écran d'accueil
         from view.accueilkataview import AccueilKataView
         return AccueilKataView()
