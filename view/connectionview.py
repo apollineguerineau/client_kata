@@ -1,8 +1,8 @@
 """permet de gérer la connexion d'un joueur à son compte
 """
 
-from InquirerPy import inquirer
 import re
+from InquirerPy import inquirer
 
 from client_joueur import ClientJoueur
 
@@ -29,7 +29,8 @@ class ConnectionView(AbstractView):
         pseudo = ASK_PSEUDO.execute()
         reg_exp = r'\w+'
         if re.fullmatch(reg_exp, pseudo) is None :
-            print('Le pseudo entré est invalide. Il ne doit contenir que des chiffres et des lettrres')
+            print('Le pseudo entré est invalide.'\
+                  ' Il ne doit contenir que des chiffres et des lettres')
             from view.accueilkataview import AccueilKataView
             return AccueilKataView()
 
