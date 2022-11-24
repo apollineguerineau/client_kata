@@ -53,6 +53,8 @@ class DifficulteView (AbstractView) :
     def make_choice(self):
         #pylint: disable=too-many-locals
         #justification: on a besoin de ces variables
+        #pylint: disable=too-many-branches
+        #justification: les difficultés ont des paramètres essentiels
         reponse2 = self.__questions2.execute()
         if reponse2 == 'Choisir un mot aléatoire' :
             est_liste_perso = False

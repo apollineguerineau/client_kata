@@ -83,8 +83,9 @@ class ImportationCsv(AbstractImportationListe):
                 for row in reader:
                     liste_res.append(row[0])
             return liste_res
-        except:
+        except FileNotFoundError:
             print('Le lien donné est invalide.')
+            return None
 
 if __name__=="__main__":
     import doctest

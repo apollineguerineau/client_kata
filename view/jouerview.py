@@ -48,7 +48,7 @@ class JouerView (AbstractView) :
             return DifficulteView()
 
         # elif reponse == 'Reprendre la partie':
-        
+
         partie = clientjoueur.get_partie(id_joueur)
         clientjoueur.supprime_partie_en_cours(id_joueur)
         Session().partie = partie

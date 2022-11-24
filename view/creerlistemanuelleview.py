@@ -1,8 +1,8 @@
 """gère l'affichage pour créer une liste manuellement
 """
 
-from InquirerPy import inquirer
 import re
+from InquirerPy import inquirer
 
 from view.abstractview import AbstractView
 from view.session import Session
@@ -23,19 +23,22 @@ class CreerListeManuelleView(AbstractView):
         print("Création d'une liste")
 
     def make_choice(self):
+        #pylint: disable=too-many-locals
+        #justification: on en a besoin
         nom_liste = ASK_NOM_LISTE.execute()
         mot = ASK_PREMIER_MOT.execute()
 
         exp_reg1 = r'\w+'
         exp_reg2 = r'\D*'
         if re.fullmatch(exp_reg1, nom_liste) is None :
-            print("Le nom de liste n'est pas autorisé. Seuls les lettres et les chiffres sont autorisés")
+            print("Le nom de liste n'est pas autorisé. "
+                  "Seuls les lettres et les chiffres sont autorisés")
             from view.accueilpersoview import AccueilPersoView
             return AccueilPersoView()
 
         if re.fullmatch(exp_reg1, mot) is None or re.fullmatch(exp_reg2, mot) is None :
             print("Le mot ajouté n'est pas valide. Il ne doit contenir que des lettres")
-        
+
         else :
             #On transforme ensuite le mot pour supprimer les accents et mettre en majuscule
             from business_objects.proposition import Proposition
@@ -52,8 +55,8 @@ class CreerListeManuelleView(AbstractView):
             if re.fullmatch(exp_reg1, nom_liste) is None :
                 print ("Le nom de la liste est invalide." +
                         "Ce nom ne doit contenir que des chiffres et des lettres")
-                
-            else :   
+
+            else :
                 listes = clientjoueur.get_listes(id_joueur)
                 from business_objects.liste import Liste
                 if listes is not None :

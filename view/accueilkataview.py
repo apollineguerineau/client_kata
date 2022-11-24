@@ -6,6 +6,7 @@ from InquirerPy import inquirer
 from InquirerPy.base.control import Choice
 from view.abstractview import AbstractView
 
+
 #pylint: disable=import-outside-toplevel
 #justification: permet d'éviter les imports circulaires (TP du prof et crash test)
 class AccueilKataView (AbstractView) :
@@ -18,6 +19,9 @@ class AccueilKataView (AbstractView) :
 
     """
     def __init__(self):
+        with open('view/banner/kata.txt',
+             'r', encoding="utf-8") as asset:
+            print(asset.read())
         self.__questions = inquirer.select(
             message='Bonjour'
             , choices=[

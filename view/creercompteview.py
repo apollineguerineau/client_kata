@@ -1,10 +1,10 @@
 """gère l'affichage pour créer un compte
 """
+import re
 from InquirerPy import inquirer
 
 from view.abstractview import AbstractView
 
-import re
 
 ASK_PSEUDO=inquirer.text(message = 'Entre un pseudo')
 

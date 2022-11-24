@@ -1,8 +1,8 @@
 """permet de gérer e nconsole l'ajout d'un mot
 """
+import re
 from InquirerPy import inquirer
 # from InquirerPy.base.control import Choice
-import re
 
 from client_mot import ClientMot
 
