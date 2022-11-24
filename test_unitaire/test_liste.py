@@ -1,4 +1,4 @@
-"""Importation des classe TestCase et Liste
+"""test de la classe Liste
 """
 from unittest import TestCase
 from business_objects.liste import Liste
@@ -27,11 +27,11 @@ class TestListe(TestCase) :
         nom = "liste_toto"
 
         liste2 = Liste(id_liste, liste, nom)
-        
+
         self.assertEqual("l'identifiant de la liste est : 9" +
         "\nle nom de la liste est : liste_toto" +
         "\nla liste des mots est : ['jouer', 'tester']", str(liste2))
-    
+
 if __name__ == "__main__" :
     print(TestListe().test__init__liste())
     print(TestListe().test__str__liste())

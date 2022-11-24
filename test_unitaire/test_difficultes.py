@@ -1,4 +1,4 @@
-""" Importation des classes TestCase et Difficultes
+""" test unitaire de la classe Difficultes
 """
 from unittest import TestCase
 from business_objects.difficultes import Difficultes
@@ -29,8 +29,9 @@ class TestJoueur(TestCase) :
 
         difficultes2 = Difficultes(temps=temps, nb_lettres=nb_lettres)
 
-        self.assertEqual('6 tentatives, 10 secondes par tentatives, avec indice, mot de 7 lettres', str(difficultes2))
-    
+        self.assertEqual('6 tentatives, 10 secondes par tentatives, avec indice, mot de 7 lettres'
+                         , str(difficultes2))
+
 if __name__ == "__main__" :
     print(TestJoueur().test__init__difficultes())
     print(TestJoueur().test__str__difficultes())

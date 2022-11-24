@@ -22,7 +22,7 @@ class TestProposition(TestCase) :
 
         self.assertEqual(False, prop1.est_autorise())
         self.assertEqual(True, prop2.est_autorise())
-    
+
     def test_majuscule(self) :
         """test de la méthode : majuscule()
         """
@@ -31,7 +31,7 @@ class TestProposition(TestCase) :
         prop = Proposition(mot)
 
         self.assertEqual("HELLO WORLD", prop.majuscule())
-    
+
     def test_supprime_accent(self) :
         """ test de la méthode : supprime_accent()
         """
@@ -40,7 +40,7 @@ class TestProposition(TestCase) :
         prop = Proposition(mot)
 
         self.assertEqual("ealiemc", prop.supprime_accent())
-    
+
     def test_transforme_proposition(self) :
         """ test de la méthode : transforme_proposition()
         """
@@ -65,4 +65,4 @@ if __name__ == "__main__" :
     print(test.test_supprime_accent())
 
     print("test transforme_proposition()")
-    print(test.test_transforme_proposition()) 
+    print(test.test_transforme_proposition())
