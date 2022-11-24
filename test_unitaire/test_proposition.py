@@ -26,11 +26,11 @@ class TestProposition(TestCase) :
     def test_majuscule(self) :
         """test de la méthode : majuscule()
         """
-        mot = "hEllO WorLD"
+        mot = "hEllOWorLD"
 
         prop = Proposition(mot)
 
-        self.assertEqual("HELLO WORLD", prop.majuscule())
+        self.assertEqual("HELLOWORLD", prop.majuscule())
 
     def test_supprime_accent(self) :
         """ test de la méthode : supprime_accent()
