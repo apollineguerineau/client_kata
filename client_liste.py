@@ -36,7 +36,6 @@ class ClientListe(metaclass= Singleton):
 
         Parameters: l'identifiant de la liste : int, l'identifiant du mot : int'''
         req = requests.delete(f"{self.__HOST}{END_POINT}/{id_liste}/mot/{id_mot}")
-        print(req.status_code)
 
 
     def supprimer_liste(self, id_liste):
