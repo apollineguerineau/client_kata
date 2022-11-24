@@ -52,6 +52,7 @@ class JouerView (AbstractView) :
         partie = clientjoueur.get_partie(id_joueur)
         clientjoueur.supprime_partie_en_cours(id_joueur)
         Session().partie = partie
+        print(partie.difficultes)
         from business_objects.proposition import Proposition
         for mot in partie.liste_mots_proposes :
             mot_propose = Proposition(mot)
