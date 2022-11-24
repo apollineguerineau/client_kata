@@ -28,4 +28,3 @@ class GenererMotApi(AbstractGenererMot):
             for lettre in res:
                 mot+=lettre.upper()
         return mot
-
