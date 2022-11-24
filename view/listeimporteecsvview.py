@@ -9,7 +9,6 @@ from client_joueur import ClientJoueur
 from view.abstractview import AbstractView
 from view.session import Session
 
-#TODO code à finir
 
 
 ASK_NOM_LISTE=inquirer.text(message = 'Quel est le nom de ta nouvelle liste?')
@@ -34,14 +33,18 @@ class ListeImporteeCSVView(AbstractView):
 
         exp_reg1 = r'\w+'
         if re.fullmatch(exp_reg1, nom_liste) is None :
-            print("Le nom de liste n'est pas autorisé. Seuls les lettres et les chiffres sont autorisés")
+            print("Le nom de liste n'est pas autorisé."
+                  " Seuls les lettres et les chiffres sont autorisés")
             from view.accueilpersoview import AccueilPersoView
             return AccueilPersoView()
 
         id_joueur = Session().joueur.id_joueur
         clientjoueur = ClientJoueur()
-        listes = clientjoueur.get_listes(id_joueur)
+        #pylint: disable=unused-import
+        #justification: on récupère bien des Listes
         from business_objects.liste import Liste
+        listes = clientjoueur.get_listes(id_joueur)
+
         if listes is not None :
             for liste in listes :
                 if liste.nom == nom_liste :
@@ -53,7 +56,7 @@ class ListeImporteeCSVView(AbstractView):
         importation = ImportationCsv()
         liste_mots = importation.creer(lien_fichier, lien_dossier)
 
-        if liste_mots != None :
+        if liste_mots is not None :
             clientjoueur.create_liste(id_joueur, nom_liste)
 
             from business_objects.proposition import Proposition
