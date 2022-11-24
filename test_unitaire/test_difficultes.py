@@ -1,4 +1,4 @@
-""" Importation des classes TestCase et Difficultes
+""" test unitaire de la classe Difficultes
 """
 from unittest import TestCase
 from business_objects.difficultes import Difficultes

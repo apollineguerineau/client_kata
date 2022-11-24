@@ -1,4 +1,4 @@
-""" Importation des classes TestCase et Joueur
+"""test de la classe Joueur
 """
 from unittest import TestCase
 from business_objects.joueur import Joueur
@@ -33,7 +33,7 @@ class TestJoueur(TestCase) :
         self.assertEqual("l'identifiant du joueur est 9" +
         "\nle nom du joueur est OUSSAMA" +
         "\nla liste des top ten est []", str(joueur2))
-    
+
 if __name__ == "__main__" :
     print(TestJoueur().test__init__joueur())
     print(TestJoueur().test__str__joueur())
