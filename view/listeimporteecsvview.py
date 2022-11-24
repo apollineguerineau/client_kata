@@ -1,7 +1,7 @@
 """gère l'affichage lors de l'importation des listes au format CSV
 """
 
-
+import re
 from InquirerPy import inquirer
 
 from client_joueur import ClientJoueur
@@ -32,20 +32,28 @@ class ListeImporteeCSVView(AbstractView):
         lien_dossier = ASK_LIEN_dossier.execute()
         lien_fichier = ASK_LIEN_fichier.execute()
 
+        exp_reg1 = r'\w+'
         if re.fullmatch(exp_reg1, nom_liste) is None :
             print("Le nom de liste n'est pas autorisé. Seuls les lettres et les chiffres sont autorisés")
             from view.accueilpersoview import AccueilPersoView
             return AccueilPersoView()
+
+        id_joueur = Session().joueur.id_joueur
+        clientjoueur = ClientJoueur()
+        listes = clientjoueur.get_listes(id_joueur)
+        from business_objects.liste import Liste
+        if listes is not None :
+            for liste in listes :
+                if liste.nom == nom_liste :
+                    print("Tu as déjà une liste avec ce nom")
+                    from view.accueilpersoview import AccueilPersoView
+                    return AccueilPersoView()
 
         from importation_objects.importation_csv import ImportationCsv
         importation = ImportationCsv()
         liste_mots = importation.creer(lien_fichier, lien_dossier)
 
         if liste_mots != None :
-
-            clientjoueur = ClientJoueur()
-            id_joueur = Session().joueur.id_joueur
-
             clientjoueur.create_liste(id_joueur, nom_liste)
 
             from business_objects.proposition import Proposition
