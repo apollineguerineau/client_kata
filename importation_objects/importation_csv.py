@@ -36,7 +36,7 @@ class ImportationCsv(AbstractImportationListe):
         Example
         -------
         >>> import json
-        >>> from src.importation_objects.abstract_importation_liste import AbstractImportationListe
+        >>> from importation_objects.abstract_importation_liste import AbstractImportationListe
         >>> ma_liste = ImportationCsv()
         >>> isinstance(ma_liste, ImportationCsv)
         True
@@ -65,20 +65,27 @@ class ImportationCsv(AbstractImportationListe):
         Examples
         --------
         >>> import csv
-        >>> from src.importation_objects.abstract_importation_liste import AbstractImportationListe
+        >>> from importation_objects.abstract_importation_liste import AbstractImportationListe
         >>> ma_liste = ImportationCsv()
         >>> chemin = "C:/Users/mathi/Documents/Ensai/2A/S1/Projet informatique"
         >>> res = ma_liste.creer("listeformatCSV.csv", chemin)
         >>> print(res)
         ['Apolinne', 'Mathis', 'Mathieu', 'Linh-da', 'Oussama']
+        >>> ma_liste2 = ImportationCsv()
+        >>> chemin = "mauvais_chemin"
+        >>> res = ma_liste.creer("listeformatCSV.csv", chemin)
+        Le lien donné est invalide.
         """
         liste_res = []
-        with open(f'{dossier}/{fichier}','r', newline='', encoding= encodage) as csvfile:
-            reader = csv.reader(csvfile, delimiter= separateur)
-            for row in reader:
-                liste_res.append(row[0])
-        return liste_res
+        try:
+            with open(f'{dossier}/{fichier}','r', newline='', encoding= encodage) as csvfile:
+                reader = csv.reader(csvfile, delimiter= separateur)
+                for row in reader:
+                    liste_res.append(row[0])
+            return liste_res
+        except:
+            print('Le lien donné est invalide.')
 
 if __name__=="__main__":
     import doctest
-    doctest.testmod()
+    doctest.testmod(verbose=True)
