@@ -23,7 +23,7 @@ class ImportationJson(AbstractImportationListe):
         Examples
         --------
         >>> import json
-        >>> from src.importation_objects.abstract_importation_liste import AbstractImportationListe
+        >>> from importation_objects.abstract_importation_liste import AbstractImportationListe
         >>> ma_liste = ImportationJson()
         >>> isinstance(ma_liste, ImportationJson)
         True
@@ -52,23 +52,30 @@ class ImportationJson(AbstractImportationListe):
         Examples
         --------
         >>> import json
-        >>> from src.importation_objects.abstract_importation_liste import AbstractImportationListe
+        >>> from importation_objects.abstract_importation_liste import AbstractImportationListe
         >>> ma_liste = ImportationJson()
         >>> chemin = "C:/Users/mathi/Documents/Ensai/2A/S1/Projet informatique"
         >>> res =ma_liste.creer("liste_mots.json", chemin)
         >>> print(res)
         ['Apolinne', 'Linh-Da', 'Mathieu', 'Mathis', 'Oussama']
-
+        >>> from importation_objects.abstract_importation_liste import AbstractImportationListe
+        >>> ma_liste2 = ImportationJson()
+        >>> chemin = "chemin_invalide"
+        >>> res =ma_liste2.creer("liste_mots.json", chemin)
+        Le lien donné est invalide.
         """
-        with open(f'{dossier}/{fichier}', 'r', encoding=encodage) as fichier_importe:
-            data = json.load(fichier_importe)
-            liste = data["liste_mots"]
-            liste_res = []
-            for dictionnaire in liste:
-                liste_res.append(dictionnaire["mot"])
-            return liste_res
+        try:
+            with open(f'{dossier}/{fichier}', 'r', encoding=encodage) as fichier_importe:
+                data = json.load(fichier_importe)
+                liste = data["liste_mots"]
+                liste_res = []
+                for dictionnaire in liste:
+                    liste_res.append(dictionnaire["mot"])
+                return liste_res
+        except:
+            print('Le lien donné est invalide.')
 
 
 if __name__ == '__main__':
     import doctest
-    doctest.testmod()
+    doctest.testmod(verbose=True)
