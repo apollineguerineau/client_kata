@@ -18,6 +18,6 @@ class ClientTopTen(metaclass= Singleton):
 
 
 
-client_top10=ClientTopTen()
-print(client_top10.consulter_top_ten_general())
+# client_top10=ClientTopTen()
+# print(client_top10.consulter_top_ten_general())
 

@@ -4,6 +4,8 @@
 
 from InquirerPy import inquirer
 
+from client_joueur import ClientJoueur
+
 from view.abstractview import AbstractView
 from view.session import Session
 
@@ -30,33 +32,26 @@ class ListeImporteeCSVView(AbstractView):
         lien_dossier = ASK_LIEN_dossier.execute()
         lien_fichier = ASK_LIEN_fichier.execute()
 
+        if re.fullmatch(exp_reg1, nom_liste) is None :
+            print("Le nom de liste n'est pas autorisé. Seuls les lettres et les chiffres sont autorisés")
+            from view.accueilpersoview import AccueilPersoView
+            return AccueilPersoView()
+
         from importation_objects.importation_csv import ImportationCsv
         importation = ImportationCsv()
         liste_mots = importation.creer(lien_fichier, lien_dossier)
 
-        # from src.dao.joueur_dao import JoueurDAO
-        joueurdao = JoueurDAO()
-        id_joueur = joueurdao.get_id_by_pseudo(Session().pseudo)
+        if liste_mots != None :
 
-        # from src.dao.liste_dao import ListeDAO
-        listedao = ListeDAO()
-        listedao.creer(id_joueur, nom_liste)
-        id_liste = listedao.id(Session().liste)
+            clientjoueur = ClientJoueur()
+            id_joueur = Session().joueur.id_joueur
 
+            clientjoueur.create_liste(id_joueur, nom_liste)
 
-        from src.dao.mot_dao import MotDAO
-        motdao = MotDAO()
-        from business_objects.proposition import Proposition
-        for mot in liste_mots :
-            #On transforme ensuite le mot pour supprimer les accents et mettre en majuscule
-            mot = Proposition(mot)
-            mot = Proposition.mot
-
-
-            if not motdao.find(mot) :
-                motdao.creer(mot)
-            id_mot = motdao.get_id_by_mot(mot)
-            listedao.ajouter_mot(self, id_liste, id_mot)
-
-        from src.view.listeimporteejsonview import ListeImporteeJSONView
-        return ListeImporteeJSONView()
+            from business_objects.proposition import Proposition
+            from client_mot import ClientMot
+            clientmot = ClientMot()
+            for mot in liste_mots :
+                clientmot.add_mot_to_liste(mot, nom_liste, id_joueur)
+        from view.accueilpersoview import AccueilPersoView
+        return AccueilPersoView()

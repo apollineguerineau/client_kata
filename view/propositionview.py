@@ -36,6 +36,7 @@ class PropositionView(AbstractView) :
         temps2 = time.time()
         if temps2 - temps > float(Session().partie.difficultes.temps) :
             print("Tu as dépassé le temps autorisé pour faire une proposition")
+            Session().partie.liste_mots_proposes.append("Proposition invalide")
             from view.pauseview import PauseView
             return PauseView()
 
@@ -61,7 +62,7 @@ class PropositionView(AbstractView) :
                 print(propositionverifiee)
             else :
                 print("Le mot proposé n'est pas autorisé. " +
-                    "Le mot attendu est de {partie.difficultes.nb_lettres} lettres")
+                    f"Le mot attendu est de {partie.difficultes.nb_lettres} lettres")
 
 
             mot_obj = Proposition(partie.mot_objectif)

@@ -33,7 +33,8 @@ class JouerView (AbstractView) :
     def make_choice(self):
         from client_joueur import ClientJoueur
         clientjoueur = ClientJoueur()
-        partie_ = clientjoueur.get_partie(Session().joueur.id_joueur)
+        id_joueur = Session().joueur.id_joueur
+        partie_ = clientjoueur.get_partie(id_joueur)
         if partie_ is not None :
             reponse = self.__questions.execute()
         else :
@@ -42,13 +43,14 @@ class JouerView (AbstractView) :
         clientjoueur = ClientJoueur()
 
         if reponse == 'Nouvelle partie':
-            clientjoueur.supprime_partie_en_cours(Session().joueur.id_joueur)
+            clientjoueur.supprime_partie_en_cours(id_joueur)
             from view.difficulteview import DifficulteView
             return DifficulteView()
 
         # elif reponse == 'Reprendre la partie':
-        partie = clientjoueur.get_partie(Session().joueur.id_joueur)
-        clientjoueur.supprime_partie_en_cours(Session().joueur.id_joueur)
+        
+        partie = clientjoueur.get_partie(id_joueur)
+        clientjoueur.supprime_partie_en_cours(id_joueur)
         Session().partie = partie
         from business_objects.proposition import Proposition
         for mot in partie.liste_mots_proposes :

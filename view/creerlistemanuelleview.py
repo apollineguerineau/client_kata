@@ -28,6 +28,11 @@ class CreerListeManuelleView(AbstractView):
 
         exp_reg1 = r'\w+'
         exp_reg2 = r'\D*'
+        if re.fullmatch(exp_reg1, nom_liste) is None :
+            print("Le nom de liste n'est pas autorisé. Seuls les lettres et les chiffres sont autorisés")
+            from view.accueilpersoview import AccueilPersoView
+            return AccueilPersoView()
+
         if re.fullmatch(exp_reg1, mot) is None or re.fullmatch(exp_reg2, mot) is None :
             print("Le mot ajouté n'est pas valide. Il ne doit contenir que des lettres")
         
