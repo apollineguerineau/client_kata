@@ -72,8 +72,9 @@ class ImportationJson(AbstractImportationListe):
                 for dictionnaire in liste:
                     liste_res.append(dictionnaire["mot"])
                 return liste_res
-        except:
+        except FileNotFoundError:
             print('Le lien donné est invalide.')
+            return None
 
 
 if __name__ == '__main__':
