@@ -2,7 +2,8 @@
 """
 
 from abc import ABC, abstractmethod
-
+import re
+from InquirerPy import inquirer
 class AbstractView(ABC):
     """classe abstraite pour les vues en console
     """

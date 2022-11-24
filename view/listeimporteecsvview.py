@@ -1,5 +1,8 @@
 """gère l'affichage lors de l'importation des listes au format CSV
 """
+#  faire une fonction dans Clientliste pour éviter la duplication
+
+# pylint: disable=duplicate-code
 
 import re
 from InquirerPy import inquirer
@@ -27,6 +30,7 @@ class ListeImporteeCSVView(AbstractView):
     def make_choice(self):
         #pylint: disable=too-many-locals
         #justification: on en a besoin
+        #pylint: disable=duplicate-code
         nom_liste = ASK_NOM_LISTE.execute()
         lien_dossier = ASK_LIEN_dossier.execute()
         lien_fichier = ASK_LIEN_fichier.execute()
