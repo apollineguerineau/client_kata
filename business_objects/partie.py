@@ -13,7 +13,7 @@ class Partie :
     attributes
     ----------
     mot_objectif : str
-    liste_mots_proposes : list(Proposition)
+    liste_mots_proposes : list(str)
     est_liste_perso : bool
     id_liste : int
     difficultes : Difficultes
@@ -127,17 +127,3 @@ class Partie :
     def __str__(self):
         return("Mot objectif : {}, mots proposés : {}, score : {}, difficultés :{}".format(self.mot_objectif, self.liste_mots_proposes,self.score, self.difficultes))
 
-# difficultes=Difficultes(6,8,True,10)
-# partie=Partie(1, [], False, None, difficultes,None)
-# print(partie.mot_objectif)
-# proposition=Proposition("ABCDEFGHIJ")
-# print(partie.verifie_proposition(proposition))
-
-
-# difficultes=Difficultes(6,8,True,None)
-# partie=Partie("essai", [], True,8 , difficultes,None)
-# # print(partie)
-# print(partie.mot_objectif)
-# print("Faites une proposition : ")
-# proposition=Proposition(input())
-# print(partie.verifie_proposition(proposition))
