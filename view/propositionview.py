@@ -66,7 +66,6 @@ class PropositionView(AbstractView) :
 
 
             mot_obj = Proposition(partie.mot_objectif)
-            print(mot_obj.mot)
             if mot_obj.mot == proposition.mot :
                 print("Félicitations, tu as trouvé le mot")
                 if not Session().partie.est_liste_perso :

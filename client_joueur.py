@@ -170,5 +170,5 @@ class ClientJoueur(metaclass= Singleton):
         req=requests.post(f"{self.__HOST}{END_POINT}/{id}/score/{score}")
 
 
-client=ClientJoueur()
-print(client.get_partie(1))
+# client=ClientJoueur()
+# print(client.get_partie(1))
