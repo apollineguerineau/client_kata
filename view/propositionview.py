@@ -46,6 +46,11 @@ class PropositionView(AbstractView) :
             print("Le mot ajouté n'est pas valide. Il ne doit contenir que des lettres")
             Session().partie.liste_mots_proposes.append("Proposition invalide")
 
+        if nb_prop_restantes == 0 :
+            print("Tu as perdu car tu as dépassé le nombre de tentatives autorisé")
+            from view.accueilpersoview import AccueilPersoView
+            return AccueilPersoView()
+
         else :
             from business_objects.proposition import Proposition
             proposition = Proposition(mot)
@@ -78,11 +83,6 @@ class PropositionView(AbstractView) :
                     print(f'Ton score est de {score} points')
                 from view.accueilpersoview import AccueilPersoView
                 return AccueilPersoView()
-
-        if nb_prop_restantes == 0 :
-            print("Tu as perdu car tu as dépassé le nombre de tentatives autorisé")
-            from view.accueilpersoview import AccueilPersoView
-            return AccueilPersoView()
 
         from view.pauseview import PauseView
         return PauseView()
