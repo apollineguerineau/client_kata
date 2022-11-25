@@ -27,8 +27,13 @@ class PropositionView(AbstractView) :
         #justification: on a besoin de ces variables locales
         prop_faites = len(Session().partie.liste_mots_proposes)
         nb_tentatives = int(Session().partie.difficultes.nb_tentatives)
-
         nb_prop_restantes = nb_tentatives - prop_faites
+        
+        if nb_prop_restantes == 0 :
+            print("Tu as perdu car tu as dépassé le nombre de tentatives autorisé")
+            from view.accueilpersoview import AccueilPersoView
+            return AccueilPersoView()
+
         temps = time.time()
         ask_proposition =inquirer.text(
             message = f'Quel mot veux tu proposer? Il te reste {nb_prop_restantes} proposition(s)')
@@ -45,11 +50,6 @@ class PropositionView(AbstractView) :
         if re.fullmatch(exp_reg1, mot) is None or re.fullmatch(exp_reg2, mot) is None :
             print("Le mot ajouté n'est pas valide. Il ne doit contenir que des lettres")
             Session().partie.liste_mots_proposes.append("Proposition invalide")
-
-        if nb_prop_restantes == 0 :
-            print("Tu as perdu car tu as dépassé le nombre de tentatives autorisé")
-            from view.accueilpersoview import AccueilPersoView
-            return AccueilPersoView()
 
         else :
             from business_objects.proposition import Proposition
