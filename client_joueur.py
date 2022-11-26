@@ -1,7 +1,8 @@
-import os
-from typing import List, Optional
-from utils.singleton import Singleton
+"""couche service: gère les requetes des objets Joueurs vers l'API
+"""
 import requests
+
+from utils.singleton import Singleton
 
 from client_liste import ClientListe
 
@@ -16,6 +17,8 @@ END_POINT="/joueur"
 
 #pylint: disable=invalid-name
 #justification: le __HOST pourrait reservir pour un déploiement
+#pylint: disable=unused-variable
+#justification: le "req =" est nécessaire pour lancer une requete
 class ClientJoueur(metaclass= Singleton):
     """gère
     """
@@ -24,14 +27,16 @@ class ClientJoueur(metaclass= Singleton):
 
 
 
-    def get_pseudo(self, id:int) :
+    def get_pseudo(self, identifiant_joueur:int) :
         '''Retourne le pseudo du joueur selon son identifiant
 
-        Parameters: l'identifiant du joueur : int
+        Parameters:
+        identifiant_joueur: int
+            l'identifiant du joueur
 
         Returns:
             str: le pseudo du joueur'''
-        req = requests.get(f"{self.__HOST}{END_POINT}/{id}")
+        req = requests.get(f"{self.__HOST}{END_POINT}/{identifiant_joueur}")
         return req.json()
 
 
@@ -49,14 +54,14 @@ class ClientJoueur(metaclass= Singleton):
         return None
 
 
-    def consulter_top10(self, id):
+    def consulter_top10(self, identifiant_joueur):
         '''Retourne le top 10 du joueur
 
         Parameters: l'identifiant du joueur : int
 
         Returns:
             list : le top 10 du joueur'''
-        req=requests.get(f"{self.__HOST}{END_POINT}/{id}/score/")
+        req=requests.get(f"{self.__HOST}{END_POINT}/{identifiant_joueur}/score/")
         return(req.json())
 
 
@@ -67,12 +72,11 @@ class ClientJoueur(metaclass= Singleton):
 
         Returns:
             Joueur : le joueur'''
-        id=self.get_id(pseudo)
-        if id!=None:
-            top_10=self.consulter_top10(id)
-            return(Joueur(id, pseudo, top_10))
-        else:
-            return(None)
+        identifiant_joueur = self.get_id(pseudo)
+        if identifiant_joueur is not None:
+            top_10=self.consulter_top10(identifiant_joueur)
+            return(Joueur(identifiant_joueur, pseudo, top_10))
+        return None
 
 
     def create_joueur(self, pseudo):
@@ -82,23 +86,27 @@ class ClientJoueur(metaclass= Singleton):
         return(req)
 
 
-    def get_listes(self, id):
+    def get_listes(self, id_joueur):
         '''Retourne les listes personnelles du joueur (si il en a)
 
-        Parameters: l'identifiant du joueur : int
+        Parameters:
+        id_joueur : int
+            l'identifiant du joueur
 
         Returns:
             list(Liste) : la liste des listes personnelles
             None si le joueur n'a pas de liste'''
-        req=requests.get(f"{self.__HOST}{END_POINT}/{id}/liste")
+        req=requests.get(f"{self.__HOST}{END_POINT}/{id_joueur}/liste")
         nom=req.json()[0]
         contenu=req.json()[1]
-        id=req.json()[2]
+        id_liste=req.json()[2]
         listes=[]
+        #pylint: disable=consider-using-enumerate
+        #justification: enumerate ne renvoie pas le même type
         for i in range(len(nom)):
-            listes.append(Liste(id[i],contenu[i], nom[i]))
+            listes.append(Liste(id_liste[i],contenu[i], nom[i]))
         if listes==[]:
-            return(None)
+            return None
         return(listes)
 
 
@@ -132,7 +140,7 @@ class ClientJoueur(metaclass= Singleton):
             difficultes=Difficultes(nb_tentatives_max,temps_max,indice, len(mot_obj))
             return(Partie( proposition, liste_perso, difficultes, mot_obj,0))
         else:
-            return(None)
+            return None
 
 
 
@@ -170,7 +178,3 @@ class ClientJoueur(metaclass= Singleton):
 
         Parameters: l'identifiant du joueur : int, score : float'''
         req=requests.post(f"{self.__HOST}{END_POINT}/{id}/score/{score}")
-
-
-# client=ClientJoueur()
-# print(client.get_partie(1))
