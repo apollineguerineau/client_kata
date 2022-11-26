@@ -14,8 +14,11 @@ from business_objects.proposition import Proposition
 
 END_POINT="/joueur"
 
+#pylint: disable=invalid-name
+#justification: le __HOST pourrait reservir pour un déploiement
 class ClientJoueur(metaclass= Singleton):
-
+    """gère
+    """
     def __init__(self) -> None:
         self.__HOST ="http://127.0.0.1:80"
 
