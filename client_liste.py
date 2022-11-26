@@ -3,10 +3,9 @@
 
 import requests
 
+# from business_objects.liste import Liste
+
 from utils.singleton import Singleton
-
-
-from business_objects.liste import Liste
 
 
 END_POINT="/liste"
