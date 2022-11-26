@@ -6,13 +6,15 @@ import requests
 
 from utils.singleton import Singleton
 
-from business_objects.liste import Liste
+
 from client_liste import ClientListe
 from client_joueur import ClientJoueur
 END_POINT="/mot"
 
 #pylint: disable=invalid-name
 #justification: le __HOST pourrait reservir pour un déploiement
+#pylint: disable=no-self-use
+#justification: self use dans d'autres fichiers
 
 class ClientMot(metaclass= Singleton):
     """gère le endpoint pour les mots
