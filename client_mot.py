@@ -96,3 +96,4 @@ class ClientMot(metaclass= Singleton):
             return req.json()
         else :
             return None
+
