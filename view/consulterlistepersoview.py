@@ -59,7 +59,7 @@ class ConsulterListePersoView (AbstractView) :
             from view.modificationlisteview import ModificationListeView
             return ModificationListeView()
 
-        print("Tu n'as pas encore de liste perosnnalisée")
+        print("Tu n'as pas encore de liste personnalisée")
 
         from view.accueilpersoview import AccueilPersoView
         return AccueilPersoView()
