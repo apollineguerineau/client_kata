@@ -81,6 +81,7 @@ class PropositionView(AbstractView) :
 
         if nb_prop_restantes == 0 :
             print("Tu as perdu car tu as dépassé le nombre de tentatives autorisé")
+            print(f"Le mot à trouver étatit {Session().partie.mot_objectif}")
             from view.accueilpersoview import AccueilPersoView
             return AccueilPersoView()
 
