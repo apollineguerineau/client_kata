@@ -14,7 +14,7 @@ class ClientTopTen(metaclass= Singleton):
         '''Retourne le top 10 général
         '''
         req = requests.get(f"{self.__HOST}{END_POINT}")
-        return(req.json())
+        return req.json() #suppression parenthèses testé
 
 
 
