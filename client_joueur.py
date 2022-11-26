@@ -4,6 +4,8 @@ import requests
 
 from utils.singleton import Singleton
 
+#pylint: disable=unused-import
+#justification: utilisé dans la construction de Partie
 from client_liste import ClientListe
 
 from business_objects.liste import Liste
@@ -129,7 +131,7 @@ class ClientJoueur(metaclass= Singleton):
             Partie : la partie en cours
             None si le joueur n'a pas de partie en cours'''
         req=requests.get(f"{self.__HOST}{END_POINT}/{id_joueur}/partie_en_cours")
-        if req.json()[0]!=None :
+        if req.json()[0] is not None :
             id=req.json()[0]
             proposition=req.json()[2]
             id_joueur=req.json()[1][0]
@@ -140,8 +142,8 @@ class ClientJoueur(metaclass= Singleton):
             temps_max=req.json()[1][5]
             difficultes=Difficultes(nb_tentatives_max,temps_max,indice, len(mot_obj))
             return(Partie( proposition, liste_perso, difficultes, mot_obj,0))
-        else:
-            return None
+
+        return None
 
 
 
@@ -174,8 +176,8 @@ class ClientJoueur(metaclass= Singleton):
         req=requests.delete(f"{self.__HOST}{END_POINT}/{id_joueur}/partie")
 
 
-    def ajoute_score(self, id, score):
+    def ajoute_score(self, id_joueur, score):
         '''Ajoute un score au joueur
 
         Parameters: l'identifiant du joueur : int, score : float'''
-        req=requests.post(f"{self.__HOST}{END_POINT}/{id}/score/{score}")
+        req=requests.post(f"{self.__HOST}{END_POINT}/{id_joueur}/score/{score}")
