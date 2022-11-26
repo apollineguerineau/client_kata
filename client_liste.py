@@ -3,8 +3,6 @@
 
 import requests
 
-# from business_objects.liste import Liste
-
 from utils.singleton import Singleton
 
 
