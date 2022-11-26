@@ -82,7 +82,7 @@ class ClientMot(metaclass= Singleton):
         '''
         req = requests.get(f"{self.__HOST}{END_POINT}/mot/{mot}")
         if type(req.json())==int :
-            return(req.json())
+            return req.json()
         else :
-            return(None)
+            return None
 
