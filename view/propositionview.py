@@ -28,7 +28,7 @@ class PropositionView(AbstractView) :
         prop_faites = len(Session().partie.liste_mots_proposes)
         nb_tentatives = int(Session().partie.difficultes.nb_tentatives)
         nb_prop_restantes = nb_tentatives - prop_faites
-        
+
         if nb_prop_restantes == 0 :
             print("Tu as perdu car tu as dépassé le nombre de tentatives autorisé")
             from view.accueilpersoview import AccueilPersoView
@@ -83,6 +83,12 @@ class PropositionView(AbstractView) :
                     print(f'Ton score est de {score} points')
                 from view.accueilpersoview import AccueilPersoView
                 return AccueilPersoView()
+
+        if nb_prop_restantes == 0 :
+            print("Tu as perdu car tu as dépassé le nombre de tentatives autorisé")
+            print(f"Le mot à trouver était: {Session().partie.mot_objectif}")
+            from view.accueilpersoview import AccueilPersoView
+            return AccueilPersoView()
 
         from view.pauseview import PauseView
         return PauseView()
