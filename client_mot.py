@@ -46,7 +46,7 @@ class ClientMot(metaclass= Singleton):
         #On vérifie si le mot est déjà dans la base de données
         regex = "^[A-zÀ-ú]+$"
         resultat = re.match(regex, mot)
-        if resultat==None:
+        if resultat is None:
             print(f"Le mot {mot} ne respecte pas les conditions: uniquement des lettres avec ou "
                   "sans accents, pas de chiffres, pas de caractères spéciaux ")
             return False
@@ -56,7 +56,7 @@ class ClientMot(metaclass= Singleton):
         # from client_mot import ClientMot
         clientmot = ClientMot()
 
-        if clientmot.get_id(mot) == None :
+        if clientmot.get_id(mot) is None :
             clientmot.create_mot(mot)
         id_mot = clientmot.get_id(mot)
 
