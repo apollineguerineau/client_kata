@@ -32,7 +32,7 @@ class ClientJoueur(metaclass= Singleton):
         Returns:
             str: le pseudo du joueur'''
         req = requests.get(f"{self.__HOST}{END_POINT}/{id}")
-        return(req.json())
+        return req.json()
 
 
     def get_id(self, pseudo) :
