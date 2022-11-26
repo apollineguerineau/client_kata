@@ -29,6 +29,6 @@ Cette classe sert à generer aléatoirement un mot à partir d'une liste personn
         """
         clientliste=ClientListe()
         liste=clientliste.get_mot(self.id_liste)[1]
-        print(liste)
+        
         num=random.randint(0,len(liste)-1)
         return liste[num]
