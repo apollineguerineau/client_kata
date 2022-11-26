@@ -64,7 +64,7 @@ class ClientJoueur(metaclass= Singleton):
         Returns:
             list : le top 10 du joueur'''
         req=requests.get(f"{self.__HOST}{END_POINT}/{identifiant_joueur}/score/")
-        return(req.json())
+        return req.json()
 
 
     def get_joueur(self, pseudo):
@@ -77,7 +77,7 @@ class ClientJoueur(metaclass= Singleton):
         identifiant_joueur = self.get_id(pseudo)
         if identifiant_joueur is not None:
             top_10=self.consulter_top10(identifiant_joueur)
-            return(Joueur(identifiant_joueur, pseudo, top_10))
+            return Joueur(identifiant_joueur, pseudo, top_10)
         return None
 
 
@@ -85,7 +85,7 @@ class ClientJoueur(metaclass= Singleton):
         '''Crée un joueur dans la base de données
         '''
         req=requests.post(f"{self.__HOST}{END_POINT}/{pseudo}")
-        return(req)
+        return req
 
 
     def get_listes(self, id_joueur):
