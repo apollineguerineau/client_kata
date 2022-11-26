@@ -6,6 +6,8 @@ import requests
 
 from utils.singleton import Singleton
 
+from business_objects.liste import Liste
+from client_liste import ClientListe
 END_POINT="/mot"
 
 #pylint: disable=invalid-name
@@ -50,7 +52,7 @@ class ClientMot(metaclass= Singleton):
         if len(mot)>50:
             print(f"Le mot {mot} est trop long ")
             return False
-        from client_mot import ClientMot
+        # from client_mot import ClientMot
         clientmot = ClientMot()
 
         if clientmot.get_id(mot) == None :
@@ -60,9 +62,9 @@ class ClientMot(metaclass= Singleton):
         #On vérifie si le mot est déjà dans la liste
 
         #id_joueur = (Session().joueur.id_joueur)
-        from client_joueur import ClientJoueur
+        # from client_joueur import ClientJoueur
         clientjoueur = ClientJoueur()
-        from business_objects.liste import Liste
+        # from business_objects.liste import Liste
         listes = clientjoueur.get_listes(id_joueur)
         for liste in listes :
             if liste.nom == nom_liste :
@@ -72,7 +74,7 @@ class ClientMot(metaclass= Singleton):
             print(f"Le mot {mot} est déjà dans la liste")
             return False
         else :
-            from client_liste import ClientListe
+            # from client_liste import ClientListe
             clientliste = ClientListe()
             clientliste.ajouter_mot(liste_d_ajout.id_liste, id_mot)
             return True
