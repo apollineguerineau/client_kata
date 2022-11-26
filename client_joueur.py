@@ -105,7 +105,8 @@ class ClientJoueur(metaclass= Singleton):
         #justification: enumerate ne renvoie pas le même type
         for i in range(len(nom)):
             listes.append(Liste(id_liste[i],contenu[i], nom[i]))
-        if listes==[]:
+
+        if not listes: #listes==[]
             return None
         return(listes)
 
