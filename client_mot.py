@@ -23,24 +23,25 @@ class ClientMot(metaclass= Singleton):
     def add_mot_to_liste(self, mot : str, nom_liste : str, id_joueur : int) :
         """Ajoute un mot à une liste personelle d'un joueur
 
-        Parameters : 
+        Parameters :
         mot : str
         nom_liste : str
         id_joueur : int
-        
+
         Returns
-        Renvoie True si le mot a bien été ajouté à la liste. S'il n'a pas été ajouté, cela veut dire 
+        Renvoie True si le mot a bien été ajouté à la liste. S'il n'a pas été ajouté, cela veut dire
         que le mot était déjà dans la liste où qu'il ne respectait pas les conditions"""
 
         #On vérifie si le mot est déjà dans la base de données
         regex = "^[A-zÀ-ú]+$"
         resultat = re.match(regex, mot)
         if resultat==None:
-            print(f"Le mot {mot} ne respecte pas les conditions: uniquement des lettres avec ou sans accents, pas de chiffres, pas de caractères spéciaux ")
-            return(False)
+            print(f"Le mot {mot} ne respecte pas les conditions: uniquement des lettres avec ou "
+                  "sans accents, pas de chiffres, pas de caractères spéciaux ")
+            return False
         if len(mot)>50:
             print(f"Le mot {mot} est trop long ")
-            return(False)
+            return False
         from client_mot import ClientMot
         clientmot = ClientMot()
 
@@ -73,15 +74,15 @@ class ClientMot(metaclass= Singleton):
     def get_id(self, mot) :
         '''Retourne l'id du mot (s'il existe dans la bdd)
 
-        Parameters : 
+        Parameters :
         mot : str
 
-        Returns : 
+        Returns :
         L'id du mot ou None
         '''
         req = requests.get(f"{self.__HOST}{END_POINT}/mot/{mot}")
         if type(req.json())==int :
             return(req.json())
-        else : 
-            return(None) 
-        
+        else :
+            return(None)
+
