@@ -132,7 +132,7 @@ class ClientJoueur(metaclass= Singleton):
             None si le joueur n'a pas de partie en cours'''
         req=requests.get(f"{self.__HOST}{END_POINT}/{id_joueur}/partie_en_cours")
         if req.json()[0] is not None :
-            id=req.json()[0]
+            # id=req.json()[0]
             proposition=req.json()[2]
             id_joueur=req.json()[1][0]
             mot_obj=req.json()[1][1]
