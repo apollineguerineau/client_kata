@@ -32,7 +32,7 @@ class ClientListe(metaclass= Singleton):
             str : le mot
         '''
         req = requests.get(f"{self.__HOST}{END_POINT}/{identifiant_mot}")
-        return(req.json())
+        return req.json()
 
 
     def ajouter_mot(self, id_liste, id_mot) :
