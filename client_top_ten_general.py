@@ -1,4 +1,4 @@
-"""gère le endpoint pour consulter le top10 général
+"""couche service : gère le endpoint pour consulter le top10 général
 """
 
 

@@ -1,13 +1,19 @@
-import os
-from typing import List, Optional
-from utils.singleton import Singleton
-import requests
+"""couche service: gère les requetes des Mots vers l'API
+"""
+
 import re #import regex
+import requests
+
+from utils.singleton import Singleton
 
 END_POINT="/mot"
 
-class ClientMot(metaclass= Singleton):
+#pylint: disable=invalid-name
+#justification: le __HOST pourrait reservir pour un déploiement
 
+class ClientMot(metaclass= Singleton):
+    """gère le endpoint pour les mots
+    """
     def __init__(self) -> None:
         self.__HOST ="http://127.0.0.1:80"
 
@@ -17,6 +23,8 @@ class ClientMot(metaclass= Singleton):
         Parameters
         mot : str
         '''
+        #pylint: disable=unused-variable
+        #justification: nécessaire pour lancer la requete
         req = requests.post(f"{self.__HOST}{END_POINT}/contenu/{mot}")
 
 
@@ -85,4 +93,3 @@ class ClientMot(metaclass= Singleton):
             return req.json()
         else :
             return None
-
