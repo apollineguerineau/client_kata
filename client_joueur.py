@@ -110,7 +110,7 @@ class ClientJoueur(metaclass= Singleton):
 
         if not listes: #listes==[]
             return None
-        return(listes)
+        return listes
 
 
 
@@ -141,7 +141,7 @@ class ClientJoueur(metaclass= Singleton):
             liste_perso=req.json()[1][4]
             temps_max=req.json()[1][5]
             difficultes=Difficultes(nb_tentatives_max,temps_max,indice, len(mot_obj))
-            return(Partie( proposition, liste_perso, difficultes, mot_obj,0))
+            return Partie( proposition, liste_perso, difficultes, mot_obj,0)
 
         return None
 
