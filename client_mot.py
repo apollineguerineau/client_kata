@@ -74,11 +74,11 @@ class ClientMot(metaclass= Singleton):
         if mot in liste_d_ajout.liste :
             print(f"Le mot {mot} est déjà dans la liste")
             return False
-        else :
-            # from client_liste import ClientListe
-            clientliste = ClientListe()
-            clientliste.ajouter_mot(liste_d_ajout.id_liste, id_mot)
-            return True
+
+        # from client_liste import ClientListe
+        clientliste = ClientListe()
+        clientliste.ajouter_mot(liste_d_ajout.id_liste, id_mot)
+        return True
 
 
 
