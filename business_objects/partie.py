@@ -15,12 +15,7 @@ class Partie :
 
     attributes
     ----------
-<<<<<<< HEAD
-    mot_objectif : str
-    liste_mots_proposes : list(str)
-=======
     liste_mots_proposes : list(Proposition)
->>>>>>> e97c25b64c2abb13d2a8788fa935ace8c94978ad
     est_liste_perso : bool
     id_liste : int
     difficultes : Difficultes
@@ -204,5 +199,3 @@ class Partie :
 if __name__ == "__main__":
     import doctest
     doctest.testmod(verbose=False)
-
-
