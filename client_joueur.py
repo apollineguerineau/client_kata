@@ -44,7 +44,7 @@ class ClientJoueur(metaclass= Singleton):
             int : l'identifiant du joueur
             None si le pseudo n'est pas dans la base de données'''
         req = requests.get(f"{self.__HOST}{END_POINT}/pseudo/{pseudo}")
-        if isinstance(int, req.json()):
+        if isinstance(req.json(), int):
             return req.json()
         return None
 
