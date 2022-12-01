@@ -2,6 +2,8 @@
 """
 import requests
 from business_objects.abstract_generer_mot import AbstractGenererMot
+from business_objects.proposition import Proposition
+
 
 class GenererMotApi(AbstractGenererMot):
     # pylint: disable=too-few-public-methods
@@ -21,10 +23,24 @@ class GenererMotApi(AbstractGenererMot):
         """la méthode <generer> sert à generer aléatoirement un mot à partir de <Random Word API>
         et qui a comme longueur le nombre de lettres déjà choisi
         """
-        req=requests.get(f"https://random-word-api.herokuapp.com/word?length={self.nb_lettres}")
+        #req=requests.get("https://api.api-ninjas.com/v1/randomword", headers={'X-Api-Key': 'qMQWg2l0mek+z1MW2iI5GA==u4SLxJOSyy1GP5Ht'})
+        req=requests.get("https://random-words-api.vercel.app/word")
         if req.status_code==200:
-            res=req.json()[0]
-            mot=''
-            for lettre in res:
-                mot+=lettre.upper()
-        return mot
+            res=req.json()[0]['word']
+            mot=Proposition(res).mot
+            return(mot)
+        else :
+            return (None)
+
+
+#    def generer(self):
+#        res=self.trouve_mot()
+#        if res==None:
+#            return("problème")
+#        while(len(res))!=self.nb_lettres:
+#            res=self.trouve_mot()
+#        return(res)
+
+
+
+

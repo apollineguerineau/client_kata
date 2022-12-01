@@ -108,10 +108,10 @@ class DifficulteView (AbstractView) :
         from business_objects.partie import Partie
 
         partie = Partie(liste_mots_proposes=[],
-                        difficultes=difficultes,
                         est_liste_perso = est_liste_perso,
-                        id_liste = id_liste,
-                        mot_objectif = None )
+                        difficultes=difficultes,
+                        mot_objectif = None,
+                        id_liste = id_liste)
         partie.difficultes.nb_lettres = len(partie.mot_objectif)
         print(f"Le mot à trouver est de {partie.difficultes.nb_lettres} lettres")
         Session().partie = partie
