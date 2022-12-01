@@ -23,9 +23,13 @@ class ConnectionView(AbstractView):
     """
 
     def display_info(self):
+        """affiche l'information à l'utilisateur
+        """
         print("Connexion au compte")
 
     def make_choice(self):
+        """gère les choix lors de la connexion
+        """
         pseudo = ASK_PSEUDO.execute()
         reg_exp = r'\w+'
         if re.fullmatch(reg_exp, pseudo) is None :
@@ -38,7 +42,7 @@ class ConnectionView(AbstractView):
         if isinstance(clientjoueur.get_id(pseudo), int)  :
             #Compléter les infos de la session
 
-            #TODO Axe d'amélioration: faire des blocs TRY Except + doc API
+            #à faure Axe d'amélioration: faire des blocs TRY Except + doc API
             # pour éviter d'avoir get_joueur qui peut retourner None ou Joueur
             # d'où les disable pylint
             #pylint: disable=unused-variable

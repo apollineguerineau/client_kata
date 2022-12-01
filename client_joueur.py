@@ -4,6 +4,8 @@ import requests
 
 from utils.singleton import Singleton
 
+#pylint: disable=unused-import
+#justification: utilisé dans la construction de Partie
 from client_liste import ClientListe
 
 from business_objects.liste import Liste
@@ -62,7 +64,7 @@ class ClientJoueur(metaclass= Singleton):
         Returns:
             list : le top 10 du joueur'''
         req=requests.get(f"{self.__HOST}{END_POINT}/{identifiant_joueur}/score/")
-        return(req.json())
+        return req.json()
 
 
     def get_joueur(self, pseudo):
@@ -75,7 +77,7 @@ class ClientJoueur(metaclass= Singleton):
         identifiant_joueur = self.get_id(pseudo)
         if identifiant_joueur is not None:
             top_10=self.consulter_top10(identifiant_joueur)
-            return(Joueur(identifiant_joueur, pseudo, top_10))
+            return Joueur(identifiant_joueur, pseudo, top_10)
         return None
 
 
@@ -83,7 +85,7 @@ class ClientJoueur(metaclass= Singleton):
         '''Crée un joueur dans la base de données
         '''
         req=requests.post(f"{self.__HOST}{END_POINT}/{pseudo}")
-        return(req)
+        return req
 
 
     def get_listes(self, id_joueur):
@@ -108,7 +110,7 @@ class ClientJoueur(metaclass= Singleton):
 
         if not listes: #listes==[]
             return None
-        return(listes)
+        return listes
 
 
 
@@ -129,8 +131,8 @@ class ClientJoueur(metaclass= Singleton):
             Partie : la partie en cours
             None si le joueur n'a pas de partie en cours'''
         req=requests.get(f"{self.__HOST}{END_POINT}/{id_joueur}/partie_en_cours")
-        if req.json()[0]!=None :
-            id=req.json()[0]
+        if req.json()[0] is not None :
+            # id=req.json()[0]
             proposition=req.json()[2]
             id_joueur=req.json()[1][0]
             mot_obj=req.json()[1][1]
@@ -139,9 +141,9 @@ class ClientJoueur(metaclass= Singleton):
             liste_perso=req.json()[1][4]
             temps_max=req.json()[1][5]
             difficultes=Difficultes(nb_tentatives_max,temps_max,indice, len(mot_obj))
-            return(Partie( proposition, liste_perso, difficultes, mot_obj,0))
-        else:
-            return None
+            return Partie( proposition, liste_perso, difficultes, mot_obj,0)
+
+        return None
 
 
 
@@ -174,8 +176,8 @@ class ClientJoueur(metaclass= Singleton):
         req=requests.delete(f"{self.__HOST}{END_POINT}/{id_joueur}/partie")
 
 
-    def ajoute_score(self, id, score):
+    def ajoute_score(self, id_joueur, score):
         '''Ajoute un score au joueur
 
         Parameters: l'identifiant du joueur : int, score : float'''
-        req=requests.post(f"{self.__HOST}{END_POINT}/{id}/score/{score}")
+        req=requests.post(f"{self.__HOST}{END_POINT}/{id_joueur}/score/{score}")
