@@ -77,6 +77,7 @@ class ImportationCsv(AbstractImportationListe):
         Le lien donné est invalide.
         """
         liste_res = []
+
         try:
             with open(f'{dossier}/{fichier}','r', newline='', encoding= encodage) as csvfile:
                 reader = csv.reader(csvfile, delimiter= separateur)
